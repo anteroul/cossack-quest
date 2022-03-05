@@ -39,7 +39,13 @@ typedef struct Wall {
 typedef struct Horizon {
 	Texture bgTexture;
 	Model model;
-};
+} Horizon;
+
+typedef struct GameObject {
+	Vector3 position;
+	Texture texture;
+	Model model;
+} GameObject;
 
 static Player player;
 static Camera camera{};

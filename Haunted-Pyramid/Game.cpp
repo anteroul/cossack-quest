@@ -77,6 +77,7 @@ void Game::update()
 
     UpdateCamera(&camera);                  // Update camera
     
+    // Wall collision logic:
     if (!noClip)
     {
         for (int i = 0; i < 64; i++)
