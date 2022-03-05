@@ -29,10 +29,8 @@ typedef struct Enemy {
 } Enemy;
 
 typedef struct Wall {
-	Vector3 position;
 	Texture wallTexture;
 	Model model;
-	BoundingBox bounds;
 } Wall;
 
 static Player player;
