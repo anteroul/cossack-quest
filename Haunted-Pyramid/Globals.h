@@ -13,7 +13,6 @@ typedef struct Weapon {
 
 typedef struct Player {
 	Vector2 playerPos;
-	Vector3 playerSize;
 	int health;
 	bool gameOver;
 	unsigned int gold;
@@ -38,9 +37,20 @@ static Camera camera{};
 static Wall wall;
 
 static Weapon weapon[5] = {
-	"Torch", 30, 0,
-	"Spear", 45, 50,
-	"Bronze Sword", 50, 60,
-	"Iron Sword", 100, 120,
+	"Spear", 30, 0,
+	"Bronze Sword", 45, 50,
+	"Iron Sword", 50, 60,
+	"Crossbow", 100, 120,
 	"Musket", 250, 300
+};
+
+static int map[8][8] = {
+	1, 1, 1, 1, 1, 1, 1, 1,
+	1, 0, 0, 1, 0, 0, 0, 1,
+	1, 0, 0, 1, 0, 1, 0, 1,
+	1, 0, 0, 0, 0, 1, 0, 1,
+	1, 1, 1, 0, 1, 1, 0, 1,
+	1, 0, 1, 0, 1, 1, 1, 1,
+	1, 0, 0, 0, 0, 0, 0, 1,
+	1, 1, 1, 1, 1, 1, 1, 1
 };

@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include "stdlib.h"
 #include "Globals.h"
+#include "GameManager.h"
 
 class Game
 {
@@ -16,15 +17,5 @@ private:
 	void initGame();
 	void draw();
 	void resetGame();
-	
-	int map[8][8] = {
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 0, 0, 1, 0, 0, 0, 1,
-	1, 0, 0, 1, 0, 1, 0, 1,
-	1, 0, 0, 0, 0, 1, 0, 1,
-	1, 1, 1, 0, 1, 1, 0, 1,
-	1, 0, 1, 0, 1, 1, 1, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 1, 1, 1, 1, 1, 1, 1
-	};
+	BoundingBox* walls[64];
 };

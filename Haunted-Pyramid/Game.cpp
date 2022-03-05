@@ -27,6 +27,21 @@ void Game::initGame()
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
     SetCameraMode(camera, CAMERA_FIRST_PERSON); // Set a first person camera mode
+
+    // Define walls:
+    int iterator = 0;
+
+    for (int x = 0; x < 8; x++)
+    {
+        for (int y = 0; y < 8; y++)
+        {
+            if (map[x][y] == 1)
+                walls[iterator] = new BoundingBox{ x * 8.0f - 12.0f, 0.0f, y * 8.0f - 12.0f, x * 8.0f - 4.0f, 8.0f, y * 8.0f - 4.0f };
+            else
+                walls[iterator] = nullptr;
+            iterator++;
+        }
+    }
 }
 
 
@@ -36,9 +51,8 @@ void Game::resetGame()
     player.health = 100;
     player.gold = 0;
     player.gameOver = false;
-    player.playerPos = { 0.0f, 0.0f };
 
-    camera.position = { player.playerPos.x, 4.0f, player.playerPos.y };
+    camera.position = { 0.0f, 4.0f, 0.0f };
     camera.target = { 0.0f, 1.8f, 0.0f };
     camera.up = { 0.0f, 1.0f, 0.0f };
     camera.fovy = 60.0f;
@@ -53,11 +67,17 @@ void Game::update()
     draw();
 
     Vector3 oldCamPos = camera.position;
-    player.playerPos = { camera.position.x, camera.position.y };
-
-    std::cout << player.playerPos.x << " " << player.playerPos.y << std::endl;
 
     UpdateCamera(&camera);                  // Update camera
+
+    for (int i = 0; i < 64; i++)
+    {
+        if (walls[i] != nullptr)
+        {
+            if (GameManager::wallCollision(camera.position, *walls[i]))
+                camera.position = oldCamPos;
+        }
+    }
 }
 
 
@@ -93,6 +113,12 @@ void Game::runApplication()
 
 void Game::deInit()
 {
+    for (int i = 0; i < 64; i++)
+    {
+        if (walls[i] != nullptr)
+            delete walls[i];
+    }
+
     UnloadTexture(wall.wallTexture);
     UnloadModel(wall.model);
 }
