@@ -3,8 +3,9 @@
 
 int main()
 {
-    InitWindow(1280, 720, "The Wrath of Mictlantecuhtli");
+    InitWindow(1280, 720, "Haunted Pyramid");
     SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
+    //ToggleFullscreen();
 
     Game game;
 
