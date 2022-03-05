@@ -17,6 +17,9 @@ void Game::initGame()
     background.bgTexture = LoadTexture("assets/background.png");
     background.model = LoadModelFromMesh(GenMeshCube(800.0f, 600.0f, 0.0f));
     background.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = background.bgTexture;
+    skybox.bgTexture = LoadTexture("assets/sky.png");
+    skybox.model = LoadModelFromMesh(GenMeshCube(800.0f, 0.0f, 800.0f));
+    skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
 
     level = 1;
     player.health = 100;
@@ -135,7 +138,8 @@ void Game::draw()
                 if (map[x][y] == 1)
                     DrawModel(wall.model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
 
-        // Draw background:
+        // Draw skybox:
+        DrawModel(skybox.model, { 0.0f, 360.0f, 0.0f }, 1.0f, WHITE);
         DrawModel(background.model, { 0.0f, 60.0f, 400.0f }, 1.0f, WHITE);
         DrawModel(background.model, { 0.0f, 60.0f, -400.0f }, 1.0f, WHITE);
         DrawModelEx(background.model, { -400.0f, 60.0f, 0.0f }, { 0, 1, 0 }, 90.0f, { 1, 1, 1 }, WHITE);
@@ -163,6 +167,8 @@ void Game::deInit()
     }
     UnloadTexture(background.bgTexture);
     UnloadTexture(wall.wallTexture);
+    UnloadTexture(skybox.bgTexture);
     UnloadModel(background.model);
+    UnloadModel(skybox.model);
     UnloadModel(wall.model);
 }
