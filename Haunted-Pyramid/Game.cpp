@@ -14,6 +14,10 @@ void Game::initGame()
     wall.wallTexture = LoadTexture("assets/wall.png");
     wall.model = LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f));
     wall.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall.wallTexture;
+    background.bgTexture = LoadTexture("assets/background.png");
+    background.model = LoadModelFromMesh(GenMeshCube(120.0f, 40.0f, 0.0f));
+    background.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = background.bgTexture;
+
     level = 1;
     player.health = 100;
     player.gold = 0;
@@ -69,19 +73,45 @@ void Game::update()
     Vector3 oldCamPos = camera.position;
 
     UpdateCamera(&camera);                  // Update camera
-
-    for (int i = 0; i < 64; i++)
+    
+    if (!noClip)
     {
-        if (walls[i] != nullptr)
+        for (int i = 0; i < 64; i++)
         {
-            if (GameManager::wallCollision(camera.position, *walls[i]))
-                camera.position = oldCamPos;
+            if (walls[i] != nullptr)
+            {
+                if (GameManager::wallCollision(camera.position, *walls[i]))
+                    camera.position = oldCamPos;
+            }
+        }
+    }
+    
+    player.playerPos = camera.position;
+
+    if (IsKeyPressed(KEY_F1))
+    {
+        if (!noClip)
+        {
+            noClip = true;
+            std::cout << "noclip enabled" << std::endl;
+        }
+        else
+        {
+            noClip = false;
+            std::cout << "noclip disabled" << std::endl;
         }
     }
 
-    player.playerPos = camera.position;
+    if (IsKeyPressed(KEY_F2))
+    {
+        if (!debugCoordinates)
+            debugCoordinates = true;
+        else
+            debugCoordinates = false;
+    }
 
-    std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z << std::endl;
+    if (debugCoordinates)
+        std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z << std::endl;
 
 }
 
@@ -96,7 +126,9 @@ void Game::draw()
     {
         BeginMode3D(camera);
 
-        DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 1000.0f, 1000.0f }, BEIGE); // Draw ground
+        DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, BEIGE); // Draw ground
+        
+        DrawPlane(Vector3{ 0.0f, -40.0f, 0.0f }, Vector2{ 400.0f, 400.0f }, DARKGREEN);
 
         for (int x = 0; x < 8; x++)
             for (int y = 0; y < 8; y++)
@@ -123,7 +155,8 @@ void Game::deInit()
         if (walls[i] != nullptr)
             delete walls[i];
     }
-
+    UnloadTexture(background.bgTexture);
     UnloadTexture(wall.wallTexture);
+    UnloadModel(background.model);
     UnloadModel(wall.model);
 }

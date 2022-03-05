@@ -3,6 +3,10 @@
 #include "iostream"
 #include "raylib.h"
 
+// debugging variables:
+static bool noClip = false;
+static bool debugCoordinates = true;
+
 static int level = 0;
 
 typedef struct Weapon {
@@ -32,9 +36,15 @@ typedef struct Wall {
 	Model model;
 } Wall;
 
+typedef struct Horizon {
+	Texture bgTexture;
+	Model model;
+};
+
 static Player player;
 static Camera camera{};
 static Wall wall;
+static Horizon background;
 
 static Weapon weapon[5] = {
 	"Spear", 30, 0,
