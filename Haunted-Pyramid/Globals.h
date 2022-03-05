@@ -12,7 +12,7 @@ typedef struct Weapon {
 } Weapon;
 
 typedef struct Player {
-	Vector2 playerPos;
+	Vector3 playerPos;
 	int health;
 	bool gameOver;
 	unsigned int gold;

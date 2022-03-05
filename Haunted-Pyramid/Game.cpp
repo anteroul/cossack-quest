@@ -18,10 +18,10 @@ void Game::initGame()
     player.health = 100;
     player.gold = 0;
     player.gameOver = false;
-    player.playerPos = { 0.0f, 0.0f };
+    player.playerPos = { 0.0f, 4.0f, 0.0f };
 
     // Define camera:
-    camera.position = { player.playerPos.x, 4.0f, player.playerPos.y };
+    camera.position = player.playerPos;
     camera.target = { 0.0f, 1.8f, 0.0f };
     camera.up = { 0.0f, 1.0f, 0.0f };
     camera.fovy = 60.0f;
@@ -78,6 +78,11 @@ void Game::update()
                 camera.position = oldCamPos;
         }
     }
+
+    player.playerPos = camera.position;
+
+    std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z << std::endl;
+
 }
 
 
