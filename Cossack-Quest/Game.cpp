@@ -20,6 +20,7 @@ void Game::initGame()
     //skybox.bgTexture = LoadTexture("assets/sky.png");
     //skybox.model = LoadModelFromMesh(GenMeshCube(800.0f, 0.0f, 800.0f));
     //skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
+    hud = LoadTexture("assets/hud.png");
 
     level = 1;
 
@@ -151,7 +152,12 @@ void Game::draw()
 
 
         EndMode3D();
-        DrawFPS(0, 0);
+
+        // Draw HUD:
+
+
+
+        DrawFPS(0, 0); // Draw FPS
 
         EndDrawing();
     }
@@ -170,10 +176,13 @@ void Game::deInit()
         if (walls[i] != nullptr)
             delete walls[i];
     }
+
     //UnloadTexture(background.bgTexture);
-    //UnloadTexture(wall.wallTexture);
     //UnloadTexture(skybox.bgTexture);
     //UnloadModel(background.model);
     //UnloadModel(skybox.model);
+    
+    UnloadTexture(hud);
+    UnloadTexture(wall.wallTexture);
     UnloadModel(wall.model);
 }
