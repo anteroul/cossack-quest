@@ -14,12 +14,12 @@ void Game::initGame()
     wall.wallTexture = LoadTexture("assets/wall.png");
     wall.model = LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f));
     wall.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall.wallTexture;
-    background.bgTexture = LoadTexture("assets/background.png");
-    background.model = LoadModelFromMesh(GenMeshCube(800.0f, 600.0f, 0.0f));
-    background.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = background.bgTexture;
-    skybox.bgTexture = LoadTexture("assets/sky.png");
-    skybox.model = LoadModelFromMesh(GenMeshCube(800.0f, 0.0f, 800.0f));
-    skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
+    //background.bgTexture = LoadTexture("assets/background.png");
+    //background.model = LoadModelFromMesh(GenMeshCube(800.0f, 600.0f, 0.0f));
+    //background.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = background.bgTexture;
+    //skybox.bgTexture = LoadTexture("assets/sky.png");
+    //skybox.model = LoadModelFromMesh(GenMeshCube(800.0f, 0.0f, 800.0f));
+    //skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
 
     level = 1;
 
@@ -170,10 +170,10 @@ void Game::deInit()
         if (walls[i] != nullptr)
             delete walls[i];
     }
-    UnloadTexture(background.bgTexture);
-    UnloadTexture(wall.wallTexture);
-    UnloadTexture(skybox.bgTexture);
-    UnloadModel(background.model);
-    UnloadModel(skybox.model);
+    //UnloadTexture(background.bgTexture);
+    //UnloadTexture(wall.wallTexture);
+    //UnloadTexture(skybox.bgTexture);
+    //UnloadModel(background.model);
+    //UnloadModel(skybox.model);
     UnloadModel(wall.model);
 }

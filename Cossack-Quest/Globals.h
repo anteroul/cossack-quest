@@ -36,11 +36,6 @@ typedef struct Wall {
 	Model model;
 } Wall;
 
-typedef struct Horizon {
-	Texture bgTexture;
-	Model model;
-} Horizon;
-
 typedef struct GameObject {
 	Vector3 position;
 	Texture texture;
@@ -50,8 +45,6 @@ typedef struct GameObject {
 static Player player;
 static Camera camera{};
 static Wall wall;
-static Horizon background;
-static Horizon skybox;
 
 static Weapon weapon[5] = {
 	"Spear", 30, 0,
