@@ -118,6 +118,36 @@ void Game::update()
         }
     }
 
+    if (IsKeyPressed(KEY_Q))
+    {
+        if (cWeapon > 0)
+        {
+            if (weapon[cWeapon - 1].inInventory)
+                cWeapon--;
+        }
+        else
+        {
+            for (int i = 4; i >= 0; i--)
+            {
+                if (weapon[i].inInventory && weapon[cWeapon].ammo > 0)
+                {
+                    cWeapon = i;
+                    break;
+                }
+            }
+        }
+        player.weapon = weapon[cWeapon];
+    }
+
+    if (IsKeyPressed(KEY_E))
+    {
+        if (weapon[cWeapon + 1].inInventory)
+            cWeapon++;
+        else
+            cWeapon = 0;
+        player.weapon = weapon[cWeapon];
+    }
+
     if (player.attacking)
     {
         if (cWeapon == 1 || cWeapon == 2)
@@ -215,6 +245,8 @@ void Game::draw()
 
         if (!player.weapon.melee)
             DrawText(TextFormat("%03i", player.ammo), GetScreenWidth() * 0.625f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, YELLOW);
+
+        DrawText(weapon[cWeapon].name.c_str(), GetScreenWidth() * 0.8f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 30, WHITE);
 
         DrawFPS(0, 0); // Draw FPS
 

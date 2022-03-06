@@ -62,8 +62,8 @@ static int weaponFrame = 0;
 
 static Weapon weapon[5] = {
 	"Pitchfork", 30, 0, true, true, 1,
-	"Bronze Sword", 45, 50, false, true, 1,
-	"Iron Sword", 50, 60, false, true, 1,
+	"Bronze Sword", 45, 50, true, true, 1,
+	"Iron Sword", 50, 60, true, true, 1,
 	"Crossbow", 100, 120, false, false, 20,
 	"Musket", 250, 300, false, false, 20
 };
