@@ -22,6 +22,7 @@ void Game::initGame()
     skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
 
     level = 1;
+
     player.health = 100;
     player.gold = 0;
     player.gameOver = false;
