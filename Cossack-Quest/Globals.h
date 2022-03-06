@@ -46,7 +46,7 @@ static Player player;
 static Camera camera{};
 static Wall wall;
 
-static Texture hud;
+static Texture2D hud;
 
 static Weapon weapon[5] = {
 	"Spear", 30, 0,

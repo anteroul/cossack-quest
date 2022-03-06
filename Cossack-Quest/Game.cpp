@@ -154,8 +154,7 @@ void Game::draw()
         EndMode3D();
 
         // Draw HUD:
-
-
+        DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.8f, WHITE);
 
         DrawFPS(0, 0); // Draw FPS
 
