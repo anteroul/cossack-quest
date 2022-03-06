@@ -22,6 +22,13 @@ void Game::initGame()
     //skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
     hud = LoadTexture("assets/hud.png");
 
+    // Define weapon textures:
+    weaponTexture[0] = LoadTexture("assets/weapons/weapon1.png");
+    weaponTexture[1] = LoadTexture("assets/weapons/weapon2.png");
+    weaponTexture[2] = LoadTexture("assets/weapons/weapon3.png");
+    weaponTexture[3] = LoadTexture("assets/weapons/weapon4.png");
+    weaponTexture[4] = LoadTexture("assets/weapons/weapon5.png");
+
     level = 1;
 
     player.stamina = 100;
@@ -31,6 +38,10 @@ void Game::initGame()
     player.playerPos = { 0.0f, 4.0f, 0.0f };
     player.weapon = weapon[cWeapon];
     player.ammo = player.weapon.ammo;
+    player.attacking = false;
+
+    weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };
+    weaponRec = { 0, 0, (float)weaponTexture[0].width / 4, (float)weaponTexture[0].height / 2 };
 
     // Define camera:
     camera.position = player.playerPos;
@@ -97,6 +108,46 @@ void Game::update()
     
     player.playerPos = camera.position;
 
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !player.attacking)
+    {
+        if (player.stamina >= 30)
+        {
+            player.attacking = true;
+            player.stamina -= 30;
+            weaponFrame++;
+        }
+    }
+
+    if (player.attacking)
+    {
+        if (cWeapon == 1 || cWeapon == 2)
+            weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.6f };
+
+        weaponRec.x = 400.0f * weaponFrame;
+        weaponRec.y = 400.0f;
+
+        if (weaponFrame > 3)
+        {
+            weaponFrame = 0;
+            weaponRec.y = 0.0f;
+            weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };
+            player.attacking = false;
+        }
+        if (cFrame == 5 && weaponFrame < 4)
+        {
+            weaponFrame++;
+            cFrame = 0;
+        }
+        cFrame++;
+    }
+    else if (cWeapon == 1 || cWeapon == 2 && !player.attacking)
+        weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.325f };
+    else
+        weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };
+
+    if (!player.attacking && player.stamina < 100)
+        player.stamina++;
+
     if (IsKeyPressed(KEY_F1))
     {
         if (!noClip)
@@ -121,7 +172,6 @@ void Game::update()
 
     if (debugCoordinates)
         std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z << std::endl;
-
 }
 
 
@@ -157,6 +207,8 @@ void Game::draw()
         EndMode3D();
 
         // Draw HUD:
+        DrawTextureRec(weaponTexture[cWeapon], weaponRec, weaponPosition, WHITE);
+
         DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.000625f * GetScreenWidth(), WHITE);
         DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);
         DrawText(TextFormat("%03i", player.health), GetScreenWidth() * 0.3f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, RED);
@@ -176,6 +228,7 @@ void Game::runApplication()
     update();
 }
 
+
 void Game::deInit()
 {
     for (int i = 0; i < 64; i++)
@@ -183,6 +236,9 @@ void Game::deInit()
         if (walls[i] != nullptr)
             delete walls[i];
     }
+
+    for (int i = 0; i < 5; i++)
+        UnloadTexture(weaponTexture[i]);
 
     //UnloadTexture(background.bgTexture);
     //UnloadTexture(skybox.bgTexture);

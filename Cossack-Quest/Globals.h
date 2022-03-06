@@ -7,6 +7,7 @@
 static bool noClip = false;
 static bool debugCoordinates = true;
 
+static unsigned int cFrame = 0;
 static int level = 0;
 static int cWeapon = 0;
 
@@ -27,6 +28,7 @@ typedef struct Player {
 	unsigned int gold;
 	Weapon weapon;
 	int ammo;
+	bool attacking;
 } Player;
 
 typedef struct Enemy {
@@ -53,9 +55,13 @@ static Camera camera{};
 static Wall wall;
 
 static Texture2D hud;
+static Texture2D weaponTexture[5];
+static Vector2 weaponPosition;
+static Rectangle weaponRec;
+static int weaponFrame = 0;
 
 static Weapon weapon[5] = {
-	"Spear", 30, 0, true, true, 1,
+	"Pitchfork", 30, 0, true, true, 1,
 	"Bronze Sword", 45, 50, false, true, 1,
 	"Iron Sword", 50, 60, false, true, 1,
 	"Crossbow", 100, 120, false, false, 20,
