@@ -29,6 +29,8 @@ void Game::initGame()
     player.gold = 0;
     player.gameOver = false;
     player.playerPos = { 0.0f, 4.0f, 0.0f };
+    player.weapon = weapon[cWeapon];
+    player.ammo = player.weapon.ammo;
 
     // Define camera:
     camera.position = player.playerPos;
@@ -158,6 +160,9 @@ void Game::draw()
         DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.000625f * GetScreenWidth(), WHITE);
         DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);
         DrawText(TextFormat("%03i", player.health), GetScreenWidth() * 0.3f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, RED);
+
+        if (!player.weapon.melee)
+            DrawText(TextFormat("%03i", player.ammo), GetScreenWidth() * 0.625f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, YELLOW);
 
         DrawFPS(0, 0); // Draw FPS
 

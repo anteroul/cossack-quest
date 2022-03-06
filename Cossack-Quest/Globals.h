@@ -8,11 +8,15 @@ static bool noClip = false;
 static bool debugCoordinates = true;
 
 static int level = 0;
+static int cWeapon = 0;
 
 typedef struct Weapon {
 	std::string name;
 	int dmg;
 	unsigned int price;
+	bool inInventory;
+	bool melee;
+	int ammo;
 } Weapon;
 
 typedef struct Player {
@@ -22,6 +26,7 @@ typedef struct Player {
 	bool gameOver;
 	unsigned int gold;
 	Weapon weapon;
+	int ammo;
 } Player;
 
 typedef struct Enemy {
@@ -50,11 +55,11 @@ static Wall wall;
 static Texture2D hud;
 
 static Weapon weapon[5] = {
-	"Spear", 30, 0,
-	"Bronze Sword", 45, 50,
-	"Iron Sword", 50, 60,
-	"Crossbow", 100, 120,
-	"Musket", 250, 300
+	"Spear", 30, 0, true, true, 1,
+	"Bronze Sword", 45, 50, false, true, 1,
+	"Iron Sword", 50, 60, false, true, 1,
+	"Crossbow", 100, 120, false, false, 20,
+	"Musket", 250, 300, false, false, 20
 };
 
 static int map[8][8] = {
