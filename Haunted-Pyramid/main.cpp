@@ -3,7 +3,7 @@
 
 int main()
 {
-    InitWindow(1280, 720, "Haunted Pyramid");
+    InitWindow(1280, 720, "Valiant Engine V2");
     SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
     //ToggleFullscreen();
 
