@@ -125,7 +125,7 @@ void Game::draw()
 {
     BeginDrawing();
 
-    ClearBackground(SKYBLUE);
+    ClearBackground(RAYWHITE);
 
     if (!player.gameOver)
     {
@@ -141,11 +141,12 @@ void Game::draw()
                     DrawModel(wall.model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
 
         // Draw skybox:
-        DrawModel(skybox.model, { 0.0f, 360.0f, 0.0f }, 1.0f, WHITE);
-        DrawModel(background.model, { 0.0f, 60.0f, 400.0f }, 1.0f, WHITE);
-        DrawModel(background.model, { 0.0f, 60.0f, -400.0f }, 1.0f, WHITE);
-        DrawModelEx(background.model, { -400.0f, 60.0f, 0.0f }, { 0, 1, 0 }, 90.0f, { 1, 1, 1 }, WHITE);
-        DrawModelEx(background.model, { 400.0f, 60.0f, 0.0f }, { 0, 1, 0 }, 90.0f, { 1, 1, 1 }, WHITE);
+        // 
+        //DrawModel(skybox.model, { 0.0f, 360.0f, 0.0f }, 1.0f, WHITE);
+        //DrawModel(background.model, { 0.0f, 60.0f, 400.0f }, 1.0f, WHITE);
+        //DrawModel(background.model, { 0.0f, 60.0f, -400.0f }, 1.0f, WHITE);
+        //DrawModelEx(background.model, { -400.0f, 60.0f, 0.0f }, { 0, 1, 0 }, 90.0f, { 1, 1, 1 }, WHITE);
+        //DrawModelEx(background.model, { 400.0f, 60.0f, 0.0f }, { 0, 1, 0 }, 90.0f, { 1, 1, 1 }, WHITE);
 
         EndMode3D();
         DrawFPS(0, 0);
