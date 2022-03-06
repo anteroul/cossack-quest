@@ -24,6 +24,7 @@ void Game::initGame()
 
     level = 1;
 
+    player.stamina = 100;
     player.health = 100;
     player.gold = 0;
     player.gameOver = false;
@@ -154,7 +155,9 @@ void Game::draw()
         EndMode3D();
 
         // Draw HUD:
-        DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.8f, WHITE);
+        DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.000625f * GetScreenWidth(), WHITE);
+        DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);
+        DrawText(TextFormat("%03i", player.health), GetScreenWidth() * 0.3f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, RED);
 
         DrawFPS(0, 0); // Draw FPS
 

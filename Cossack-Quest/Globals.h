@@ -18,6 +18,7 @@ typedef struct Weapon {
 typedef struct Player {
 	Vector3 playerPos;
 	int health;
+	int stamina;
 	bool gameOver;
 	unsigned int gold;
 	Weapon weapon;
