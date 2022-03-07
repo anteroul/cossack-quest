@@ -14,13 +14,13 @@ void Game::initGame()
     wall.wallTexture = LoadTexture("assets/wall.png");
     wall.model = LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f));
     wall.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall.wallTexture;
+    hud = LoadTexture("assets/hud.png");
     //background.bgTexture = LoadTexture("assets/background.png");
     //background.model = LoadModelFromMesh(GenMeshCube(800.0f, 600.0f, 0.0f));
     //background.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = background.bgTexture;
     //skybox.bgTexture = LoadTexture("assets/sky.png");
     //skybox.model = LoadModelFromMesh(GenMeshCube(800.0f, 0.0f, 800.0f));
     //skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
-    hud = LoadTexture("assets/hud.png");
 
     // Define weapon textures:
     weaponTexture[0] = LoadTexture("assets/weapons/weapon1.png");
@@ -107,6 +107,7 @@ void Game::update()
     }
     
     player.playerPos = camera.position;
+    player.weapon = weapon[cWeapon];
 
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !player.attacking)
     {
@@ -119,34 +120,10 @@ void Game::update()
     }
 
     if (IsKeyPressed(KEY_Q))
-    {
-        if (cWeapon > 0)
-        {
-            if (weapon[cWeapon - 1].inInventory)
-                cWeapon--;
-        }
-        else
-        {
-            for (int i = 4; i >= 0; i--)
-            {
-                if (weapon[i].inInventory && weapon[cWeapon].ammo > 0)
-                {
-                    cWeapon = i;
-                    break;
-                }
-            }
-        }
-        player.weapon = weapon[cWeapon];
-    }
+        cWeapon = GameManager::prevWeapon();
 
     if (IsKeyPressed(KEY_E))
-    {
-        if (weapon[cWeapon + 1].inInventory)
-            cWeapon++;
-        else
-            cWeapon = 0;
-        player.weapon = weapon[cWeapon];
-    }
+        cWeapon = GameManager::nextWeapon();
 
     if (player.attacking)
     {
