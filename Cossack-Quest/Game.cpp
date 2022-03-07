@@ -37,7 +37,6 @@ void Game::initGame()
     player.gameOver = false;
     player.playerPos = { 0.0f, 4.0f, 0.0f };
     player.weapon = weapon[cWeapon];
-    player.ammo = player.weapon.ammo;
     player.attacking = false;
 
     weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };
@@ -111,11 +110,17 @@ void Game::update()
 
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !player.attacking)
     {
-        if (player.stamina >= 30)
+        if (player.stamina >= 30 && player.weapon.melee)
         {
             player.attacking = true;
             player.stamina -= 30;
             weaponFrame++;
+        }
+        if (player.weapon.ammo > 0 && !player.weapon.melee)
+        {
+            player.attacking = true;
+            weaponFrame++;
+            player.weapon.ammo--;
         }
     }
 
@@ -221,7 +226,7 @@ void Game::draw()
         DrawText(TextFormat("%03i", player.health), GetScreenWidth() * 0.3f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, RED);
 
         if (!player.weapon.melee)
-            DrawText(TextFormat("%03i", player.ammo), GetScreenWidth() * 0.625f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, YELLOW);
+            DrawText(TextFormat("%03i", player.weapon.ammo), GetScreenWidth() * 0.625f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, YELLOW);
 
         DrawText(weapon[cWeapon].name.c_str(), GetScreenWidth() * 0.8f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 30, WHITE);
 
