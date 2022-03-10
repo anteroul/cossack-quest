@@ -15,12 +15,18 @@ void Game::initGame()
     wall.model = LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f));
     wall.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall.wallTexture;
     hud = LoadTexture("assets/hud.png");
+
+
+    // Skybox:
+    // 
     //background.bgTexture = LoadTexture("assets/background.png");
     //background.model = LoadModelFromMesh(GenMeshCube(800.0f, 600.0f, 0.0f));
     //background.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = background.bgTexture;
     //skybox.bgTexture = LoadTexture("assets/sky.png");
     //skybox.model = LoadModelFromMesh(GenMeshCube(800.0f, 0.0f, 800.0f));
     //skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
+
+
 
     // Define weapon textures:
     weaponTexture[0] = LoadTexture("assets/weapons/weapon1.png");
@@ -124,10 +130,10 @@ void Game::update()
         }
     }
 
-    if (IsKeyPressed(KEY_Q))
+    if (GameManager::MouseWheelDown())
         cWeapon = GameManager::prevWeapon();
 
-    if (IsKeyPressed(KEY_E))
+    if (GameManager::MouseWheelUp())
         cWeapon = GameManager::nextWeapon();
 
     if (player.attacking)

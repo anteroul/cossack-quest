@@ -42,3 +42,18 @@ int GameManager::nextWeapon()
     return cWeapon;
 }
 
+bool GameManager::MouseWheelUp()
+{
+    if (0 < GetMouseWheelMove())
+        return true;
+
+    return false;
+}
+
+bool GameManager::MouseWheelDown()
+{
+    if (0 > GetMouseWheelMove())
+        return true;
+
+    return false;
+}
