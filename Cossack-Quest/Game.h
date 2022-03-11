@@ -1,6 +1,5 @@
-#pragma once
-
 #include "raylib.h"
+#include "raymath.h"
 #include "stdlib.h"
 #include "Globals.h"
 #include "GameManager.h"
@@ -17,5 +16,10 @@ private:
 	void initGame();
 	void draw();
 	void resetGame();
-	BoundingBox* walls[64];
+	bool debugMode = false;
+	int ambientLoc;
+	int fogDensityLoc;
+	float fogDensity = 0.18f;
+	Shader shader;
+	BoundingBox* walls[64] = { nullptr };
 };

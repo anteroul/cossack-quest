@@ -1,5 +1,8 @@
 #include "Game.h"
 
+#define RLIGHTS_IMPLEMENTATION
+#include "shaders/rlights.h"
+
 Game::Game()
 {
     initGame();
@@ -7,25 +10,26 @@ Game::Game()
 
 Game::~Game()
 {
+    deInit();
 }
 
 void Game::initGame()
 {
+    // Initialize textures and models:
     wall.wallTexture = LoadTexture("assets/wall.png");
     wall.model = LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f));
     wall.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall.wallTexture;
     hud = LoadTexture("assets/hud.png");
 
-
-    // Skybox:
-    // 
-    //background.bgTexture = LoadTexture("assets/background.png");
-    //background.model = LoadModelFromMesh(GenMeshCube(800.0f, 600.0f, 0.0f));
-    //background.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = background.bgTexture;
-    //skybox.bgTexture = LoadTexture("assets/sky.png");
-    //skybox.model = LoadModelFromMesh(GenMeshCube(800.0f, 0.0f, 800.0f));
-    //skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
-
+    /* 
+    Skybox:
+    background.bgTexture = LoadTexture("assets/background.png");
+    background.model = LoadModelFromMesh(GenMeshCube(800.0f, 600.0f, 0.0f));
+    background.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = background.bgTexture;
+    skybox.bgTexture = LoadTexture("assets/sky.png");
+    skybox.model = LoadModelFromMesh(GenMeshCube(800.0f, 0.0f, 800.0f));
+    skybox.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = skybox.bgTexture;
+    */
 
 
     // Define weapon textures:
@@ -48,14 +52,6 @@ void Game::initGame()
     weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };
     weaponRec = { 0, 0, (float)weaponTexture[0].width / 4, (float)weaponTexture[0].height / 2 };
 
-    // Define camera:
-    camera.position = player.playerPos;
-    camera.target = { 0.0f, 1.8f, 0.0f };
-    camera.up = { 0.0f, 1.0f, 0.0f };
-    camera.fovy = 60.0f;
-    camera.projection = CAMERA_PERSPECTIVE;
-    SetCameraMode(camera, CAMERA_FIRST_PERSON); // Set a first person camera mode
-
     // Define walls:
     int iterator = 0;
 
@@ -70,6 +66,23 @@ void Game::initGame()
             iterator++;
         }
     }
+
+    // Initialize shaders:
+    shader = LoadShader("shaders/glsl/base_lighting.vs", "shaders/glsl/fog.fs");
+    shader.locs[SHADER_LOC_MATRIX_MODEL] = GetShaderLocation(shader, "matModel");
+    shader.locs[SHADER_LOC_VECTOR_VIEW] = GetShaderLocation(shader, "viewPos");
+    ambientLoc = GetShaderLocation(shader, "ambient");
+    fogDensityLoc = GetShaderLocation(shader, "fogDensity");
+    SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
+    wall.model.materials[0].shader = shader;
+
+    // Define camera:
+    camera.position = player.playerPos;
+    camera.target = { 0.0f, 1.8f, 0.0f };
+    camera.up = { 0.0f, 1.0f, 0.0f };
+    camera.fovy = 60.0f;
+    camera.projection = CAMERA_PERSPECTIVE;
+    SetCameraMode(camera, CAMERA_FIRST_PERSON); // Set a first person camera mode
 }
 
 
@@ -91,23 +104,17 @@ void Game::resetGame()
 
 void Game::update()
 {
-    // Update
-    draw();
-
     Vector3 oldCamPos = camera.position;
 
     UpdateCamera(&camera);                  // Update camera
     
     // Wall collision logic:
-    if (!noClip)
+    for (int i = 0; i < 64; i++)
     {
-        for (int i = 0; i < 64; i++)
+        if (walls[i] != nullptr)
         {
-            if (walls[i] != nullptr)
-            {
-                if (GameManager::wallCollision(camera.position, *walls[i]))
-                    camera.position = oldCamPos;
-            }
+            if (GameManager::wallCollision(camera.position, *walls[i]) && !noClip)
+                camera.position = oldCamPos;
         }
     }
     
@@ -166,35 +173,46 @@ void Game::update()
     if (!player.attacking && player.stamina < 100)
         player.stamina++;
 
-    if (IsKeyPressed(KEY_F1))
+    if (debugMode)
     {
-        if (!noClip)
+        if (IsKeyPressed(KEY_F1))
         {
-            noClip = true;
-            std::cout << "noclip enabled" << std::endl;
+            if (!noClip)
+            {
+                noClip = true;
+                std::cout << "noclip enabled" << std::endl;
+            }
+            else
+            {
+                noClip = false;
+                std::cout << "noclip disabled" << std::endl;
+            }
         }
-        else
+
+        if (IsKeyPressed(KEY_F2))
         {
-            noClip = false;
-            std::cout << "noclip disabled" << std::endl;
+            if (!debugCoordinates)
+                debugCoordinates = true;
+            else
+                debugCoordinates = false;
         }
+
+        if (debugCoordinates)
+            std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z << std::endl;
     }
 
-    if (IsKeyPressed(KEY_F2))
-    {
-        if (!debugCoordinates)
-            debugCoordinates = true;
-        else
-            debugCoordinates = false;
-    }
+    SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
+    SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], &camera.target, SHADER_UNIFORM_VEC3);
 
-    if (debugCoordinates)
-        std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z << std::endl;
+    // Create a light
+    CreateLight(LIGHT_POINT, camera.position, camera.target, WHITE, shader);
+
 }
 
 
 void Game::draw()
 {
+
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
@@ -202,6 +220,8 @@ void Game::draw()
     if (!player.gameOver)
     {
         BeginMode3D(camera);
+
+        BeginShaderMode(shader);
 
         DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, BEIGE); // Draw ground
         
@@ -212,15 +232,15 @@ void Game::draw()
                 if (map[x][y] == 1)
                     DrawModel(wall.model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
 
+        EndShaderMode();
 
         // Draw skybox:
-        
+
         //DrawModel(skybox.model, { 0.0f, 360.0f, 0.0f }, 1.0f, WHITE);
         //DrawModel(background.model, { 0.0f, 60.0f, 400.0f }, 1.0f, WHITE);
         //DrawModel(background.model, { 0.0f, 60.0f, -400.0f }, 1.0f, WHITE);
         //DrawModelEx(background.model, { -400.0f, 60.0f, 0.0f }, { 0, 1, 0 }, 90.0f, { 1, 1, 1 }, WHITE);
         //DrawModelEx(background.model, { 400.0f, 60.0f, 0.0f }, { 0, 1, 0 }, 90.0f, { 1, 1, 1 }, WHITE);
-
 
         EndMode3D();
 
@@ -246,17 +266,12 @@ void Game::draw()
 void Game::runApplication()
 {
     update();
+    draw();
 }
 
 
 void Game::deInit()
 {
-    for (int i = 0; i < 64; i++)
-    {
-        if (walls[i] != nullptr)
-            delete walls[i];
-    }
-
     for (int i = 0; i < 5; i++)
         UnloadTexture(weaponTexture[i]);
 
@@ -265,7 +280,15 @@ void Game::deInit()
     //UnloadModel(background.model);
     //UnloadModel(skybox.model);
     
-    UnloadTexture(hud);
+    UnloadShader(shader);
+
+    for (int i = 0; i < 64; i++)
+    {
+        if (walls[i] != nullptr)
+            delete walls[i];
+    }
+
     UnloadTexture(wall.wallTexture);
     UnloadModel(wall.model);
+    UnloadTexture(hud);
 }
