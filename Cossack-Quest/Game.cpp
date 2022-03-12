@@ -151,7 +151,7 @@ void Game::update()
 
     if (player.attacking)
     {
-        if (cWeapon == 1 || cWeapon == 2)
+        if (cWeapon == SWORD_BRONZE || cWeapon == SWORD_IRON)
             weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.6f };
 
         weaponRec.x = 400.0f * weaponFrame;
@@ -171,7 +171,7 @@ void Game::update()
         }
         cFrame++;
     }
-    else if (cWeapon == 1 || cWeapon == 2 && !player.attacking)
+    else if (cWeapon == SWORD_BRONZE || cWeapon == SWORD_IRON && !player.attacking)
         weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.325f };
     else
         weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };

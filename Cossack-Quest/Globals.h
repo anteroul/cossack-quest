@@ -3,6 +3,8 @@
 #include "iostream"
 #include "raylib.h"
 
+enum weaponID { PITCHFORK, SWORD_BRONZE, SWORD_IRON, CROSSBOW, MUSKET };
+
 // debugging variables:
 static bool noClip = false;
 static bool debugCoordinates = true;
