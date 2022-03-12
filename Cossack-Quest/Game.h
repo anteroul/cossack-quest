@@ -16,7 +16,7 @@ private:
 	void initGame();
 	void draw();
 	void resetGame();
-	bool debugMode = false;
+	bool debugMode = true;
 	int ambientLoc;
 	int fogDensityLoc;
 	float fogDensity = 0.18f;

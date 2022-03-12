@@ -10,7 +10,6 @@ Game::Game()
 
 Game::~Game()
 {
-    deInit();
 }
 
 void Game::initGame()
@@ -82,6 +81,13 @@ void Game::initGame()
     camera.up = { 0.0f, 1.0f, 0.0f };
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
+
+    // Using just 1 point lights
+    CreateLight(LIGHT_DIRECTIONAL, { -100, 10, -100 }, Vector3Zero(), WHITE, shader);
+    CreateLight(LIGHT_DIRECTIONAL, { -100, 10, 100 }, Vector3Zero(), WHITE, shader);
+    CreateLight(LIGHT_DIRECTIONAL, { 100, 10, 100 }, Vector3Zero(), WHITE, shader);
+    CreateLight(LIGHT_DIRECTIONAL, { 100, 10, -100 }, Vector3Zero(), WHITE, shader);
+
     SetCameraMode(camera, CAMERA_FIRST_PERSON); // Set a first person camera mode
 }
 
@@ -106,6 +112,9 @@ void Game::update()
 {
     Vector3 oldCamPos = camera.position;
 
+    player.playerPos = camera.position;
+    player.weapon = weapon[cWeapon];
+
     UpdateCamera(&camera);                  // Update camera
     
     // Wall collision logic:
@@ -117,9 +126,6 @@ void Game::update()
                 camera.position = oldCamPos;
         }
     }
-    
-    player.playerPos = camera.position;
-    player.weapon = weapon[cWeapon];
 
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !player.attacking)
     {
@@ -202,10 +208,9 @@ void Game::update()
     }
 
     SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
-    SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], &camera.target, SHADER_UNIFORM_VEC3);
 
-    // Create a light
-    CreateLight(LIGHT_POINT, camera.position, camera.target, WHITE, shader);
+    // Update the light shader with the camera view position
+    SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], &camera.position.x, SHADER_UNIFORM_VEC3);
 
 }
 
@@ -221,8 +226,6 @@ void Game::draw()
     {
         BeginMode3D(camera);
 
-        BeginShaderMode(shader);
-
         DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, BEIGE); // Draw ground
         
         DrawPlane(Vector3{ 0.0f, -40.0f, 0.0f }, Vector2{ 400.0f, 400.0f }, DARKGREEN);
@@ -231,8 +234,6 @@ void Game::draw()
             for (int y = 0; y < 8; y++)
                 if (map[x][y] == 1)
                     DrawModel(wall.model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
-
-        EndShaderMode();
 
         // Draw skybox:
 
@@ -275,12 +276,12 @@ void Game::deInit()
     for (int i = 0; i < 5; i++)
         UnloadTexture(weaponTexture[i]);
 
+    UnloadTexture(hud);
+
     //UnloadTexture(background.bgTexture);
     //UnloadTexture(skybox.bgTexture);
     //UnloadModel(background.model);
     //UnloadModel(skybox.model);
-    
-    UnloadShader(shader);
 
     for (int i = 0; i < 64; i++)
     {
@@ -290,5 +291,5 @@ void Game::deInit()
 
     UnloadTexture(wall.wallTexture);
     UnloadModel(wall.model);
-    UnloadTexture(hud);
+    UnloadShader(shader);
 }
