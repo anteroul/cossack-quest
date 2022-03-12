@@ -139,7 +139,7 @@ void Game::update()
         {
             player.attacking = true;
             weaponFrame++;
-            player.weapon.ammo--;
+            weapon[cWeapon].ammo--;
         }
     }
 
@@ -202,6 +202,12 @@ void Game::update()
             else
                 debugCoordinates = false;
         }
+
+        if (IsKeyDown(KEY_F3) && fogDensity > 0)
+            fogDensity -= 0.01f;
+
+        if (IsKeyDown(KEY_F4))
+            fogDensity += 0.01f;
 
         if (debugCoordinates)
             std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z << std::endl;
