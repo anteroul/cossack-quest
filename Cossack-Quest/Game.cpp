@@ -83,10 +83,10 @@ void Game::initGame()
     camera.projection = CAMERA_PERSPECTIVE;
 
     // Using just 1 point lights
-    CreateLight(LIGHT_DIRECTIONAL, { -100, 10, -100 }, Vector3Zero(), WHITE, shader);
-    CreateLight(LIGHT_DIRECTIONAL, { -100, 10, 100 }, Vector3Zero(), WHITE, shader);
-    CreateLight(LIGHT_DIRECTIONAL, { 100, 10, 100 }, Vector3Zero(), WHITE, shader);
-    CreateLight(LIGHT_DIRECTIONAL, { 100, 10, -100 }, Vector3Zero(), WHITE, shader);
+    CreateLight(LIGHT_DIRECTIONAL, { -100, 10, -100 }, Vector3Zero(), DARKGRAY, shader);
+    CreateLight(LIGHT_DIRECTIONAL, { -100, 10, 100 }, Vector3Zero(), DARKGRAY, shader);
+    CreateLight(LIGHT_DIRECTIONAL, { 100, 10, 100 }, Vector3Zero(), DARKGRAY, shader);
+    CreateLight(LIGHT_DIRECTIONAL, { 100, 10, -100 }, Vector3Zero(), DARKGRAY, shader);
 
     SetCameraMode(camera, CAMERA_FIRST_PERSON); // Set a first person camera mode
 }
