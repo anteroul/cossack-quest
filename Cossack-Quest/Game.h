@@ -19,7 +19,7 @@ private:
 	bool debugMode = true;
 	int ambientLoc;
 	int fogDensityLoc;
-	float fogDensity = 0.06f;
+	float fogDensity = 0.12f;
 	Shader shader;
 	BoundingBox* walls[64] = { nullptr };
 };
