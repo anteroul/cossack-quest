@@ -1,7 +1,7 @@
 # Valiant Engine V2
 New better version of the original 3D engine I wrote back in 2020 in C as a newbie.
 
-## Version 0.0.1 alpha
+## Version 0.0.2 alpha
 Changes:
 - Fog effect
 - Debugging features
