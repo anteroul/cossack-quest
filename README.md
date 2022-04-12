@@ -3,7 +3,7 @@ New better version of the original 3D engine I wrote back in 2020 in C as a newb
 
 ## Version 0.0.3 alpha
 Changes:
-- Launcher application written in C#.
+- Launcher application written in C# (work in progress).
 - Fog effect
 - Debugging features
 
