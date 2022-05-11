@@ -72,7 +72,7 @@
 			[
 				{
 					"backtrace" : 3,
-					"define" : "ASSETS_PATH=\"/home/valiant/CLionProjects/Cossack-Quest/assets/\""
+					"define" : "ASSETS_PATH=\"assets\""
 				},
 				{
 					"backtrace" : 2,
@@ -84,7 +84,7 @@
 				},
 				{
 					"backtrace" : 4,
-					"define" : "SHADERS_PATH=\"/home/valiant/CLionProjects/Cossack-Quest/shaders/\""
+					"define" : "SHADERS_PATH=\"shaders\""
 				}
 			],
 			"includes" : 
@@ -140,7 +140,7 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "-rdynamic",
+				"fragment" : "",
 				"role" : "flags"
 			},
 			{
@@ -157,11 +157,11 @@
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lGL",
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libGL.so",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lGLU",
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libGLU.so",
 				"role" : "libraries"
 			},
 			{
@@ -173,7 +173,7 @@
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lrt",
+				"fragment" : "/usr/lib/x86_64-linux-gnu/librt.so",
 				"role" : "libraries"
 			},
 			{

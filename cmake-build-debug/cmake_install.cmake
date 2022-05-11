@@ -43,9 +43,8 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
+  # Include the install script for the subdirectory.
   include("/home/valiant/CLionProjects/Cossack-Quest/cmake-build-debug/_deps/raylib-build/cmake_install.cmake")
-
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

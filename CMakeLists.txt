@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.20)
 project(CossackQuest)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -20,7 +20,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 # Setting ASSETS_PATH
-target_compile_definitions(${PROJECT_NAME} PUBLIC ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/") # Set the asset path macro to the absolute path on the dev machine
+target_compile_definitions(${PROJECT_NAME} PUBLIC ASSETS_PATH="assets") # Set the asset path macro to the absolute path on the dev machine
 
 # Setting SHADERS_PATH
-target_compile_definitions(${PROJECT_NAME} PUBLIC SHADERS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/shaders/") # Set the shader path macro to the absolute path on the dev machine
+target_compile_definitions(${PROJECT_NAME} PUBLIC SHADERS_PATH="shaders") # Set the shader path macro to the absolute path on the dev machine

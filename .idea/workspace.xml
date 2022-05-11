@@ -17,207 +17,160 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81aa2ed8-7a2a-4b69-a8aa-4844eae754a0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPackConfig.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CPackSourceConfig.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CossackQuest" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Game.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Game.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameManager.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Globals.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/CMakeFiles/progress.marks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/CTestTestfile.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/progress.marks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/C.includecache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/DependInfo.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/build.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/cmake_clean.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/cmake_clean_target.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/depend.internal" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/depend.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/flags.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/link.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/progress.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/CTestTestfile.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/CMakeFiles/progress.marks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/C.includecache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/DependInfo.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/build.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/cmake_clean.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/cmake_clean_target.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/depend.internal" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/depend.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/flags.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/link.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/progress.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/progress.marks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/glfw3.pc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/glfw3Config.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/glfw3ConfigVersion.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/glfw_config.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/libglfw3.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/include/raudio.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/include/raylib.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/include/raymath.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/include/rlgl.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/libraylib.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/raylib-config-version.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-build/raylib/raylib.pc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-src" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeCache.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/3.16.3/CMakeSystem.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/CMakeRuleHashes.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/Makefile2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/cmake.check_cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/progress.marks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/DependInfo.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/Labels.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/Labels.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/build.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/cmake_clean.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/depend.internal" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/depend.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/progress.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-done" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-gitclone-lastrun.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-gitinfo.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-cfgcmd.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-cfgcmd.txt.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-gitclone.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-gitupdate.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-fd50102c0fb594b76a64.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-7641c8967e709d9b4562.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-797f4abea01adc9d77b0.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-_deps.raylib-build-Debug-1e9feda71a7a32248df2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-_deps.raylib-build.raylib-Debug-f443db96b6ea8b25e08a.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-_deps.raylib-build.raylib.external.glfw-Debug-4129d102c7ae0858519b.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-_deps.raylib-build.raylib.external.glfw.src-Debug-20e7a9fbb3bf182ad0d7.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-05-11T14-32-59-0712.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-CossackQuest-Debug-11196c5558ed999ab255.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-glfw-Debug-e270a64c3997f63f6624.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-raylib-Debug-9a037f11a0da588b8a69.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-ee5ca47e57a615ee224c.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CPackConfig.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CPackSourceConfig.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CossackQuest" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/CTestTestfile.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/CTestTestfile.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/glfw3.pc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/glfw3Config.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/glfw3ConfigVersion.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/glfw_config.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src/libglfw3.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/include/raudio.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/include/raylib.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/include/raymath.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/include/rlgl.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/libraylib.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/raylib-config-version.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-build/raylib/raylib.pc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-done" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-gitclone-lastrun.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/glsl/base.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/glsl/base.vs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/glsl/base_lighting.vs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/glsl/base_lighting_instanced.vs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/glsl/depth.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/glsl/fog.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/glsl/lighting.fs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/rlights.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CPackConfig.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CPackSourceConfig.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CossackQuest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/CTestTestfile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/C.includecache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/cmake_clean_target.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/CTestTestfile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/C.includecache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/cmake_clean_target.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/glfw3.pc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/glfw3Config.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/glfw3ConfigVersion.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/glfw_config.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/external/glfw/src/libglfw3.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/include/raudio.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/include/raylib.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/include/raymath.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/include/rlgl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/libraylib.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/raylib-config-version.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-build/raylib/raylib.pc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-src" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/3.16.3/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/CMakeRuleHashes.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/Makefile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/Makefile2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/Labels.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/Labels.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-done" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-gitclone-lastrun.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-gitinfo.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-cfgcmd.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-cfgcmd.txt.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-gitclone.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_deps/raylib-subbuild/raylib-populate-prefix/tmp/raylib-populate-gitupdate.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/assets/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/hud.png" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/assets/hud.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sky.png" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/assets/sky.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/wall.png" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/assets/wall.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/weapons/weapon1.png" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/assets/weapons/weapon1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/weapons/weapon2.png" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/assets/weapons/weapon2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/weapons/weapon3.png" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/assets/weapons/weapon3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/weapons/weapon4.png" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/assets/weapons/weapon4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/weapons/weapon5.png" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/assets/weapons/weapon5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-7641c8967e709d9b4562.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-797f4abea01adc9d77b0.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-05-11T14-32-59-0712.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-CossackQuest-Debug-11196c5558ed999ab255.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.22.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CossackQuest.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CossackQuest.dir/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CossackQuest" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CossackQuest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/_deps/raylib-subbuild/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/glsl/base.fs" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/shaders/glsl/base.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/glsl/base.vs" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/shaders/glsl/base.vs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/glsl/base_lighting.vs" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/shaders/glsl/base_lighting.vs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/glsl/base_lighting_instanced.vs" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/shaders/glsl/base_lighting_instanced.vs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/glsl/depth.fs" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/shaders/glsl/depth.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/glsl/fog.fs" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/shaders/glsl/fog.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/glsl/lighting.fs" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/shaders/glsl/lighting.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/rlights.h" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/shaders/rlights.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,37 +204,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "cmake.loaded.for.project": "true",
-    "last_opened_file_path": "/home/valiant/CLionProjects/Cossack-Quest",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cmake.loaded.for.project&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/valiant/CLionProjects/Cossack-Quest&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/cmake-build-debug" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmake-build-debug" />
+      <recent name="$PROJECT_DIR$/cmake-build-debug/CMakeFiles" />
+    </key>
   </component>
   <component name="RunManager" selected="CMake Application.CossackQuest">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="CossackQuest" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CossackQuest" TARGET_NAME="CossackQuest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CossackQuest" RUN_TARGET_NAME="CossackQuest">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CossackQuest" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CossackQuest" TARGET_NAME="CossackQuest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CossackQuest" RUN_TARGET_NAME="CossackQuest">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -322,6 +279,7 @@
       <workItem from="1652278721864" duration="692000" />
       <workItem from="1652279432692" duration="8000" />
       <workItem from="1652279478358" duration="261000" />
+      <workItem from="1652298705661" duration="1884000" />
     </task>
     <servers />
   </component>

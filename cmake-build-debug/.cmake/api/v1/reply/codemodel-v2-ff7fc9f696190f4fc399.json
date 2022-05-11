@@ -14,7 +14,7 @@
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.0"
+						"string" : "3.20"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -144,7 +144,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "CossackQuest::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-CossackQuest-Debug-11196c5558ed999ab255.json",
+					"jsonFile" : "target-CossackQuest-Debug-04cc65165713c3e054b7.json",
 					"name" : "CossackQuest",
 					"projectIndex" : 0
 				},

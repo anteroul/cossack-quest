@@ -9,7 +9,7 @@ int main()
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(1280, 720, "Valiant Engine V2");
     SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
-    ToggleFullscreen();
+    //ToggleFullscreen();
 
 	try {
 		if (GLSL_VERSION == 330)
