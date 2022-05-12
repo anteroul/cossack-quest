@@ -1,7 +1,7 @@
 #include "Game.h"
+#include "./shaders/rlights.h"
 
 #define RLIGHTS_IMPLEMENTATION
-#include "cmake-build-debug/shaders/rlights.h"
 
 Game::Game()
 {

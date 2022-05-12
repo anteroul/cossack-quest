@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_CossackQuest: phony || cmake_object_orde
 build CMakeFiles/CossackQuest.dir/main.cpp.o: CXX_COMPILER__CossackQuest_Debug /home/valiant/CLionProjects/Cossack-Quest/main.cpp || cmake_object_order_depends_target_CossackQuest
   DEFINES = -DASSETS_PATH=\"assets\" -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DSHADERS_PATH=\"shaders\"
   DEP_FILE = CMakeFiles/CossackQuest.dir/main.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   INCLUDES = -I/home/valiant/CLionProjects/Cossack-Quest/sources -I/home/valiant/CLionProjects/Cossack-Quest/cmake-build-debug/_deps/raylib-src/src -I/home/valiant/CLionProjects/Cossack-Quest/cmake-build-debug/_deps/raylib-src/src/external/glfw/include
   OBJECT_DIR = CMakeFiles/CossackQuest.dir
   OBJECT_FILE_DIR = CMakeFiles/CossackQuest.dir
@@ -60,7 +60,7 @@ build CMakeFiles/CossackQuest.dir/main.cpp.o: CXX_COMPILER__CossackQuest_Debug /
 build CMakeFiles/CossackQuest.dir/Game.cpp.o: CXX_COMPILER__CossackQuest_Debug /home/valiant/CLionProjects/Cossack-Quest/Game.cpp || cmake_object_order_depends_target_CossackQuest
   DEFINES = -DASSETS_PATH=\"assets\" -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DSHADERS_PATH=\"shaders\"
   DEP_FILE = CMakeFiles/CossackQuest.dir/Game.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   INCLUDES = -I/home/valiant/CLionProjects/Cossack-Quest/sources -I/home/valiant/CLionProjects/Cossack-Quest/cmake-build-debug/_deps/raylib-src/src -I/home/valiant/CLionProjects/Cossack-Quest/cmake-build-debug/_deps/raylib-src/src/external/glfw/include
   OBJECT_DIR = CMakeFiles/CossackQuest.dir
   OBJECT_FILE_DIR = CMakeFiles/CossackQuest.dir
@@ -68,7 +68,7 @@ build CMakeFiles/CossackQuest.dir/Game.cpp.o: CXX_COMPILER__CossackQuest_Debug /
 build CMakeFiles/CossackQuest.dir/GameManager.cpp.o: CXX_COMPILER__CossackQuest_Debug /home/valiant/CLionProjects/Cossack-Quest/GameManager.cpp || cmake_object_order_depends_target_CossackQuest
   DEFINES = -DASSETS_PATH=\"assets\" -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DSHADERS_PATH=\"shaders\"
   DEP_FILE = CMakeFiles/CossackQuest.dir/GameManager.cpp.o.d
-  FLAGS = -g -std=gnu++17
+  FLAGS = -g -std=gnu++2a
   INCLUDES = -I/home/valiant/CLionProjects/Cossack-Quest/sources -I/home/valiant/CLionProjects/Cossack-Quest/cmake-build-debug/_deps/raylib-src/src -I/home/valiant/CLionProjects/Cossack-Quest/cmake-build-debug/_deps/raylib-src/src/external/glfw/include
   OBJECT_DIR = CMakeFiles/CossackQuest.dir
   OBJECT_FILE_DIR = CMakeFiles/CossackQuest.dir
