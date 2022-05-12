@@ -1,6 +1,6 @@
 #include "raylib.h"
 #include "raymath.h"
-#include "stdlib.h"
+#include "cstdlib"
 #include "Globals.h"
 #include "GameManager.h"
 
