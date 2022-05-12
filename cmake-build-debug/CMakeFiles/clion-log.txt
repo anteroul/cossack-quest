@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /home/valiant/CLionProjects/Cossack-Quest Select CMakeLists.txt
