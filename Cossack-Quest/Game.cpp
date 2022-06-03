@@ -54,7 +54,7 @@ void Game::initGame()
     // Initialize sounds:
     // TODO: Sounds
     InitAudioDevice();
-    LoadSound("assets/sounds/swing.mp3");
+    //LoadSound("assets/sounds/swing.mp3");
 
     // Define walls:
     int iterator = 0;
@@ -296,7 +296,7 @@ void Game::deInit()
 
     // De-initialize sounds:
     // TODO: De-initialization of sounds here.
-    UnloadSound(swingSfx);
+    //UnloadSound(swingSfx);
     CloseAudioDevice();
 
     for (int i = 0; i < 64; i++)
