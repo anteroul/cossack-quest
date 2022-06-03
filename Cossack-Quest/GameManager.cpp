@@ -12,31 +12,16 @@ bool GameManager::wallCollision(Vector3 player, BoundingBox wallBox)
 
 int GameManager::prevWeapon()
 {
-    if (cWeapon > 0)
-    {
-        if (weapon[cWeapon - 1].inInventory)
-            cWeapon--;
-    }
-    else
-    {
-        for (int i = 4; i >= 0; i--)
-        {
-            if (weapon[i].inInventory && weapon[cWeapon].ammo > 0)
-            {
-                cWeapon = i;
-                break;
-            }
-        }
-    }
+    if (weapon[cWeapon - 1].inInventory && cWeapon > 0)
+        cWeapon--;
+
     return cWeapon;
 }
 
 int GameManager::nextWeapon()
 {
-    if (weapon[cWeapon + 1].inInventory)
+    if (weapon[cWeapon + 1].inInventory && cWeapon < 4)
         cWeapon++;
-    else
-        cWeapon = 0;
 
     return cWeapon;
 }
