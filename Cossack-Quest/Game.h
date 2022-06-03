@@ -22,5 +22,5 @@ private:
 	float fogDensity = 0.12f;
 	Shader shader;
 	BoundingBox* walls[64] = { nullptr };
-	Sound swingSfx;
+    [[maybe_unused]] Sound swingSfx;
 };
