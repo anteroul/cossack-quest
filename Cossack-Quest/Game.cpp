@@ -284,8 +284,8 @@ void Game::runApplication()
 
 void Game::deInit()
 {
-    for (int i = 0; i < 5; i++)
-        UnloadTexture(weaponTexture[i]);
+    for (auto & i : weaponTexture)
+        UnloadTexture(i);
 
     UnloadTexture(hud);
 
@@ -299,10 +299,10 @@ void Game::deInit()
     //UnloadSound(swingSfx);
     CloseAudioDevice();
 
-    for (int i = 0; i < 64; i++)
+    for (auto & wall : walls)
     {
-        if (walls[i] != nullptr)
-            delete walls[i];
+        if (wall != nullptr)
+            delete wall;
     }
 
     UnloadTexture(wall.wallTexture);
