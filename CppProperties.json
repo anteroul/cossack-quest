@@ -6,6 +6,7 @@
       ],
       "name": "x64-Debug",
       "includePath": [
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\raylib\\raylib\\src",
         "${env.INCLUDE}",
         "${workspaceRoot}\\**"
       ],
