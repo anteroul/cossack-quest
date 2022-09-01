@@ -1,5 +1,4 @@
 #include "raylib.h"
-#include "iostream"
 #include "Game.h"
 
 #define GLSL_VERSION  330
