@@ -11,13 +11,6 @@ int main()
     SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
     ToggleFullscreen();
 
-    if (GLSL_VERSION != 330)
-    {
-        std::cout << "ERROR! Initializing OpenGL failed! Closing program.\n";
-        CloseWindow();
-        return 1;
-    }
-
     Game game;
 
     while (!WindowShouldClose())
