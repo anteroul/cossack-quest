@@ -1,7 +1,7 @@
-#include "Game.h"
+#include "Game.hpp"
 
 #define RLIGHTS_IMPLEMENTATION
-#include "shaders/rlights.h"
+#include "shaders/rlights.hpp"
 
 Game::Game()
 {
@@ -257,7 +257,7 @@ void Game::draw()
         EndMode3D();
 
         // Draw HUD:
-        //DrawTextureRec(weaponTexture[cWeapon], weaponRec, weaponPosition, WHITE);
+        DrawTextureRec(weaponTexture[cWeapon], weaponRec, weaponPosition, WHITE);
 
         DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.000625f * GetScreenWidth(), WHITE);
         DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);

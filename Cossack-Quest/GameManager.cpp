@@ -1,4 +1,4 @@
-#include "GameManager.h"
+#include "GameManager.hpp"
 
 bool GameManager::wallCollision(Vector3 player, BoundingBox wallBox)
 {
