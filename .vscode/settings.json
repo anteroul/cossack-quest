@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "${workspaceFolder}/Cossack-Quest/cmake"
+    "cmake.sourceDirectory": "${workspaceFolder}/Cossack-Quest/cmake",
+    "C_Cpp.errorSquiggles": "Disabled"
 }

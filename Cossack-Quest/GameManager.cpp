@@ -3,11 +3,7 @@
 bool GameManager::wallCollision(Vector3 player, BoundingBox wallBox)
 {
 	BoundingBox playerBox = {player.x - 0.5f, player.y - 2.0f, player.z - 0.5f, player.x + 0.5f, player.y, player.z + 0.5f };
-
-	if (CheckCollisionBoxes(playerBox, wallBox))
-		return true;
-
-	return false;
+	return CheckCollisionBoxes(playerBox, wallBox);
 }
 
 int GameManager::prevWeapon()
@@ -28,16 +24,10 @@ int GameManager::nextWeapon()
 
 bool GameManager::MouseWheelUp()
 {
-    if (0 < GetMouseWheelMove())
-        return true;
-
-    return false;
+    return 0 < GetMouseWheelMove();
 }
 
 bool GameManager::MouseWheelDown()
 {
-    if (0 > GetMouseWheelMove())
-        return true;
-
-    return false;
+    return 0 > GetMouseWheelMove();
 }

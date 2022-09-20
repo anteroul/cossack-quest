@@ -4,7 +4,8 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/homebrew/Cellar/raylib/4.2.0/include/**"
+                "/opt/homebrew/Cellar/raylib/4.2.0/include/**",
+                "${workspaceFolder}/build/_deps/raylib-build/raylib/include"
             ],
             "defines": [],
             "macFrameworkPath": [
