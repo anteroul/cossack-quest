@@ -1,0 +1,157 @@
+[
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build",
+  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/cmake/../Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/cmake -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++2a -o CMakeFiles/CossackQuest.dir/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/main.cpp.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/main.cpp",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/main.cpp"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build",
+  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/cmake/../Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/cmake -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++2a -o CMakeFiles/CossackQuest.dir/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/Game.cpp.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/Game.cpp",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/Game.cpp"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build",
+  "command": "/usr/bin/clang++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/cmake/../Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/cmake -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++2a -o CMakeFiles/CossackQuest.dir/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/GameManager.cpp.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/GameManager.cpp",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/Cossack-Quest/GameManager.cpp"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/clang -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -isystem /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu99 -o CMakeFiles/raylib.dir/rcore.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rcore.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rcore.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/clang -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -isystem /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu99 -o CMakeFiles/raylib.dir/rmodels.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rmodels.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rmodels.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/clang -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -isystem /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu99 -o CMakeFiles/raylib.dir/rshapes.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rshapes.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rshapes.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/clang -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -isystem /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu99 -o CMakeFiles/raylib.dir/rtext.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rtext.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rtext.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/clang -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -isystem /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu99 -o CMakeFiles/raylib.dir/rtextures.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rtextures.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/rtextures.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/clang -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -isystem /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu99 -o CMakeFiles/raylib.dir/utils.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/utils.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/utils.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/clang -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src -isystem /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu99 -o CMakeFiles/raylib.dir/raudio.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/raudio.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/raudio.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/context.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/context.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/context.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/init.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/init.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/init.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/input.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/input.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/input.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/monitor.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/monitor.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/monitor.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/platform.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/platform.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/platform.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/vulkan.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/vulkan.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/vulkan.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/window.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/window.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/window.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/egl_context.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/egl_context.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/egl_context.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/osmesa_context.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/osmesa_context.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/osmesa_context.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/null_init.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/null_init.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/null_init.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/null_monitor.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/null_monitor.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/null_monitor.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/null_window.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/null_window.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/null_window.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/null_joystick.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/null_joystick.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/null_joystick.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/cocoa_time.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_time.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_time.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/posix_module.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/posix_module.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/posix_module.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/posix_thread.c.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/posix_thread.c",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/posix_thread.c"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/cocoa_init.m.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_init.m",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_init.m"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/cocoa_joystick.m.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_joystick.m",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_joystick.m"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/cocoa_monitor.m.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_monitor.m",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_monitor.m"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/cocoa_window.m.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_window.m",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/cocoa_window.m"
+},
+{
+  "directory": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/clang -D_GLFW_COCOA -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/include -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src -I/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/nsgl_context.m.o -c /Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/nsgl_context.m",
+  "file": "/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-src/src/external/glfw/src/nsgl_context.m"
+}
+]
