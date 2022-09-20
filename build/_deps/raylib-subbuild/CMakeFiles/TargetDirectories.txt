@@ -1,3 +1,0 @@
-/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir
-/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-subbuild/CMakeFiles/edit_cache.dir
-/Users/ida/VSCodeProjects/CPP/Valiant-Engine-V2/build/_deps/raylib-subbuild/CMakeFiles/rebuild_cache.dir
