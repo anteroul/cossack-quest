@@ -1,25 +1,16 @@
-#include "raylib.h"
-#include "Globals.hpp"
+#ifndef COSSACKQUEST_PLAYER_HPP
+#define COSSACKQUEST_PLAYER_HPP
 
-class Player
-{
-public:
-    Player();
-    ~Player();
-    void update();              
-    void takeDamage(int dmg);
-    void attack();
-    bool gameOver;
-    int weaponFrame;
-    int cWeapon;
+#include "Weapon.hpp"
+
+typedef struct Player {
+	Vector3 playerPos;
 	int health;
 	int stamina;
-    unsigned int gold;
-    Vector3 playerPos;
-    Vector2 weaponPosition;
-    Rectangle weaponRec;
-    Weapon weapon;
-private:
-    unsigned int cFrame;
-    bool attacking;
-};
+	bool gameOver;
+	unsigned int gold;
+	Weapon weapon;
+	bool attacking;
+} Player;
+
+#endif //COSSACKQUEST_PLAYER_HPP

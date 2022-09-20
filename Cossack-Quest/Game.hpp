@@ -3,8 +3,7 @@
 #include "raymath.h"
 #include "Globals.hpp"
 #include "GameManager.hpp"
-#include "Levels.hpp"
-#include "Player.hpp"
+#include "Enemy.hpp"
 
 class Game
 {
@@ -18,8 +17,6 @@ private:
 	void initGame();
 	void draw();
 	void resetGame();
-	void handleInput();
-	void loadLevel(int level);
 	bool debugMode = true;
 	int ambientLoc;
 	int fogDensityLoc;
@@ -27,5 +24,4 @@ private:
 	Shader shader;
 	BoundingBox* walls[64] = { nullptr };
     [[maybe_unused]] Sound swingSfx;
-	Player player;
 };
