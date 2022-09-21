@@ -1,7 +1,14 @@
 #include "Enemy.hpp"
 
-Enemy::Enemy(Vector3 pos, float hp, float dmg) : enemyPos(pos), health(hp), damage(dmg), active(true)
-{}
+Enemy::Enemy(Model model, Texture tex, Vector3 pos, Vector3 size, int hp, int dmg) : GameObject(pos, tex, model), active(true)
+{
+	health = hp;
+	damage = dmg;
+	enemyBoxSize = size;
+	attacking = false;
+	enemyBounds = BoundingBox{ enemyBoxSize.x, enemyBoxSize.y, enemyBoxSize.z };
+	model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
+}
 
 Enemy::~Enemy()
 {}

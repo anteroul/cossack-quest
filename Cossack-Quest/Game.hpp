@@ -1,7 +1,7 @@
 #include "cstdlib"
 #include "raylib.h"
 #include "raymath.h"
-#include "Globals.hpp"
+#include "Player.hpp"
 #include "GameManager.hpp"
 #include "Enemy.hpp"
 
@@ -17,11 +17,30 @@ private:
 	void initGame();
 	void draw();
 	void resetGame();
+	bool noClip = false;
 	bool debugMode = true;
+	bool debugCoordinates = true;
 	int ambientLoc;
 	int fogDensityLoc;
 	float fogDensity = 0.12f;
+	unsigned int cFrame = 0;
+	int level = 0;
 	Shader shader;
+	GameObject wall;
+	Player player;
+	Camera camera;
+	Texture2D hud;
 	BoundingBox* walls[64] = { nullptr };
     [[maybe_unused]] Sound swingSfx;
+
+	int map[8][8] = {
+			1, 1, 1, 1, 1, 1, 1, 1,
+			1, 0, 0, 1, 0, 0, 0, 1,
+			1, 0, 0, 1, 0, 1, 0, 1,
+			1, 0, 0, 0, 0, 1, 0, 1,
+			1, 1, 1, 0, 1, 1, 0, 1,
+			1, 0, 1, 0, 1, 1, 1, 1,
+			1, 0, 0, 0, 0, 0, 0, 1,
+			1, 1, 1, 1, 1, 1, 1, 1
+	};
 };

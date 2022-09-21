@@ -3,7 +3,7 @@
 #define RLIGHTS_IMPLEMENTATION
 #include "shaders/rlights.hpp"
 
-Game::Game()
+Game::Game() : wall({0.0f, 0.0f, 0.0f} ,LoadTexture("assets/wall.png"), LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f)))
 {
     initGame();
 }

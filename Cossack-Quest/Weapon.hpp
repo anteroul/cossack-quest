@@ -1,7 +1,7 @@
 #ifndef COSSACKQUEST_WEAPON_HPP
 #define COSSACKQUEST_WEAPON_HPP
 
-#include "iostream"
+#include <iostream>
 
 enum weaponID { PITCHFORK, SWORD_BRONZE, SWORD_IRON, CROSSBOW, MUSKET };
 
@@ -11,14 +11,14 @@ static Vector2 weaponPosition;
 static Rectangle weaponRec;
 static int weaponFrame = 0;
 
-typedef struct Weapon {
+struct Weapon {
 	std::string name;
 	int dmg;
 	unsigned int price;
 	bool inInventory;
 	bool melee;
 	int ammo;
-} Weapon;
+};
 
 static Weapon weapon[5] = {
 		"Pitchfork", 30, 0, true, true, 1,

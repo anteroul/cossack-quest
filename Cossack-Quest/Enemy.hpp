@@ -1,22 +1,21 @@
 #ifndef COSSACKQUEST_ENEMY_HPP
 #define COSSACKQUEST_ENEMY_HPP
 
-#include "raylib.h"
+#include "GameObject.hpp"
 
-class Enemy
+class Enemy : public GameObject
 {
 public:
-	Enemy(Vector3 pos, float hp, float dmg);
+	Enemy(Model model, Texture tex, Vector3 pos, Vector3 size, int hp, int dmg);
 	~Enemy();
 	void update();
-	Texture2D texture;
-	Vector3 enemyPos;
+	BoundingBox enemyBounds;
 private:
-	Vector3 enemyBoxSize{};
-	BoundingBox enemyBounds{};
-	bool active{};
-	float health{};
-	float damage{};
+	Vector3 enemyBoxSize;
+	bool active;
+	bool attacking;
+	int health;
+	int damage;
 };
 
 
