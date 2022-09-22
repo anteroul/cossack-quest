@@ -7,20 +7,20 @@ bool GameManager::wallCollision(Vector3 player, BoundingBox wallBox)
 	return CheckCollisionBoxes(playerBox, wallBox);
 }
 
-int GameManager::prevWeapon()
+int GameManager::prevWeapon(int index)
 {
-    if (weapon[cWeapon - 1].inInventory && cWeapon > 0)
-        cWeapon--;
+    if (weapon[index - 1].inInventory && index > 0)
+        return index--;
 
-    return cWeapon;
+    return index;
 }
 
-int GameManager::nextWeapon()
+int GameManager::nextWeapon(int index)
 {
-    if (weapon[cWeapon + 1].inInventory && cWeapon < 4)
-        cWeapon++;
+    if (weapon[index + 1].inInventory && index < 4)
+        return index++;
 
-    return cWeapon;
+    return index;
 }
 
 bool GameManager::mouseWheelUp()

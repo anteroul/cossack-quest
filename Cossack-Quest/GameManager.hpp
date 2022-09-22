@@ -6,8 +6,8 @@ class GameManager
 {
 public:
 	static bool wallCollision(Vector3 player, BoundingBox wallBox);
-	static int prevWeapon();
-	static int nextWeapon();
+	static int prevWeapon(int index);
+	static int nextWeapon(int index);
 	static bool mouseWheelUp();
 	static bool mouseWheelDown();
 };

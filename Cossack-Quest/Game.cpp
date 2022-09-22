@@ -3,7 +3,7 @@
 #define RLIGHTS_IMPLEMENTATION
 #include "shaders/rlights.hpp"
 
-Game::Game() : wall({0.0f, 0.0f, 0.0f} ,LoadTexture("assets/wall.png"), LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f)))
+Game::Game()
 {
     initGame();
 }
@@ -14,9 +14,8 @@ Game::~Game()
 void Game::initGame()
 {
     // Initialize textures and models:
-    wall.texture = LoadTexture("assets/wall.png");
-    wall.model = LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f));
-    wall.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall.texture;
+    wall = new GameObject({0.0f, 0.0f, 0.0f} ,LoadTexture("assets/wall.png"), LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f)));
+    wall->model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall->texture;
     hud = LoadTexture("assets/hud.png");
 
     // Define weapon textures:
@@ -66,7 +65,7 @@ void Game::initGame()
     ambientLoc = GetShaderLocation(shader, "ambient");
     fogDensityLoc = GetShaderLocation(shader, "fogDensity");
     SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
-    wall.model.materials[0].shader = shader;
+    wall->model.materials[0].shader = shader;
 
     // Define camera:
     camera.position = player.playerPos;
@@ -137,10 +136,10 @@ void Game::update()
     }
 
     if (GameManager::mouseWheelDown())
-        cWeapon = GameManager::prevWeapon();
+        cWeapon = GameManager::prevWeapon(cWeapon);
 
     if (GameManager::mouseWheelUp())
-        cWeapon = GameManager::nextWeapon();
+        cWeapon = GameManager::nextWeapon(cWeapon);
 
     if (player.attacking)
     {
@@ -232,7 +231,7 @@ void Game::draw()
         for (int x = 0; x < 8; x++)
             for (int y = 0; y < 8; y++)
                 if (map[x][y] == 1)
-                    DrawModel(wall.model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
+                    DrawModel(wall->model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
 
         EndMode3D();
 
@@ -280,7 +279,9 @@ void Game::deInit()
             delete wall;
     }
 
-    UnloadTexture(wall.texture);
-    UnloadModel(wall.model);
+    UnloadTexture(wall->texture);
+    UnloadModel(wall->model);
     UnloadShader(shader);
+
+    delete wall;
 }

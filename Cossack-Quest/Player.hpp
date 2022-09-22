@@ -3,7 +3,7 @@
 
 #include "Weapon.hpp"
 
-typedef struct Player {
+struct Player {
 	Vector3 playerPos;
 	int health;
 	int stamina;
@@ -11,6 +11,6 @@ typedef struct Player {
 	unsigned int gold;
 	Weapon weapon;
 	bool attacking;
-} Player;
+};
 
 #endif //COSSACKQUEST_PLAYER_HPP

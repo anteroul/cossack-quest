@@ -1,6 +1,6 @@
-#include "cstdlib"
-#include "raylib.h"
-#include "raymath.h"
+#include <cstdlib>
+#include <raylib.h>
+#include <raymath.h>
 #include "Player.hpp"
 #include "GameManager.hpp"
 #include "Enemy.hpp"
@@ -24,12 +24,17 @@ private:
 	int fogDensityLoc;
 	float fogDensity = 0.12f;
 	unsigned int cFrame = 0;
+	unsigned int cWeapon = 0;
+	int weaponFrame = 0;
 	int level = 0;
 	Shader shader;
-	GameObject wall;
+	GameObject* wall = nullptr;
 	Player player;
 	Camera camera;
 	Texture2D hud;
+	Texture2D weaponTexture[5];
+	Vector2 weaponPosition;
+	Rectangle weaponRec;
 	BoundingBox* walls[64] = { nullptr };
     [[maybe_unused]] Sound swingSfx;
 

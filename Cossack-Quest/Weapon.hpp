@@ -5,12 +5,6 @@
 
 enum weaponID { PITCHFORK, SWORD_BRONZE, SWORD_IRON, CROSSBOW, MUSKET };
 
-static int cWeapon = 0;
-static Texture2D weaponTexture[5];
-static Vector2 weaponPosition;
-static Rectangle weaponRec;
-static int weaponFrame = 0;
-
 struct Weapon {
 	std::string name;
 	int dmg;
