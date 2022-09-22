@@ -10,7 +10,7 @@ bool GameManager::wallCollision(Vector3 player, BoundingBox wallBox)
 int GameManager::prevWeapon(int index)
 {
     if (weapon[index - 1].inInventory && index > 0)
-        return index--;
+        index--;
 
     return index;
 }
@@ -18,7 +18,7 @@ int GameManager::prevWeapon(int index)
 int GameManager::nextWeapon(int index)
 {
     if (weapon[index + 1].inInventory && index < 4)
-        return index++;
+        index++;
 
     return index;
 }

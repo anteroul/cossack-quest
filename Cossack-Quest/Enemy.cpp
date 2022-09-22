@@ -19,5 +19,7 @@ void Enemy::update()
 	{
 		if (health <= 0)
 			active = false;
+
+		enemyBounds = { enemyBoxSize.x, enemyBoxSize.y, enemyBoxSize.z };
 	}
 }
