@@ -6,6 +6,8 @@ Enemy::Enemy(Model model, Texture tex, Vector3 pos, Vector3 size, int hp, int dm
 	damage = dmg;
 	enemyBoxSize = size;
 	attacking = false;
+	collisionWall = false;
+	collisionPlayer = false;
 	enemyBounds = BoundingBox{ enemyBoxSize.x, enemyBoxSize.y, enemyBoxSize.z };
 	model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
 }

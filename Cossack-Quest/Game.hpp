@@ -1,3 +1,4 @@
+#include <array>
 #include <cstdlib>
 #include <raylib.h>
 #include <raymath.h>
@@ -28,24 +29,27 @@ private:
 	int weaponFrame = 0;
 	int level = 0;
 	Shader shader;
-	GameObject* wall = nullptr;
-	Player player;
 	Camera camera;
+	Player player;
+	GameObject* wall = nullptr;
+	std::array<Enemy*, 64> enemy = { nullptr };
+	std::array<BoundingBox*, 64> walls = { nullptr };
+	Model enemyModel;
+	Texture2D enemyTexture;
 	Texture2D hud;
 	Texture2D weaponTexture[5];
 	Vector2 weaponPosition;
 	Rectangle weaponRec;
-	BoundingBox* walls[64] = { nullptr };
     [[maybe_unused]] Sound swingSfx;
 
 	int map[8][8] = {
 			1, 1, 1, 1, 1, 1, 1, 1,
-			1, 0, 0, 1, 0, 0, 0, 1,
+			1, 0, 0, 1, 3, 0, 0, 1,
 			1, 0, 0, 1, 0, 1, 0, 1,
 			1, 0, 0, 0, 0, 1, 0, 1,
 			1, 1, 1, 0, 1, 1, 0, 1,
 			1, 0, 1, 0, 1, 1, 1, 1,
-			1, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 0, 0, 0, 0, 3, 1,
 			1, 1, 1, 1, 1, 1, 1, 1
 	};
 };

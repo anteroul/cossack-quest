@@ -9,6 +9,8 @@ public:
 	Enemy(Model model, Texture tex, Vector3 pos, Vector3 size, int hp, int dmg);
 	~Enemy();
 	void update();
+	bool collisionWall;
+	bool collisionPlayer;
 	BoundingBox enemyBounds;
 private:
 	Vector3 enemyBoxSize;

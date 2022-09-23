@@ -17,6 +17,9 @@ void Game::initGame()
     wall = new GameObject({0.0f, 0.0f, 0.0f} ,LoadTexture("assets/wall.png"), LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f)));
     wall->model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall->texture;
     hud = LoadTexture("assets/hud.png");
+	enemyTexture = LoadTexture("assets/enemies/wizard.png");
+	enemyModel = LoadModelFromMesh(GenMeshCube(2.0f, 6.0f, 1.0f));
+	enemyModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = enemyTexture;
 
     // Define weapon textures:
     weaponTexture[0] = LoadTexture("assets/weapons/weapon1.png");
@@ -39,7 +42,7 @@ void Game::initGame()
     weaponRec = { 0, 0, (float)weaponTexture[0].width / 4, (float)weaponTexture[0].height / 2 };
 
     // Initialize sounds:
-    // TODO: Sounds
+    // TODO: *Initialize sounds here*
     InitAudioDevice();
     //LoadSound("assets/sounds/swing.mp3");
 
@@ -52,6 +55,8 @@ void Game::initGame()
         {
             if (map[x][y] == 1)
                 walls[iterator] = new BoundingBox{ x * 8.0f - 12.0f, 0.0f, y * 8.0f - 12.0f, x * 8.0f - 4.0f, 8.0f, y * 8.0f - 4.0f };
+			else if (map[x][y] == 3)
+				enemy[iterator] = new Enemy(enemyModel, enemyTexture, { x * 8.0f, 0.0f, y * 8.0f}, {2.0f, 8.0f, 1.0f}, 100, 15);
             else
                 walls[iterator] = nullptr;
             iterator++;
@@ -117,6 +122,24 @@ void Game::update()
             if (GameManager::wallCollision(camera.position, *walls[i]) && !noClip)
                 camera.position = oldCamPos;
         }
+		/* WHY IS THIS NOT WORKING!!!!?????
+		// Update enemies:
+		for (auto & j : enemy)
+		{
+			if (j != nullptr)
+			{
+				j->update();
+
+				if (GameManager::wallCollision(j->position, *walls[i]))
+					j->collisionWall = true;
+				if (GameManager::wallCollision(camera.position, j->enemyBounds) && !noClip)
+				{
+					camera.position = oldCamPos;
+					j->collisionPlayer = true;
+				}
+			}
+		}
+		*/
     }
 
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !player.attacking)
@@ -273,16 +296,22 @@ void Game::deInit()
     //UnloadSound(swingSfx);
     CloseAudioDevice();
 
-    for (auto & wall : walls)
+    for (auto & i : walls)
     {
         if (wall != nullptr)
-            delete wall;
+            delete i;
     }
 
+	for (auto & i : enemy)
+		if (i != nullptr)
+			delete i;
+
+	UnloadTexture(enemyTexture);
     UnloadTexture(wall->texture);
     UnloadModel(wall->model);
+	UnloadModel(enemyModel);
     UnloadShader(shader);
 
-    delete wall;
+	delete wall;
 }
 
