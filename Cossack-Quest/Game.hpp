@@ -24,9 +24,6 @@ private:
 	int ambientLoc;
 	int fogDensityLoc;
 	float fogDensity = 0.12f;
-	unsigned int cFrame = 0;
-	unsigned int cWeapon = 0;
-	int weaponFrame = 0;
 	int level = 0;
 	Shader shader;
 	Camera camera;
@@ -40,7 +37,14 @@ private:
 	Texture2D weaponTexture[5];
 	Vector2 weaponPosition;
 	Rectangle weaponRec;
-    [[maybe_unused]] Sound swingSfx;
+
+	struct weaponData {
+		unsigned int cFrame = 0;
+		unsigned int cWeapon = 0;
+		int weaponFrame = 0;
+	};
+
+	weaponData wd;
 
 	int map[8][8] = {
 			1, 1, 1, 1, 1, 1, 1, 1,

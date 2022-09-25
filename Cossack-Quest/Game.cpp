@@ -35,7 +35,7 @@ void Game::initGame()
     player.gold = 0;
     player.gameOver = false;
     player.playerPos = { 0.0f, 4.0f, 0.0f };
-    player.weapon = weapon[cWeapon];
+    player.weapon = weapon[wd.cWeapon];
     player.attacking = false;
 
     weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };
@@ -44,7 +44,6 @@ void Game::initGame()
     // Initialize sounds:
     // TODO: *Initialize sounds here*
     InitAudioDevice();
-    //LoadSound("assets/sounds/swing.mp3");
 
     // Define walls:
     int iterator = 0;
@@ -110,7 +109,7 @@ void Game::update()
     Vector3 oldCamPos = camera.position;
 
     player.playerPos = camera.position;
-    player.weapon = weapon[cWeapon];
+    player.weapon = weapon[wd.cWeapon];
 
     UpdateCamera(&camera);                  // Update camera
     
@@ -148,45 +147,45 @@ void Game::update()
         {
             player.attacking = true;
             player.stamina -= 30;
-            weaponFrame++;
+            wd.weaponFrame++;
         }
         if (player.weapon.ammo > 0 && !player.weapon.melee)
         {
             player.attacking = true;
-            weaponFrame++;
-            weapon[cWeapon].ammo--;
+            wd.weaponFrame++;
+            weapon[wd.cWeapon].ammo--;
         }
     }
 
     if (GameManager::mouseWheelDown())
-        cWeapon = GameManager::prevWeapon(cWeapon);
+        wd.cWeapon = GameManager::prevWeapon(wd.cWeapon);
 
     if (GameManager::mouseWheelUp())
-        cWeapon = GameManager::nextWeapon(cWeapon);
+        wd.cWeapon = GameManager::nextWeapon(wd.cWeapon);
 
     if (player.attacking)
     {
-        if (cWeapon == SWORD_BRONZE || cWeapon == SWORD_IRON)
+        if (wd.cWeapon == SWORD_BRONZE || wd.cWeapon == SWORD_IRON)
             weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.6f };
 
-        weaponRec.x = 400.0f * weaponFrame;
+        weaponRec.x = 400.0f * wd.weaponFrame;
         weaponRec.y = 400.0f;
 
-        if (weaponFrame > 3)
+        if (wd.weaponFrame > 3)
         {
-            weaponFrame = 0;
+            wd.weaponFrame = 0;
             weaponRec.y = 0.0f;
             weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };
             player.attacking = false;
         }
-        if (cFrame == 5 && weaponFrame < 4)
+        if (wd.cFrame == 5 && wd.weaponFrame < 4)
         {
-            weaponFrame++;
-            cFrame = 0;
+            wd.weaponFrame++;
+            wd.cFrame = 0;
         }
-        cFrame++;
+        wd.cFrame++;
     }
-    else if (cWeapon == SWORD_BRONZE || cWeapon == SWORD_IRON && !player.attacking)
+    else if (wd.cWeapon == SWORD_BRONZE || wd.cWeapon == SWORD_IRON && !player.attacking)
         weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.325f };
     else
         weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };
@@ -259,7 +258,7 @@ void Game::draw()
         EndMode3D();
 
         // Draw HUD:
-        DrawTextureRec(weaponTexture[cWeapon], weaponRec, weaponPosition, WHITE);
+        DrawTextureRec(weaponTexture[wd.cWeapon], weaponRec, weaponPosition, WHITE);
 
         DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.000625f * GetScreenWidth(), WHITE);
         DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);
@@ -268,7 +267,7 @@ void Game::draw()
         if (!player.weapon.melee)
             DrawText(TextFormat("%03i", player.weapon.ammo), GetScreenWidth() * 0.625f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, YELLOW);
 
-        DrawText(weapon[cWeapon].name.c_str(), GetScreenWidth() * 0.8f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 30, WHITE);
+        DrawText(weapon[wd.cWeapon].name.c_str(), GetScreenWidth() * 0.8f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 30, WHITE);
 
         DrawFPS(0, 0); // Draw FPS
 
@@ -293,7 +292,6 @@ void Game::deInit()
 
     // De-initialize sounds:
     // TODO: De-initialization of sounds here.
-    //UnloadSound(swingSfx);
     CloseAudioDevice();
 
     for (auto & i : walls)
