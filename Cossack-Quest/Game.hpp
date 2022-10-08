@@ -4,7 +4,7 @@
 #include <raymath.h>
 #include "Player.hpp"
 #include "GameManager.hpp"
-#include "Enemy.hpp"
+#include "GameObject.hpp"
 
 class Game
 {
@@ -29,10 +29,7 @@ private:
 	Camera camera;
 	Player player;
 	GameObject* wall = nullptr;
-	std::array<Enemy*, 64> enemy = { nullptr };
 	std::array<BoundingBox*, 64> walls = { nullptr };
-	Model enemyModel;
-	Texture2D enemyTexture;
 	Texture2D hud;
 	Texture2D weaponTexture[5];
 	Vector2 weaponPosition;
@@ -48,12 +45,12 @@ private:
 
 	int map[8][8] = {
 			1, 1, 1, 1, 1, 1, 1, 1,
-			1, 0, 0, 1, 3, 0, 0, 1,
+			1, 0, 0, 1, 0, 0, 0, 1,
 			1, 0, 0, 1, 0, 1, 0, 1,
 			1, 0, 0, 0, 0, 1, 0, 1,
 			1, 1, 1, 0, 1, 1, 0, 1,
 			1, 0, 1, 0, 1, 1, 1, 1,
-			1, 0, 0, 0, 0, 0, 3, 1,
+			1, 0, 0, 0, 0, 0, 0, 1,
 			1, 1, 1, 1, 1, 1, 1, 1
 	};
 };
