@@ -3,7 +3,7 @@
 #include <raylib.h>
 #include <raymath.h>
 #include "Player.hpp"
-#include "GameManager.hpp"
+#include "PlayerControl.hpp"
 #include "GameObject.hpp"
 
 class Game

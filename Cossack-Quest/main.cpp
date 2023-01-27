@@ -6,7 +6,7 @@
 int main()
 {
     SetConfigFlags(FLAG_MSAA_4X_HINT);
-    InitWindow(1280, 720, "Valiant Engine V2");
+    InitWindow(1280, 720, "The Last Cossack");
     SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
     //ToggleFullscreen();
 

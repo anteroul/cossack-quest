@@ -2,7 +2,7 @@
 #include <raylib.h>
 #include "Weapon.hpp"
 
-class GameManager
+class PlayerControl
 {
 public:
 	static bool wallCollision(Vector3 player, BoundingBox wallBox);

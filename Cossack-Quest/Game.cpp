@@ -112,7 +112,7 @@ void Game::update()
     {
         if (walls[i] != nullptr)
         {
-            if (GameManager::wallCollision(camera.position, *walls[i]) && !noClip)
+            if (PlayerControl::wallCollision(camera.position, *walls[i]) && !noClip)
                 camera.position = oldCamPos;
         }
     }
@@ -133,11 +133,11 @@ void Game::update()
         }
     }
 
-    if (GameManager::mouseWheelDown())
-        wd.cWeapon = GameManager::prevWeapon(wd.cWeapon);
+    if (PlayerControl::mouseWheelDown())
+        wd.cWeapon = PlayerControl::prevWeapon(wd.cWeapon);
 
-    if (GameManager::mouseWheelUp())
-        wd.cWeapon = GameManager::nextWeapon(wd.cWeapon);
+    if (PlayerControl::mouseWheelUp())
+        wd.cWeapon = PlayerControl::nextWeapon(wd.cWeapon);
 
     if (player.attacking)
     {

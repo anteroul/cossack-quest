@@ -14,7 +14,7 @@ FetchContent_MakeAvailable(raylib)
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS "../${CMAKE_CURRENT_LIST_DIR}/*.cpp") # Define PROJECT_SOURCES as a list of all source files
 set(PROJECT_INCLUDE "../${CMAKE_CURRENT_LIST_DIR}/") # Define PROJECT_INCLUDE to be the path to the include directory of the project
 
-add_executable(CossackQuest ../main.cpp ../Game.cpp ../Game.hpp ../GameManager.cpp ../GameManager.hpp
+add_executable(CossackQuest ../main.cpp ../Game.cpp ../Game.hpp ../PlayerControl.cpp ../PlayerControl.hpp
         ../shaders/rlights.h ../GameObject.hpp ../Player.hpp ../Weapon.hpp ../GameObject.cpp)
 
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})

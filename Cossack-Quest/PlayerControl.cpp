@@ -1,13 +1,13 @@
-#include "GameManager.hpp"
+#include "PlayerControl.hpp"
 
-bool GameManager::wallCollision(Vector3 player, BoundingBox wallBox)
+bool PlayerControl::wallCollision(Vector3 player, BoundingBox wallBox)
 {
 	BoundingBox playerBox = {player.x - 0.5f, player.y - 2.0f, player.z - 0.5f, player.x + 0.5f, player.y, player.z + 0.5f };
 
 	return CheckCollisionBoxes(playerBox, wallBox);
 }
 
-int GameManager::prevWeapon(int index)
+int PlayerControl::prevWeapon(int index)
 {
     if (weapon[index - 1].inInventory && index > 0)
         index--;
@@ -15,7 +15,7 @@ int GameManager::prevWeapon(int index)
     return index;
 }
 
-int GameManager::nextWeapon(int index)
+int PlayerControl::nextWeapon(int index)
 {
     if (weapon[index + 1].inInventory && index < 4)
         index++;
@@ -23,12 +23,12 @@ int GameManager::nextWeapon(int index)
     return index;
 }
 
-bool GameManager::mouseWheelUp()
+bool PlayerControl::mouseWheelUp()
 {
     return 0 < GetMouseWheelMove();
 }
 
-bool GameManager::mouseWheelDown()
+bool PlayerControl::mouseWheelDown()
 {
     return 0 > GetMouseWheelMove();
 }
