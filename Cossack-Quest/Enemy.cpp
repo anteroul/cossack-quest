@@ -17,6 +17,7 @@ Enemy::Enemy(Vector3 pos, Texture tex, Model mod, BoundingBox* wa) : GameObject(
 	model = mod;
 	wallArray = wa;
 	wallIndex = nullptr;
+	attacking = false;
 	alive = true;
 }
 

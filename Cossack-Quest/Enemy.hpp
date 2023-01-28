@@ -30,6 +30,7 @@ private:
 	};
 
 	bool alive;
+	bool attacking;
 	BoundingBox* wallArray;
 	BoundingBox* wallIndex;
 
