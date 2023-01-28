@@ -271,8 +271,7 @@ void Game::deInit()
 
     for (auto& i : walls)
     {
-        if (wall != nullptr)
-            delete i;
+		delete i;
     }
 
 	delete wall;
