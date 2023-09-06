@@ -1,11 +1,18 @@
 #include "Game.hpp"
 
+#define GLSL_VERSION  330
+
 #define RLIGHTS_IMPLEMENTATION
 #include "shaders/rlights.h"
 
-Game::Game(bool consoleEnabled)
+Game::Game(int wWidth, int wHeight, const char* wTitle, bool fullscreenEnabled, bool consoleEnabled)
 {
+    SetConfigFlags(FLAG_MSAA_4X_HINT);
+    InitWindow(1280, 720, "The Last Cossack");
+    SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
+    if (fullscreenEnabled) ToggleFullscreen();
     debugMode = consoleEnabled;
+    windowSize = {static_cast<float>(wWidth), static_cast<float>(wHeight)};
     initGame();
 }
 
@@ -120,7 +127,9 @@ void Game::update()
     player.playerPos = cam3D.position;
     player.weapon = weapon[wd.cWeapon];
 
-    UpdateCamera(&cam3D, CAMERA_FIRST_PERSON);                  // Update cam3D
+    UpdateCamera(&cam3D, CAMERA_FIRST_PERSON);                  // Update camera
+
+    PlayerControl::placeCursorMiddle(windowSize, GetMousePosition());
     
     // Wall collision logic:
     for (int i = 0; i < 64; i++)
@@ -236,7 +245,7 @@ void Game::draw()
     {
         BeginMode3D(cam3D);
 
-        DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, GRAY); // Draw ground
+        DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, GRAY); // Draw groundd
         
         DrawPlane(Vector3{ 0.0f, -40.0f, 0.0f }, Vector2{ 400.0f, 400.0f }, DARKGREEN);
 

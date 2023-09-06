@@ -6,10 +6,11 @@
 #include "PlayerControl.hpp"
 #include "GameObject.hpp"
 
+
 class Game
 {
 public:
-	Game(bool consoleEnabled);
+	Game(int wWidth, int wHeight, const char* wTitle, bool fullscreenEnabled, bool consoleEnabled);
 	~Game();
 	void runApplication();
 private:
@@ -33,6 +34,7 @@ private:
 	Texture2D hud{};
 	Texture2D weaponTexture[5]{};
 	Vector2 weaponPosition{};
+    Vector2 windowSize{};
 	Rectangle weaponRec{};
 
 	struct weaponData {
