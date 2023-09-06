@@ -10,7 +10,7 @@ int main()
     SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
     //ToggleFullscreen();
 
-    Game game;
+    Game game(true);
 
     while (!WindowShouldClose())
     {

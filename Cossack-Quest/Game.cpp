@@ -3,8 +3,9 @@
 #define RLIGHTS_IMPLEMENTATION
 #include "shaders/rlights.h"
 
-Game::Game()
+Game::Game(bool consoleEnabled)
 {
+    debugMode = consoleEnabled;
     initGame();
 }
 
@@ -82,12 +83,12 @@ void Game::initGame()
     SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
     wall->model.materials[0].shader = shader;
 
-    // Define camera:
-    camera.position = player.playerPos;
-    camera.target = { 0.0f, 1.8f, 0.0f };
-    camera.up = { 0.0f, 1.0f, 0.0f };
-    camera.fovy = 60.0f;
-    camera.projection = CAMERA_PERSPECTIVE;
+    // Define cam3D:
+    cam3D.position = player.playerPos;
+    cam3D.target = { 0.0f, 1.8f, 0.0f };
+    cam3D.up = { 0.0f, 1.0f, 0.0f };
+    cam3D.fovy = 60.0f;
+    cam3D.projection = CAMERA_PERSPECTIVE;
 
     // Using just 1 point lights
     CreateLight(LIGHT_DIRECTIONAL, { -100, 10, -100 }, Vector3Zero(), DARKGRAY, shader);
@@ -104,30 +105,30 @@ void Game::resetGame()
     player.gold = 0;
     player.gameOver = false;
 
-    camera.position = { 0.0f, 4.0f, 0.0f };
-    camera.target = { 0.0f, 1.8f, 0.0f };
-    camera.up = { 0.0f, 1.0f, 0.0f };
-    camera.fovy = 60.0f;
-    camera.projection = CAMERA_PERSPECTIVE;
+    cam3D.position = { 0.0f, 4.0f, 0.0f };
+    cam3D.target = { 0.0f, 1.8f, 0.0f };
+    cam3D.up = { 0.0f, 1.0f, 0.0f };
+    cam3D.fovy = 60.0f;
+    cam3D.projection = CAMERA_PERSPECTIVE;
 }
 
 
 void Game::update()
 {
-    Vector3 oldCamPos = camera.position;
+    Vector3 oldCamPos = cam3D.position;
 
-    player.playerPos = camera.position;
+    player.playerPos = cam3D.position;
     player.weapon = weapon[wd.cWeapon];
 
-    UpdateCamera(&camera, CAMERA_FIRST_PERSON);                  // Update camera
+    UpdateCamera(&cam3D, CAMERA_FIRST_PERSON);                  // Update cam3D
     
     // Wall collision logic:
     for (int i = 0; i < 64; i++)
     {
         if (walls[i] != nullptr)
         {
-            if (PlayerControl::wallCollision(camera.position, *walls[i]) && !noClip)
-                camera.position = oldCamPos;
+            if (PlayerControl::wallCollision(cam3D.position, *walls[i]) && !noClip)
+                cam3D.position = oldCamPos;
         }
     }
 
@@ -219,22 +220,21 @@ void Game::update()
 
     SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
 
-    // Update the light shader with the camera view position
-    SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], &camera.position.x, SHADER_UNIFORM_VEC3);
+    // Update the light shader with the cam3D view position
+    SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], &cam3D.position.x, SHADER_UNIFORM_VEC3);
 
 }
 
 
 void Game::draw()
 {
-
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
 
     if (!player.gameOver)
     {
-        BeginMode3D(camera);
+        BeginMode3D(cam3D);
 
         DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, GRAY); // Draw ground
         
@@ -258,16 +258,15 @@ void Game::draw()
             DrawText(TextFormat("%03i", player.weapon.ammo), GetScreenWidth() * 0.625f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, YELLOW);
 
         DrawText(weapon[wd.cWeapon].name.c_str(), GetScreenWidth() * 0.8f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 30, WHITE);
-
-        DrawFPS(0, 0); // Draw FPS
     }
+    DrawFPS(0, 0); // Draw FPS
     EndDrawing();
 }
 
 
 void Game::runApplication()
 {
-    update();
     draw();
+    update();
 }
 

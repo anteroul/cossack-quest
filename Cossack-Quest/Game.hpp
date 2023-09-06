@@ -9,7 +9,7 @@
 class Game
 {
 public:
-	Game();
+	Game(bool consoleEnabled);
 	~Game();
 	void runApplication();
 private:
@@ -20,19 +20,20 @@ private:
 	bool noClip = false;
 	bool debugMode = true;
 	bool debugCoordinates = true;
-	int ambientLoc;
-	int fogDensityLoc;
+	int ambientLoc{};
+	int fogDensityLoc{};
 	float fogDensity = 0.12f;
 	int level = 0;
-	Shader shader;
-	Camera3D camera;
+	Shader shader{};
+	Camera3D cam3D{};
+    Camera2D cam2D{};
 	Player player;
 	GameObject* wall = nullptr;
 	std::array<BoundingBox*, 64> walls = { nullptr };
-	Texture2D hud;
-	Texture2D weaponTexture[5];
-	Vector2 weaponPosition;
-	Rectangle weaponRec;
+	Texture2D hud{};
+	Texture2D weaponTexture[5]{};
+	Vector2 weaponPosition{};
+	Rectangle weaponRec{};
 
 	struct weaponData {
 		unsigned int cFrame = 0;
