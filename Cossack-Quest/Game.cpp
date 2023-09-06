@@ -9,7 +9,24 @@ Game::Game()
 }
 
 Game::~Game()
-{}
+{
+    for (auto& i : weaponTexture)
+        UnloadTexture(i);
+
+    UnloadTexture(hud);
+    UnloadTexture(wall->texture);
+    UnloadModel(wall->model);
+    UnloadShader(shader);
+
+    for (auto& i : walls)
+    {
+        delete i;
+    }
+
+    delete wall;
+
+    CloseWindow();
+}
 
 void Game::initGame()
 {
@@ -77,8 +94,6 @@ void Game::initGame()
     CreateLight(LIGHT_DIRECTIONAL, { -100, 10, 100 }, Vector3Zero(), DARKGRAY, shader);
     CreateLight(LIGHT_DIRECTIONAL, { 100, 10, 100 }, Vector3Zero(), DARKGRAY, shader);
     CreateLight(LIGHT_DIRECTIONAL, { 100, 10, -100 }, Vector3Zero(), DARKGRAY, shader);
-
-    SetCameraMode(camera, CAMERA_FIRST_PERSON); // Set a first person camera mode
 }
 
 
@@ -94,7 +109,6 @@ void Game::resetGame()
     camera.up = { 0.0f, 1.0f, 0.0f };
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
-    SetCameraMode(camera, CAMERA_FIRST_PERSON); // Set a first person camera mode
 }
 
 
@@ -105,7 +119,7 @@ void Game::update()
     player.playerPos = camera.position;
     player.weapon = weapon[wd.cWeapon];
 
-    UpdateCamera(&camera);                  // Update camera
+    UpdateCamera(&camera, CAMERA_FIRST_PERSON);                  // Update camera
     
     // Wall collision logic:
     for (int i = 0; i < 64; i++)
@@ -246,9 +260,8 @@ void Game::draw()
         DrawText(weapon[wd.cWeapon].name.c_str(), GetScreenWidth() * 0.8f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 30, WHITE);
 
         DrawFPS(0, 0); // Draw FPS
-
-        EndDrawing();
     }
+    EndDrawing();
 }
 
 
@@ -256,24 +269,5 @@ void Game::runApplication()
 {
     update();
     draw();
-}
-
-
-void Game::deInit()
-{
-    for (auto & i : weaponTexture)
-        UnloadTexture(i);
-
-    UnloadTexture(hud);
-    UnloadTexture(wall->texture);
-    UnloadModel(wall->model);
-    UnloadShader(shader);
-
-    for (auto& i : walls)
-    {
-		delete i;
-    }
-
-	delete wall;
 }
 

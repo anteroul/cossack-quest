@@ -16,9 +16,6 @@ int main()
     {
         game.runApplication();
     }
-
-    game.deInit();
-    CloseWindow();
     
     return 0;
 }

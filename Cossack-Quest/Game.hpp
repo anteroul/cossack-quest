@@ -12,7 +12,6 @@ public:
 	Game();
 	~Game();
 	void runApplication();
-	void deInit();
 private:
 	void update();
 	void initGame();
@@ -26,7 +25,7 @@ private:
 	float fogDensity = 0.12f;
 	int level = 0;
 	Shader shader;
-	Camera camera;
+	Camera3D camera;
 	Player player;
 	GameObject* wall = nullptr;
 	std::array<BoundingBox*, 64> walls = { nullptr };
