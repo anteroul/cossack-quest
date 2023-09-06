@@ -85,7 +85,7 @@ void Game::initGame()
 
     // Define cam3D:
     cam3D.position = player.playerPos;
-    cam3D.target = { 0.0f, 1.8f, 0.0f };
+    cam3D.target = Vector3Add(player.playerPos, Vector3{ 0,0,1 });
     cam3D.up = { 0.0f, 1.0f, 0.0f };
     cam3D.fovy = 60.0f;
     cam3D.projection = CAMERA_PERSPECTIVE;
@@ -266,7 +266,7 @@ void Game::draw()
 
 void Game::runApplication()
 {
-    draw();
     update();
+    draw();
 }
 
