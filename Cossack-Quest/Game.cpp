@@ -31,6 +31,7 @@ Game::~Game()
 
     delete enemy;
     delete wall;
+    delete ground;
 
     CloseWindow();
 }
@@ -38,6 +39,8 @@ Game::~Game()
 void Game::initGame()
 {
     // Initialize textures and models:
+    ground = new GameObject({0.0f, 0.0f, 0.0f}, LoadTexture("assets/dirt.png"), LoadModelFromMesh(GenMeshPlane(8.0f * 16, 8.0f * 16, 8, 8)));
+    ground->model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = ground->texture;
     wall = new GameObject({0.0f, 0.0f, 0.0f}, LoadTexture("assets/wall.png"), LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f)));
     wall->model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall->texture;
     hud = LoadTexture("assets/hud.png");
@@ -255,9 +258,7 @@ void Game::draw()
     {
         BeginMode3D(cam3D);
 
-        DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, BLACK); // Draw ground
-        
-        DrawPlane(Vector3{ 0.0f, -40.0f, 0.0f }, Vector2{ 400.0f, 400.0f }, DARKGREEN);
+        DrawModel(ground->model, { 0.0f, 0.0f, 0.0f }, 1.0f, GRAY);
 
         for (int x = 0; x < 8; x++)
             for (int y = 0; y < 8; y++)

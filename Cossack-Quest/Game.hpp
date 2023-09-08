@@ -28,10 +28,10 @@ private:
 	int level = 0;
 	Shader shader{};
 	Camera3D cam3D{};
-    Camera2D cam2D{};
-	Player player;
+	Player player{};
     Enemy* enemy = nullptr;
 	GameObject* wall = nullptr;
+	GameObject* ground = nullptr;
 	std::array<BoundingBox*, 64> walls = { nullptr };
 	Texture2D hud{};
 	Texture2D weaponTexture[5]{};
