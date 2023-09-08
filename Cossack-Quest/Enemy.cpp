@@ -2,16 +2,6 @@
 #include <cmath>
 #include <raymath.h>
 
-#define NORTH 0
-#define NORTHEAST 1
-#define EAST 2
-#define SOUTHEAST 3
-#define SOUTH 4
-#define SOUTHWEST 5
-#define WEST 6
-#define NORTHWEST 7
-
-
 Enemy::Enemy(Vector3 pos, Texture tex, Model mod, std::array<BoundingBox*, 64> wa) : GameObject(pos, tex, mod)
 {
 	position = pos;
@@ -25,7 +15,6 @@ Enemy::Enemy(Vector3 pos, Texture tex, Model mod, std::array<BoundingBox*, 64> w
 
 Enemy::~Enemy() = default;
 
-
 void Enemy::update(Player* target)
 {
     BoundingBox box = {{position.x * 8.f - 10.f, 0.f, position.z * 8.f - 10.f}, {position.x * 8.f - 6.f, 4.f, position.z * 8.f - 6.f}};
@@ -35,6 +24,8 @@ void Enemy::update(Player* target)
     // Define mapGrid
     int map[8][8]{};
     int iterator = 0;
+    int playerX, playerY;
+    int enemyX, enemyY;
 
     std::cout << "\n\n";
 
@@ -49,14 +40,22 @@ void Enemy::update(Player* target)
                 if (target->playerPos.x > x * 8.0f - 12.0f && target->playerPos.x < x * 8.0f - 4.0f && target->playerPos.z > y * 8.0f - 12.0f && target->playerPos.z < y * 8.0f - 4.0f)
                 {
                     map[x][y] = 2;
+                    playerX = x;
+                    playerY = y;
+                } else if (position.x > x * 8.0f - 12.0f && position.x < x * 8.0f - 4.0f && position.z > y * 8.0f - 12.0f && position.z < y * 8.0f - 4.0f) {
+                    map[x][y] = 3;
+                    enemyX = x;
+                    enemyY = y;
                 } else {
                     map[x][y] = 0;
                 }
             }
-			if (map[x][y] != 2)
-				std::cout << map[x][y] << ",";
-			else
-				std::cout << "P,";
+			if (map[x][y] == 2)
+                std::cout << "P,";
+			else if (map[x][y] == 3)
+				std::cout << "E,";
+            else
+                std::cout << map[x][y] << ",";
 			iterator++;
         }
         std::cout << "\n";
@@ -68,13 +67,9 @@ void Enemy::update(Player* target)
 	{
         if (target->health > 0)
         {
-            /* TODO
-		    switch (findPath())
-		    {
-			    default:
-			    	break;
-		    }
-            */
+            std::vector<std::vector<int>> distance(ROWS, std::vector<int>(COLS, INF));
+            dijkstra(map, enemyX, enemyY, playerX, playerY, distance);
+            //std::vector<std::pair<int, int>> path = backtrack(enemyX, enemyY, playerX, playerY, distance);
         }
         if (angle > yaw + 90)
             yaw += 0.5f;
@@ -85,70 +80,75 @@ void Enemy::update(Player* target)
 	}
 }
 
-unsigned Enemy::findPath()
+void Enemy::dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow, int endCol, std::vector<std::vector<int>>& distance)
 {
-	int direction = NORTH;
-	int distance = 0;
-	int shortestRoute = -1;
-	BoundingBox box = {{position.x * 8.f - 10.f, 0.f, position.z * 8.f - 10.f}, {position.x * 8.f - 6.f, 4.f, position.z * 8.f - 6.f}};
+    const int dr[] = { -1, 1, 0, 0 };
+    const int dc[] = { 0, 0, -1, 1 };
 
-	for (;;)
-	{
-		// TODO
-		break;
-	}
+    std::vector<std::vector<bool>> visited(ROWS, std::vector<bool>(COLS, false));
 
-	return direction;
+    distance[startRow][startCol] = 0;
+
+    for (int i = 0; i < ROWS * COLS; ++i) {
+        int minDist = INF;
+        int u = -1, v = -1;
+
+        for (int r = 0; r < ROWS; ++r) {
+            for (int c = 0; c < COLS; ++c) {
+                if (!visited[r][c] && distance[r][c] < minDist) {
+                    minDist = distance[r][c];
+                    u = r;
+                    v = c;
+                }
+            }
+        }
+
+        if (u == -1 || v == -1) break;
+
+        visited[u][v] = true;
+
+        for (int dir = 0; dir < 4; ++dir) {
+            int nr = u + dr[dir];
+            int nc = v + dc[dir];
+
+            if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && !visited[nr][nc] && distance[u][v] + map[nr][nc] < distance[nr][nc]) {
+                distance[nr][nc] = distance[u][v] + map[nr][nc];
+            }
+        }
+    }
+
+    // Print the distance array or use it to navigate the path
+    std::cout << "Shortest distance from (" << startRow << "," << startCol << ") to (" << endRow << "," << endCol << ") is: " << distance[endRow][endCol] << std::endl;
 }
 
-int Enemy::heuristic(int x1, int y1, int x2, int y2)
+// TODO: Lighter solution needed. This function is a memory hog!
+std::vector<std::pair<int, int>> Enemy::backtrack(int startRow, int startCol, int endRow, int endCol, const std::vector<std::vector<int>>& distance)
 {
-	return abs(x1 - x2) + abs(y1 - y2);
-}
+    const int dr[] = { -1, 1, 0, 0 };
+    const int dc[] = { 0, 0, -1, 1 };
 
-bool Enemy::isValid(int x, int y, int rows, int cols)
-{
-	return x >= 0 && y >= 0 && x < rows && y < cols;
-}
+    std::vector<std::pair<int, int>> path;
+    
+    int currentRow = endRow;
+    int currentCol = endCol;
 
-void Enemy::a_star(std::vector<std::vector<int>>& grid, Node start, Node goal)
-{
-	std::priority_queue<Node> open;
-	std::unordered_map<int, std::unordered_map<int, bool>> closed;
-	std::vector<std::vector<int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    while (currentRow != startRow || currentCol != startCol) {
+        path.push_back({ currentRow, currentCol });
 
-	int rows = grid.size();
-	int cols = grid[0].size();
+        for (int dir = 0; dir < 4; ++dir) {
+            int nr = currentRow + dr[dir];
+            int nc = currentCol + dc[dir];
 
-	start.g = 0;
-	start.h = heuristic(start.x, start.y, goal.x, goal.y);
-	start.f = start.g + start.h;
-	open.push(start);
+            if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && distance[nr][nc] == distance[currentRow][currentCol] - 1) {
+                currentRow = nr;
+                currentCol = nc;
+                break;
+            }
+        }
+    }
 
-	while (!open.empty()) {
-		Node curr = open.top();
-		open.pop();
-		closed[curr.x][curr.y] = true;
+    path.push_back({ startRow, startCol });
+    std::reverse(path.begin(), path.end());
 
-		if (curr.x == goal.x && curr.y == goal.y) {
-			std::cout << "Found a path with a cost of " << curr.g << std::endl;
-			return;
-		}
-
-		for (const auto& dir : directions) {
-			int x = curr.x + dir[0];
-			int y = curr.y + dir[1];
-			if (isValid(x, y, rows, cols) && grid[x][y] != 1 && !closed[x][y]) {
-				Node neighbor;
-				neighbor.x = x;
-				neighbor.y = y;
-				neighbor.g = curr.g + 1;
-				neighbor.h = heuristic(x, y, goal.x, goal.y);
-				neighbor.f = neighbor.g + neighbor.h;
-				open.push(neighbor);
-			}
-		}
-	}
-
-	std::cout << "No path found\n";
+    return path;
 }

@@ -4,11 +4,16 @@
 #include <array>
 #include <iostream>
 #include <vector>
+#include <limits>
 #include <queue>
 #include <unordered_map>
 #include "GameObject.hpp"
 #include "Player.hpp"
 #include "PlayerControl.hpp"
+
+#define ROWS 8
+#define COLS 8
+
 
 class Enemy : public GameObject
 {
@@ -21,25 +26,19 @@ public:
 	Texture texture;
 	Model model;
 private:
-    float yaw;
+	void dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow, int endCol, std::vector<std::vector<int>>& distance);
+	std::vector<std::pair<int, int>> backtrack(int startRow, int startCol, int endRow, int endCol, const std::vector<std::vector<int>>& distance);
+
+	const int INF = std::numeric_limits<int>::max(); // Define infinity
+	std::array<BoundingBox*, 64> wallArray;
 
 	struct Node {
-		int x, y;
-		int f, g, h;
-
-		bool operator<(const Node& other) const {
-			return f > other.f;
-		}
+		int row, col, cost;
 	};
 
 	bool alive;
 	bool attacking;
-    std::array<BoundingBox*, 64> wallArray;
-
-	static int heuristic(int x1, int y1, int x2, int y2);
-	static bool isValid(int x, int y, int rows, int cols);
-	void a_star(std::vector<std::vector<int>>& grid, Node start, Node goal);
-	unsigned findPath();
+	float yaw;
 };
 
 
