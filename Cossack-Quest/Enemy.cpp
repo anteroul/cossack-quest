@@ -78,8 +78,6 @@ void Enemy::update(Player* target)
         if (angle < yaw + 90)
             yaw -= 0.5f;
 
-        std::cout << angle << std::endl;
-        std::cout << yaw << std::endl;
         model.transform = MatrixRotateXYZ({0.0f, DEG2RAD*yaw*(-1), 0.0f});
 	}
 }
