@@ -5,7 +5,7 @@
 #include "Player.hpp"
 #include "PlayerControl.hpp"
 #include "GameObject.hpp"
-
+#include "Enemy.hpp"
 
 class Game
 {
@@ -29,6 +29,7 @@ private:
 	Camera3D cam3D{};
     Camera2D cam2D{};
 	Player player;
+    Enemy* enemy = nullptr;
 	GameObject* wall = nullptr;
 	std::array<BoundingBox*, 64> walls = { nullptr };
 	Texture2D hud{};

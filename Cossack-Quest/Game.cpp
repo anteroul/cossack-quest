@@ -22,8 +22,6 @@ Game::~Game()
         UnloadTexture(i);
 
     UnloadTexture(hud);
-    UnloadTexture(wall->texture);
-    UnloadModel(wall->model);
     UnloadShader(shader);
 
     for (auto& i : walls)
@@ -31,6 +29,7 @@ Game::~Game()
         delete i;
     }
 
+    delete enemy;
     delete wall;
 
     CloseWindow();
@@ -39,7 +38,7 @@ Game::~Game()
 void Game::initGame()
 {
     // Initialize textures and models:
-    wall = new GameObject({0.0f, 0.0f, 0.0f} ,LoadTexture("assets/wall.png"), LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f)));
+    wall = new GameObject({0.0f, 0.0f, 0.0f}, LoadTexture("assets/wall.png"), LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f)));
     wall->model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall->texture;
     hud = LoadTexture("assets/hud.png");
 
@@ -69,9 +68,9 @@ void Game::initGame()
     // Define walls:
     int iterator = 0;
 
-    for (int x = 0; x < 8; x++)
+    for (int y = 0; y < 8; y++)
     {
-        for (int y = 0; y < 8; y++)
+        for (int x = 0; x < 8; x++)
         {
             if (map[x][y] == 1)
                 walls[iterator] = new BoundingBox{ x * 8.0f - 12.0f, 0.0f, y * 8.0f - 12.0f, x * 8.0f - 4.0f, 8.0f, y * 8.0f - 4.0f };
@@ -81,6 +80,10 @@ void Game::initGame()
         }
     }
 
+    // Initialize our enemy:
+    enemy = new Enemy({5 * 8.0f, 3.8f, 5 * 8.0f}, LoadTexture("assets/default.png"), LoadModel("assets/cultist_mage.glb"), walls);
+    enemy->model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = enemy->texture;
+
     // Initialize shaders:
     shader = LoadShader("shaders/glsl/base_lighting.vs", "shaders/glsl/fog.fs");
     shader.locs[SHADER_LOC_MATRIX_MODEL] = GetShaderLocation(shader, "matModel");
@@ -88,7 +91,6 @@ void Game::initGame()
     ambientLoc = GetShaderLocation(shader, "ambient");
     fogDensityLoc = GetShaderLocation(shader, "fogDensity");
     SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
-    wall->model.materials[0].shader = shader;
 
     // Define cam3D:
     cam3D.position = player.playerPos;
@@ -102,6 +104,10 @@ void Game::initGame()
     CreateLight(LIGHT_DIRECTIONAL, { -100, 10, 100 }, Vector3Zero(), DARKGRAY, shader);
     CreateLight(LIGHT_DIRECTIONAL, { 100, 10, 100 }, Vector3Zero(), DARKGRAY, shader);
     CreateLight(LIGHT_DIRECTIONAL, { 100, 10, -100 }, Vector3Zero(), DARKGRAY, shader);
+
+    // Apply shaders for 3D game objects
+    wall->model.materials[0].shader = shader;
+    enemy->model.materials[0].shader = shader;
 }
 
 
@@ -122,13 +128,9 @@ void Game::resetGame()
 
 void Game::update()
 {
-    Vector3 oldCamPos = cam3D.position;
-
     player.playerPos = cam3D.position;
     player.weapon = weapon[wd.cWeapon];
-
     UpdateCamera(&cam3D, CAMERA_FIRST_PERSON);                  // Update camera
-
     PlayerControl::placeCursorMiddle(windowSize, GetMousePosition());
     
     // Wall collision logic:
@@ -137,7 +139,7 @@ void Game::update()
         if (walls[i] != nullptr)
         {
             if (PlayerControl::wallCollision(cam3D.position, *walls[i]) && !noClip)
-                cam3D.position = oldCamPos;
+                cam3D.position = player.playerPos;
         }
     }
 
@@ -193,6 +195,8 @@ void Game::update()
     if (!player.attacking && player.stamina < 100)
         player.stamina++;
 
+    enemy->update(&player);
+
     if (debugMode)
     {
         if (IsKeyPressed(KEY_F1))
@@ -245,7 +249,7 @@ void Game::draw()
     {
         BeginMode3D(cam3D);
 
-        DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, GRAY); // Draw groundd
+        DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, GRAY); // Draw ground
         
         DrawPlane(Vector3{ 0.0f, -40.0f, 0.0f }, Vector2{ 400.0f, 400.0f }, DARKGREEN);
 
@@ -253,6 +257,8 @@ void Game::draw()
             for (int y = 0; y < 8; y++)
                 if (map[x][y] == 1)
                     DrawModel(wall->model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
+
+        DrawModel(enemy->model, enemy->position, 0.02f, BLACK);
 
         EndMode3D();
 

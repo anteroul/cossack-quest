@@ -1,24 +1,27 @@
 #ifndef COSSACKQUEST_ENEMY_HPP
 #define COSSACKQUEST_ENEMY_HPP
 
+#include <array>
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <unordered_map>
 #include "GameObject.hpp"
+#include "Player.hpp"
 #include "PlayerControl.hpp"
 
 class Enemy : public GameObject
 {
 public:
-	Enemy(Vector3 pos, Texture tex, Model mod, BoundingBox* wa);
+	Enemy(Vector3 pos, Texture tex, Model mod, std::array<BoundingBox*, 64> wa);
 	~Enemy();
-	void update();
+	void update(Player* target);
 
 	Vector3 position{};
 	Texture texture;
 	Model model;
 private:
+    float yaw;
 
 	struct Node {
 		int x, y;
@@ -31,8 +34,7 @@ private:
 
 	bool alive;
 	bool attacking;
-	BoundingBox* wallArray;
-	BoundingBox* wallIndex;
+    std::array<BoundingBox*, 64> wallArray;
 
 	static int heuristic(int x1, int y1, int x2, int y2);
 	static bool isValid(int x, int y, int rows, int cols);

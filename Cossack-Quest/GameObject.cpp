@@ -5,3 +5,9 @@ GameObject::GameObject(Vector3 pos, Texture tex, Model mod) : position(pos), tex
 
 GameObject::GameObject(Texture tex, Model mod) : texture(tex), model(mod)
 {}
+
+GameObject::~GameObject()
+{
+    UnloadTexture(texture);
+    UnloadModel(model);
+}

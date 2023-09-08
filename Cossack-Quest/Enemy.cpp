@@ -1,4 +1,6 @@
 #include "Enemy.hpp"
+#include <cmath>
+#include <raymath.h>
 
 #define NORTH 0
 #define NORTHEAST 1
@@ -10,29 +12,75 @@
 #define NORTHWEST 7
 
 
-Enemy::Enemy(Vector3 pos, Texture tex, Model mod, BoundingBox* wa) : GameObject(pos, tex, mod)
+Enemy::Enemy(Vector3 pos, Texture tex, Model mod, std::array<BoundingBox*, 64> wa) : GameObject(pos, tex, mod)
 {
 	position = pos;
 	texture = tex;
 	model = mod;
 	wallArray = wa;
-	wallIndex = nullptr;
 	attacking = false;
 	alive = true;
+    yaw = 0.0f;
 }
 
 Enemy::~Enemy() = default;
 
 
-void Enemy::update()
+void Enemy::update(Player* target)
 {
+    BoundingBox box = {{position.x * 8.f - 10.f, 0.f, position.z * 8.f - 10.f}, {position.x * 8.f - 6.f, 4.f, position.z * 8.f - 6.f}};
+    Vector2 direction = { position.x - target->playerPos.x, position.z - target->playerPos.z };
+    float angle = atan2(direction.y, direction.x) * RAD2DEG;
+
+    // Define mapGrid
+    int map[8][8]{};
+    int iterator = 0;
+
+    std::cout << "\n\n";
+
+    for (int y = 0; y < 8; y++)
+    {
+        for (int x = 0; x < 8; x++)
+        {
+            if (wallArray[iterator] != nullptr)
+                map[x][y] = 1;
+            else
+            {
+                if (target->playerPos.x > x * 8.0f - 12.0f && target->playerPos.x < x * 8.0f - 4.0f && target->playerPos.z > y * 8.0f - 12.0f && target->playerPos.z < y * 8.0f - 4.0f)
+                {
+                    map[x][y] = 2;
+                } else {
+                    map[x][y] = 0;
+                }
+            }
+            iterator++;
+            std::cout << map[x][y] << ",";
+        }
+        std::cout << "\n";
+    }
+
+    std::cout << "\n";
+
 	if (alive)
 	{
-		switch (findPath())
-		{
-			default:
-				break;
-		}
+        if (target->health > 0)
+        {
+            /* TODO
+		    switch (findPath())
+		    {
+			    default:
+			    	break;
+		    }
+            */
+        }
+        if (angle > yaw + 90)
+            yaw += 0.5f;
+        if (angle < yaw + 90)
+            yaw -= 0.5f;
+
+        std::cout << angle << std::endl;
+        std::cout << yaw << std::endl;
+        model.transform = MatrixRotateXYZ({0.0f, DEG2RAD*yaw*(-1), 0.0f});
 	}
 }
 
