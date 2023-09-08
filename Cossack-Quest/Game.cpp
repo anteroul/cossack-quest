@@ -126,23 +126,8 @@ void Game::resetGame()
 }
 
 
-void Game::update()
+void Game::handlePlayerControls()
 {
-    player.playerPos = cam3D.position;
-    player.weapon = weapon[wd.cWeapon];
-    UpdateCamera(&cam3D, CAMERA_FIRST_PERSON);                  // Update camera
-    PlayerControl::placeCursorMiddle(windowSize, GetMousePosition());
-    
-    // Wall collision logic:
-    for (int i = 0; i < 64; i++)
-    {
-        if (walls[i] != nullptr)
-        {
-            if (PlayerControl::wallCollision(cam3D.position, *walls[i]) && !noClip)
-                cam3D.position = player.playerPos;
-        }
-    }
-
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !player.attacking)
     {
         if (player.stamina >= 30 && player.weapon.melee)
@@ -195,8 +180,6 @@ void Game::update()
     if (!player.attacking && player.stamina < 100)
         player.stamina++;
 
-    enemy->update(&player);
-
     if (debugMode)
     {
         if (IsKeyPressed(KEY_F1))
@@ -230,6 +213,29 @@ void Game::update()
         if (debugCoordinates)
             std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z << std::endl;
     }
+}
+
+
+void Game::update()
+{
+    player.playerPos = cam3D.position;
+    player.weapon = weapon[wd.cWeapon];
+    UpdateCamera(&cam3D, CAMERA_FIRST_PERSON);                  // Update camera
+    PlayerControl::placeCursorMiddle(windowSize, GetMousePosition());
+    
+    // Wall collision logic:
+    for (int i = 0; i < 64; i++)
+    {
+        if (walls[i] != nullptr)
+        {
+            if (PlayerControl::wallCollision(cam3D.position, *walls[i]) && !noClip)
+                cam3D.position = player.playerPos;
+        }
+    }
+
+    handlePlayerControls();
+    
+    enemy->update(&player);
 
     SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
 
@@ -243,13 +249,13 @@ void Game::draw()
 {
     BeginDrawing();
 
-    ClearBackground(RAYWHITE);
+    ClearBackground(DARKGRAY);
 
     if (!player.gameOver)
     {
         BeginMode3D(cam3D);
 
-        DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, GRAY); // Draw ground
+        DrawPlane(Vector3{ 0.0f, 0.0f, 0.0f }, Vector2{ 100.0f, 100.0f }, BLACK); // Draw ground
         
         DrawPlane(Vector3{ 0.0f, -40.0f, 0.0f }, Vector2{ 400.0f, 400.0f }, DARKGREEN);
 

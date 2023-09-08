@@ -53,8 +53,11 @@ void Enemy::update(Player* target)
                     map[x][y] = 0;
                 }
             }
-            iterator++;
-            std::cout << map[x][y] << ",";
+			if (map[x][y] != 2)
+				std::cout << map[x][y] << ",";
+			else
+				std::cout << "P,";
+			iterator++;
         }
         std::cout << "\n";
     }

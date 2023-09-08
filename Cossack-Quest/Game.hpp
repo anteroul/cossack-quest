@@ -18,6 +18,7 @@ private:
 	void initGame();
 	void draw();
 	void resetGame();
+	void handlePlayerControls();
 	bool noClip = false;
 	bool debugMode = true;
 	bool debugCoordinates = true;
