@@ -26,7 +26,7 @@ public:
 	Texture texture;
 	Model model;
 private:
-	void dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow, int endCol, std::vector<std::vector<int>>& distance);
+	std::vector<std::vector<int>> dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow, int endCol, std::vector<std::vector<int>>& distance);
 	std::vector<std::pair<int, int>> backtrack(int startRow, int startCol, int endRow, int endCol, const std::vector<std::vector<int>>& distance);
 
 	const int INF = std::numeric_limits<int>::max(); // Define infinity
@@ -39,6 +39,8 @@ private:
 	bool alive;
 	bool attacking;
 	float yaw;
+	int playerX, playerY;
+	int enemyX, enemyY;
 };
 
 

@@ -2,6 +2,8 @@
 #include <cmath>
 #include <raymath.h>
 
+#define SPEED (0.04)
+
 Enemy::Enemy(Vector3 pos, Texture tex, Model mod, std::array<BoundingBox*, 64> wa) : GameObject(pos, tex, mod)
 {
 	position = pos;
@@ -24,8 +26,6 @@ void Enemy::update(Player* target)
     // Define mapGrid
     int map[8][8]{};
     int iterator = 0;
-    int playerX, playerY;
-    int enemyX, enemyY;
 
     std::cout << "\n\n";
 
@@ -68,8 +68,15 @@ void Enemy::update(Player* target)
         if (target->health > 0)
         {
             std::vector<std::vector<int>> distance(ROWS, std::vector<int>(COLS, INF));
-            dijkstra(map, enemyX, enemyY, playerX, playerY, distance);
+            //distance = dijkstra(map, enemyX, enemyY, playerX, playerY, distance);
             //std::vector<std::pair<int, int>> path = backtrack(enemyX, enemyY, playerX, playerY, distance);
+            for (auto& i : dijkstra(map, enemyX, enemyY, playerX, playerY, distance))
+            {
+                for (auto& j : i)
+                {
+                    // TODO
+                }
+            }
         }
         if (angle > yaw + 90)
             yaw += 0.5f;
@@ -80,7 +87,7 @@ void Enemy::update(Player* target)
 	}
 }
 
-void Enemy::dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow, int endCol, std::vector<std::vector<int>>& distance)
+std::vector<std::vector<int>> Enemy::dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow, int endCol, std::vector<std::vector<int>>& distance)
 {
     const int dr[] = { -1, 1, 0, 0 };
     const int dc[] = { 0, 0, -1, 1 };
@@ -89,13 +96,17 @@ void Enemy::dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow
 
     distance[startRow][startCol] = 0;
 
-    for (int i = 0; i < ROWS * COLS; ++i) {
+    for (int i = 0; i < ROWS * COLS; ++i)
+    {
         int minDist = INF;
         int u = -1, v = -1;
 
-        for (int r = 0; r < ROWS; ++r) {
-            for (int c = 0; c < COLS; ++c) {
-                if (!visited[r][c] && distance[r][c] < minDist) {
+        for (int r = 0; r < ROWS; ++r)
+        {
+            for (int c = 0; c < COLS; ++c)
+            {
+                if (!visited[r][c] && distance[r][c] < minDist)
+                {
                     minDist = distance[r][c];
                     u = r;
                     v = c;
@@ -107,18 +118,26 @@ void Enemy::dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow
 
         visited[u][v] = true;
 
-        for (int dir = 0; dir < 4; ++dir) {
+        for (int dir = 0; dir < 4; ++dir)
+        {
             int nr = u + dr[dir];
             int nc = v + dc[dir];
 
-            if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && !visited[nr][nc] && distance[u][v] + map[nr][nc] < distance[nr][nc]) {
+            if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && !visited[nr][nc] && distance[u][v] + map[nr][nc] < distance[nr][nc])
+            {
                 distance[nr][nc] = distance[u][v] + map[nr][nc];
             }
         }
     }
 
-    // Print the distance array or use it to navigate the path
-    std::cout << "Shortest distance from (" << startRow << "," << startCol << ") to (" << endRow << "," << endCol << ") is: " << distance[endRow][endCol] << std::endl;
+    if (distance[endRow][endCol] == INF)
+    {
+        std::cout << "No path found from (" << startRow << "," << startCol << ") to (" << endRow << "," << endCol << ")" << std::endl;
+    } else {
+        std::cout << "Shortest distance from (" << startRow << "," << startCol << ") to (" << endRow << "," << endCol << ") is: " << distance[endRow][endCol] << std::endl;
+    }
+
+    return distance;
 }
 
 // TODO: Lighter solution needed. This function is a memory hog!
