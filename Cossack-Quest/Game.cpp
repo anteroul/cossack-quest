@@ -13,11 +13,15 @@ Game::Game(int wWidth, int wHeight, const char* wTitle, bool fullscreenEnabled, 
     if (fullscreenEnabled) ToggleFullscreen();
     debugMode = consoleEnabled;
     windowSize = {static_cast<float>(wWidth), static_cast<float>(wHeight)};
+    InitAudioDevice();
     initGame();
 }
 
 Game::~Game()
 {
+    CloseAudioDevice();
+    UnloadMusicStream(music);
+
     for (auto& i : weaponTexture)
         UnloadTexture(i);
 
@@ -65,9 +69,6 @@ void Game::initGame()
     weaponPosition = { GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f };
     weaponRec = { 0, 0, (float)weaponTexture[0].width / 4, (float)weaponTexture[0].height / 2 };
 
-    // Initialize sounds:
-    InitAudioDevice();
-
     // Define walls:
     int iterator = 0;
 
@@ -84,8 +85,9 @@ void Game::initGame()
     }
 
     // Initialize our enemy:
-    enemy = new Enemy({5 * 8.0f, 3.8f, 5 * 8.0f}, LoadTexture("assets/default.png"), LoadModel("assets/cultist_mage.glb"), walls);
+    enemy = new Enemy({}, LoadTexture("assets/default.png"), LoadModel("assets/cultist_mage.glb"), walls);
     enemy->model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = enemy->texture;
+    placeEnemyToGrid(enemy, 6, 6);
 
     // Initialize shaders:
     shader = LoadShader("shaders/glsl/base_lighting.vs", "shaders/glsl/fog.fs");
@@ -111,6 +113,10 @@ void Game::initGame()
     // Apply shaders for 3D game objects
     wall->model.materials[0].shader = shader;
     enemy->model.materials[0].shader = shader;
+
+    // Initialize sounds:
+    music = LoadMusicStream("assets/music/forest-ambience.mp3");
+    PlayMusicStream(music);
 }
 
 
@@ -128,6 +134,80 @@ void Game::resetGame()
     cam3D.projection = CAMERA_PERSPECTIVE;
 }
 
+
+void Game::update()
+{
+    UpdateMusicStream(music);
+    player.playerPos = cam3D.position;
+    player.weapon = weapon[wd.cWeapon];
+    UpdateCamera(&cam3D, CAMERA_FIRST_PERSON);                  // Update camera
+    PlayerControl::placeCursorMiddle(windowSize, GetMousePosition());
+    
+    // Wall collision logic:
+    for (int i = 0; i < 64; i++)
+    {
+        if (walls[i] != nullptr)
+        {
+            if (PlayerControl::wallCollision(cam3D.position, *walls[i]) && !noClip)
+                cam3D.position = player.playerPos;
+        }
+    }
+
+    handlePlayerControls();
+    
+    enemy->update(&player);
+
+    SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
+
+    // Update the light shader with the cam3D view position
+    SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], &cam3D.position.x, SHADER_UNIFORM_VEC3);
+
+}
+
+
+void Game::draw()
+{
+    BeginDrawing();
+
+    ClearBackground(DARKGRAY);
+
+    if (!player.gameOver)
+    {
+        BeginMode3D(cam3D);
+
+        DrawModel(ground->model, { 0.0f, 0.0f, 0.0f }, 1.0f, GRAY);
+
+        for (int x = 0; x < 8; x++)
+            for (int y = 0; y < 8; y++)
+                if (map[x][y] == 1)
+                    DrawModel(wall->model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
+
+        DrawModel(enemy->model, enemy->position, 0.02f, BLACK);
+
+        EndMode3D();
+
+        // Draw HUD:
+        DrawTextureRec(weaponTexture[wd.cWeapon], weaponRec, weaponPosition, WHITE);
+
+        DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.000625f * GetScreenWidth(), WHITE);
+        DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);
+        DrawText(TextFormat("%03i", player.health), GetScreenWidth() * 0.3f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, RED);
+
+        if (!player.weapon.melee)
+            DrawText(TextFormat("%03i", player.weapon.ammo), GetScreenWidth() * 0.625f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, YELLOW);
+
+        DrawText(weapon[wd.cWeapon].name.c_str(), GetScreenWidth() * 0.8f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 30, WHITE);
+    }
+    DrawFPS(0, 0); // Draw FPS
+    EndDrawing();
+}
+
+
+void Game::runApplication()
+{
+    update();
+    draw();
+}
 
 void Game::handlePlayerControls()
 {
@@ -218,77 +298,9 @@ void Game::handlePlayerControls()
     }
 }
 
-
-void Game::update()
+void Game::placeEnemyToGrid(Enemy* enemy, int x, int y)
 {
-    player.playerPos = cam3D.position;
-    player.weapon = weapon[wd.cWeapon];
-    UpdateCamera(&cam3D, CAMERA_FIRST_PERSON);                  // Update camera
-    PlayerControl::placeCursorMiddle(windowSize, GetMousePosition());
-    
-    // Wall collision logic:
-    for (int i = 0; i < 64; i++)
-    {
-        if (walls[i] != nullptr)
-        {
-            if (PlayerControl::wallCollision(cam3D.position, *walls[i]) && !noClip)
-                cam3D.position = player.playerPos;
-        }
-    }
-
-    handlePlayerControls();
-    
-    enemy->update(&player);
-
-    SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
-
-    // Update the light shader with the cam3D view position
-    SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], &cam3D.position.x, SHADER_UNIFORM_VEC3);
-
+    x -= 1;
+    y -= 1;
+    enemy->position = { x * 8.0f, 3.8f, y * 8.0f };
 }
-
-
-void Game::draw()
-{
-    BeginDrawing();
-
-    ClearBackground(DARKGRAY);
-
-    if (!player.gameOver)
-    {
-        BeginMode3D(cam3D);
-
-        DrawModel(ground->model, { 0.0f, 0.0f, 0.0f }, 1.0f, GRAY);
-
-        for (int x = 0; x < 8; x++)
-            for (int y = 0; y < 8; y++)
-                if (map[x][y] == 1)
-                    DrawModel(wall->model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
-
-        DrawModel(enemy->model, enemy->position, 0.02f, BLACK);
-
-        EndMode3D();
-
-        // Draw HUD:
-        DrawTextureRec(weaponTexture[wd.cWeapon], weaponRec, weaponPosition, WHITE);
-
-        DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.000625f * GetScreenWidth(), WHITE);
-        DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);
-        DrawText(TextFormat("%03i", player.health), GetScreenWidth() * 0.3f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, RED);
-
-        if (!player.weapon.melee)
-            DrawText(TextFormat("%03i", player.weapon.ammo), GetScreenWidth() * 0.625f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, YELLOW);
-
-        DrawText(weapon[wd.cWeapon].name.c_str(), GetScreenWidth() * 0.8f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 30, WHITE);
-    }
-    DrawFPS(0, 0); // Draw FPS
-    EndDrawing();
-}
-
-
-void Game::runApplication()
-{
-    update();
-    draw();
-}
-

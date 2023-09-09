@@ -19,6 +19,7 @@ private:
 	void draw();
 	void resetGame();
 	void handlePlayerControls();
+	void placeEnemyToGrid(Enemy* enemy, int x, int y);
 	bool noClip = false;
 	bool debugMode = true;
 	bool debugCoordinates = true;
@@ -38,6 +39,7 @@ private:
 	Vector2 weaponPosition{};
     Vector2 windowSize{};
 	Rectangle weaponRec{};
+	Music music;
 
 	struct weaponData {
 		unsigned int cFrame = 0;

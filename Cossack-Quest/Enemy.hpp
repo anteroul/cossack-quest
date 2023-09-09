@@ -9,7 +9,6 @@
 #include <unordered_map>
 #include "GameObject.hpp"
 #include "Player.hpp"
-#include "PlayerControl.hpp"
 
 #define ROWS 8
 #define COLS 8
@@ -26,8 +25,7 @@ public:
 	Texture texture;
 	Model model;
 private:
-	std::vector<std::vector<int>> dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow, int endCol, std::vector<std::vector<int>>& distance);
-	std::vector<std::pair<int, int>> backtrack(int startRow, int startCol, int endRow, int endCol, const std::vector<std::vector<int>>& distance);
+	std::pair<int, int> dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow, int endCol);
 
 	const int INF = std::numeric_limits<int>::max(); // Define infinity
 	std::array<BoundingBox*, 64> wallArray;
