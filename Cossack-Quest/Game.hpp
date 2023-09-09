@@ -27,6 +27,7 @@ private:
 	int fogDensityLoc{};
 	float fogDensity = 0.12f;
 	int level = 0;
+	int timer = 0;
 	Shader shader{};
 	Camera3D cam3D{};
 	Player player{};
@@ -40,6 +41,10 @@ private:
     Vector2 windowSize{};
 	Rectangle weaponRec{};
 	Music music;
+	Sound deathSfx;
+	Sound slashSfx;
+	Sound gunshotSfx;
+	Sound crossbowSfx;
 
 	struct weaponData {
 		unsigned int cFrame = 0;
@@ -49,6 +54,7 @@ private:
 
 	weaponData wd;
 
+	/*
 	int map[8][8] = {
 			1, 1, 1, 1, 1, 1, 1, 1,
 			1, 0, 0, 1, 0, 0, 0, 1,
@@ -56,6 +62,18 @@ private:
 			1, 0, 0, 0, 0, 1, 0, 1,
 			1, 1, 1, 0, 1, 1, 0, 1,
 			1, 0, 1, 0, 1, 1, 1, 1,
+			1, 0, 0, 0, 0, 0, 0, 1,
+			1, 1, 1, 1, 1, 1, 1, 1
+	};
+	*/
+
+	int map[8][8] = {
+			1, 1, 1, 1, 1, 1, 1, 1,
+			1, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 0, 1, 0, 1, 0, 1,
+			1, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 1, 0, 1, 1, 0, 1,
+			1, 0, 1, 0, 1, 0, 0, 1,
 			1, 0, 0, 0, 0, 0, 0, 1,
 			1, 1, 1, 1, 1, 1, 1, 1
 	};

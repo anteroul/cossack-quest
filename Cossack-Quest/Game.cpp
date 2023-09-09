@@ -19,8 +19,12 @@ Game::Game(int wWidth, int wHeight, const char* wTitle, bool fullscreenEnabled, 
 
 Game::~Game()
 {
-    CloseAudioDevice();
     UnloadMusicStream(music);
+    UnloadSound(slashSfx);
+    UnloadSound(crossbowSfx);
+    UnloadSound(gunshotSfx);
+    UnloadSound(deathSfx);
+    CloseAudioDevice();
 
     for (auto& i : weaponTexture)
         UnloadTexture(i);
@@ -115,23 +119,32 @@ void Game::initGame()
     enemy->model.materials[0].shader = shader;
 
     // Initialize sounds:
+    slashSfx = LoadSound("assets/sfx/slash.wav");
+    deathSfx = LoadSound("assets/sfx/death.wav");
+    crossbowSfx = LoadSound("assets/sfx/bow.wav");
+    gunshotSfx = LoadSound("assets/sfx/musket.mp3");
     music = LoadMusicStream("assets/music/forest-ambience.mp3");
+    player.death = &deathSfx;
     PlayMusicStream(music);
 }
 
 
 void Game::resetGame()
 {
+    wd.cWeapon = 0;
     level = 1;
     player.health = 100;
+    player.stamina = 100;
     player.gold = 0;
+    player.playerPos = { 0.0f, 4.0f, 0.0f };
+    player.hit = false;
     player.gameOver = false;
-
-    cam3D.position = { 0.0f, 4.0f, 0.0f };
-    cam3D.target = { 0.0f, 1.8f, 0.0f };
+    cam3D.position = player.playerPos;
+    cam3D.target = Vector3Add(player.playerPos, Vector3{ 0,0,1 });
     cam3D.up = { 0.0f, 1.0f, 0.0f };
     cam3D.fovy = 60.0f;
     cam3D.projection = CAMERA_PERSPECTIVE;
+    placeEnemyToGrid(enemy, 6, 6);
 }
 
 
@@ -153,7 +166,15 @@ void Game::update()
         }
     }
 
-    handlePlayerControls();
+    if (!player.gameOver)
+    {
+        handlePlayerControls();
+    } else {
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) resetGame();
+        cam3D.position.x = player.playerPos.x;
+        if (cam3D.position.y > 0.5f) cam3D.position.y -= 0.08f;
+        cam3D.position.z = player.playerPos.z;
+    }
     
     enemy->update(&player);
 
@@ -171,24 +192,26 @@ void Game::draw()
 
     ClearBackground(DARKGRAY);
 
+    BeginMode3D(cam3D);
+
+    DrawModel(ground->model, { 0.0f, 0.0f, 0.0f }, 1.0f, GRAY);
+
+    for (int x = 0; x < 8; x++)
+        for (int y = 0; y < 8; y++)
+            if (map[x][y] == 1)
+                DrawModel(wall->model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
+
+    DrawModel(enemy->model, enemy->position, 0.02f, BLACK);
+    //DrawBoundingBox(enemy->getBounds(), GREEN);
+
+    EndMode3D();
+
+    // Draw HUD:
+    if (player.hit) DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), { 255, 0, 0, 32 });
+
     if (!player.gameOver)
     {
-        BeginMode3D(cam3D);
-
-        DrawModel(ground->model, { 0.0f, 0.0f, 0.0f }, 1.0f, GRAY);
-
-        for (int x = 0; x < 8; x++)
-            for (int y = 0; y < 8; y++)
-                if (map[x][y] == 1)
-                    DrawModel(wall->model, { x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f }, 1.0f, WHITE);
-
-        DrawModel(enemy->model, enemy->position, 0.02f, BLACK);
-
-        EndMode3D();
-
-        // Draw HUD:
         DrawTextureRec(weaponTexture[wd.cWeapon], weaponRec, weaponPosition, WHITE);
-
         DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.000625f * GetScreenWidth(), WHITE);
         DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);
         DrawText(TextFormat("%03i", player.health), GetScreenWidth() * 0.3f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, RED);
@@ -209,6 +232,7 @@ void Game::runApplication()
     draw();
 }
 
+
 void Game::handlePlayerControls()
 {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !player.attacking)
@@ -218,12 +242,15 @@ void Game::handlePlayerControls()
             player.attacking = true;
             player.stamina -= 30;
             wd.weaponFrame++;
+            PlaySound(slashSfx);
         }
         if (player.weapon.ammo > 0 && !player.weapon.melee)
         {
             player.attacking = true;
             wd.weaponFrame++;
             weapon[wd.cWeapon].ammo--;
+            if (wd.cWeapon == 4) PlaySound(gunshotSfx);
+            else PlaySound(crossbowSfx);
         }
     }
 
@@ -263,6 +290,16 @@ void Game::handlePlayerControls()
     if (!player.attacking && player.stamina < 100)
         player.stamina++;
 
+    if (player.hit && !player.gameOver)
+    {
+        if (timer > GetMonitorRefreshRate(GetCurrentMonitor()) / 4)
+        {
+            timer = 0;
+            player.hit = false;
+        }
+        timer++;
+    }
+
     if (debugMode)
     {
         if (IsKeyPressed(KEY_F1))
@@ -297,6 +334,7 @@ void Game::handlePlayerControls()
             std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z << std::endl;
     }
 }
+
 
 void Game::placeEnemyToGrid(Enemy* enemy, int x, int y)
 {

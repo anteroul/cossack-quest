@@ -13,22 +13,32 @@ Enemy::Enemy(Vector3 pos, Texture tex, Model mod, std::array<BoundingBox*, 64> w
 	attacking = false;
 	alive = true;
     yaw = 0.0f;
+    state = GUARD;
+    attackTimer = 0;
+    maxDamage = 25;
+    box = {};
+    playerX = 0;
+    playerY = 0;
+    enemyX = 0;
+    enemyY = 0;
 }
 
 Enemy::~Enemy() = default;
 
 void Enemy::update(Player* target)
 {
-    BoundingBox box = {{position.x * 8.f + 10.f, 0.f, position.z * 8.f + 10.f}, {position.x * 8.f - 10.f, 4.f, position.z * 8.f - 10.f}};
+    const int attackInterval = GetMonitorRefreshRate(GetCurrentMonitor()) * 3;
+    const int minDamage = maxDamage / 2;
     Vector2 direction = { position.x - target->playerPos.x, position.z - target->playerPos.z };
     float angle = atan2(direction.y, direction.x) * RAD2DEG;
     bool collision = false;
+    std::pair<int, int> waypoint;
+    box = { {position.x - 3.5f, 0.f, position.z - 3.5f}, {position.x + 3.5f, 8.f, position.z + 3.5f} };
+    BoundingBox collider = { {position.x - 1.5f, 0.f, position.z - 1.5f}, {position.x + 1.5f, 8.f, position.z + 1.5f} };
 
-    // Define mapGrid
+    // Define map grid:
     int map[8][8]{};
     int iterator = 0;
-
-    std::cout << "\n\n";
 
     for (int y = 0; y < 8; y++)
     {
@@ -51,18 +61,9 @@ void Enemy::update(Player* target)
                     map[x][y] = 0;
                 }
             }
-			if (map[x][y] == 2)
-                std::cout << "P,";
-			else if (map[x][y] == 3)
-				std::cout << "E,";
-            else
-                std::cout << map[x][y] << ",";
 			iterator++;
         }
-        std::cout << "\n";
     }
-
-    std::cout << "\n";
 
 	if (alive)
 	{
@@ -70,34 +71,67 @@ void Enemy::update(Player* target)
         {
             if (i != nullptr)
             {
-                if (CheckCollisionBoxes(box, *i))
+                if (CheckCollisionBoxes(collider, *i))
                     collision = true;
             }
         }
+
         if (target->health > 0)
         {
-            std::pair<int, int> waypoint = dijkstra(map, enemyX, enemyY, playerX, playerY);
-
-            if (playerX != enemyX && playerY != enemyY)
+            switch (state)
             {
-                if (waypoint.second > enemyX && !collision)
-                    position.x += SPEED;
-                if (waypoint.second < enemyX && !collision)
-                    position.x -= SPEED;
-                if (waypoint.first > enemyY && !collision)
-                    position.z += SPEED;
-                if (waypoint.first < enemyY && !collision)
-                    position.z -= SPEED;
-            } else {
-                if (target->playerPos.x > position.x && !collision)
-                    position.x += SPEED;
-                if (target->playerPos.x < position.x && !collision)
-                    position.x -= SPEED;
-                if (target->playerPos.z < position.z && !collision)
-                    position.z -= SPEED;
-                if (target->playerPos.z > position.z && !collision)
-                    position.z += SPEED;
+                case GUARD:
+                    waypoint = dijkstra(map, enemyX, enemyY, playerX, playerY);
+
+                    if (playerY == enemyY)
+                    {
+                        state = CHASE;
+                    }
+                    if (waypoint.first > enemyX)
+                        position.x += SPEED;
+                    if (waypoint.first < enemyX)
+                        position.x -= SPEED;
+                    if (waypoint.second > enemyY)
+                        position.z += SPEED;
+                    if (waypoint.second < enemyY)
+                        position.z -= SPEED;
+                    break;
+
+                case CHASE:
+                    if (CheckCollisionBoxes(box, { target->playerPos, target->playerPos }))
+                    {
+                        if (attackTimer > attackInterval)
+                            state = ATTACK;
+                    }
+                    
+                    if (!collision)
+                    {
+                        if (target->playerPos.x > position.x)
+                            position.x += SPEED;
+                        if (target->playerPos.x < position.x)
+                            position.x -= SPEED;
+                        if (target->playerPos.z < position.z)
+                            position.z -= SPEED;
+                        if (target->playerPos.z > position.z)
+                            position.z += SPEED;
+                    } else {
+                        state = GUARD;
+                    }
+                    attackTimer++;
+                    break;
+
+                case ATTACK:
+                    attackTimer = 0;
+                    target->takeDamage(rand() % maxDamage + minDamage);
+                    state = CHASE;
+                    break;
+
+                default:
+                    break;
             }
+            std::cout << "State: " << state << std::endl;
+            if (collision)
+                std::cout << "Collision!\n";
         }
         if (angle > yaw + 90)
             yaw += 1.5f;
@@ -118,13 +152,15 @@ std::pair<int, int> Enemy::dijkstra(int map[ROWS][COLS], int startRow, int start
 
     distance[startRow][startCol] = 0;
 
+    std::cout << "Enemy position: " << startRow << ", " << startCol << std::endl;
+
     while (true) {
         int minDist = INF;
         int u = -1, v = -1;
 
-        for (int r = 0; r < ROWS; ++r)
+        for (int r = ROWS - 1; r > 0; --r)
         {
-            for (int c = 0; c < COLS; ++c)
+            for (int c = COLS - 1; c > 0; --c)
             {
                 if (!visited[r][c] && distance[r][c] < minDist)
                 {
@@ -168,5 +204,11 @@ std::pair<int, int> Enemy::dijkstra(int map[ROWS][COLS], int startRow, int start
         }
     }
 
+    std::cout << "Waypoint: " << minNeighborRow << ", " << minNeighborCol << std::endl;
     return std::make_pair(minNeighborRow, minNeighborCol);
+}
+
+BoundingBox Enemy::getBounds()
+{
+    return box;
 }
