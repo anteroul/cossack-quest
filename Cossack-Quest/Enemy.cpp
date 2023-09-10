@@ -83,7 +83,7 @@ void Enemy::update(Player* target)
                 case GUARD:
                     waypoint = dijkstra(map, enemyX, enemyY, playerX, playerY);
 
-                    if (playerY == enemyY)
+                    if (playerY == enemyY || playerX == enemyX)
                     {
                         state = CHASE;
                     }

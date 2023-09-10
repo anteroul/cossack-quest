@@ -147,6 +147,8 @@ void Game::resetGame()
     cam3D.up = { 0.0f, 1.0f, 0.0f };
     cam3D.fovy = 60.0f;
     cam3D.projection = CAMERA_PERSPECTIVE;
+    weapon[3].ammo = 20;
+    weapon[4].ammo = 20;
     placeEnemyToGrid(enemy, 6, 6);
 }
 
@@ -192,11 +194,8 @@ void Game::update()
 void Game::draw()
 {
     BeginDrawing();
-
     ClearBackground(DARKGRAY);
-
     BeginMode3D(cam3D);
-
     DrawModel(ground->model, { 0.0f, 0.0f, 0.0f }, 1.0f, GRAY);
 
     for (int x = 0; x < 8; x++)
@@ -206,7 +205,6 @@ void Game::draw()
 
     DrawModel(enemy->model, enemy->position, 0.02f, BLACK);
     //DrawBoundingBox(enemy->getBounds(), GREEN);
-
     EndMode3D();
 
     // Draw HUD:
