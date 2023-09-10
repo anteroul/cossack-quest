@@ -30,6 +30,7 @@ Game::~Game()
         UnloadTexture(i);
 
     UnloadTexture(hud);
+    UnloadTexture(crosshair);
     UnloadShader(shader);
 
     for (auto& i : walls)
@@ -52,6 +53,7 @@ void Game::initGame()
     wall = new GameObject({0.0f, 0.0f, 0.0f}, LoadTexture("assets/wall.png"), LoadModelFromMesh(GenMeshCube(8.0f, 8.0f, 8.0f)));
     wall->model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = wall->texture;
     hud = LoadTexture("assets/hud.png");
+    crosshair = LoadTexture("assets/crosshair.png");
 
     // Define weapon textures:
     weaponTexture[0] = LoadTexture("assets/weapons/weapon1.png");
@@ -126,6 +128,7 @@ void Game::initGame()
     music = LoadMusicStream("assets/music/forest-ambience.mp3");
     player.death = &deathSfx;
     PlayMusicStream(music);
+    HideCursor();
 }
 
 
@@ -211,6 +214,7 @@ void Game::draw()
 
     if (!player.gameOver)
     {
+        DrawTexture(crosshair, GetScreenWidth() / 2 - (crosshair.width / 2), GetScreenHeight() / 2 - (crosshair.height / 2), { 0, 255, 0, 32 });
         DrawTextureRec(weaponTexture[wd.cWeapon], weaponRec, weaponPosition, WHITE);
         DrawTextureEx(hud, { 0, GetScreenHeight() - (GetScreenHeight() * 0.2f) }, 0.0f, 0.000625f * GetScreenWidth(), WHITE);
         DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f, GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);

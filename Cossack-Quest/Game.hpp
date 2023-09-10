@@ -37,6 +37,7 @@ private:
 	std::array<BoundingBox*, 64> walls = { nullptr };
 	Texture2D hud{};
 	Texture2D weaponTexture[5]{};
+	Texture2D crosshair{};
 	Vector2 weaponPosition{};
     Vector2 windowSize{};
 	Rectangle weaponRec{};
