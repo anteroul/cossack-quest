@@ -34,9 +34,7 @@ Game::~Game()
     UnloadShader(shader);
 
     for (auto& i : walls)
-    {
         delete i;
-    }
 
     delete enemy;
     delete wall;

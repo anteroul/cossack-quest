@@ -2,7 +2,7 @@
 
 int main()
 {
-    Game game(1280, 720, "The Last Cossack", false, true);
+    Game game(1280, 720, "The Chosen Cossack", false, true);
 
     while (!WindowShouldClose())
     {
