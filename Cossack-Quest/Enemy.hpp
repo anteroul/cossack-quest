@@ -13,7 +13,7 @@
 #define ROWS 8
 #define COLS 8
 
-static enum State {
+enum State {
 	GUARD,
 	CHASE,
 	ATTACK
