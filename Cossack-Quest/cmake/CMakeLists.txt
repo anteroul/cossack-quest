@@ -15,7 +15,8 @@ file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS "../${CMAKE_CURRENT_LIST_DIR
 set(PROJECT_INCLUDE "../${CMAKE_CURRENT_LIST_DIR}/") # Define PROJECT_INCLUDE to be the path to the include directory of the project
 
 add_executable(CossackQuest ../main.cpp ../Game.cpp ../Game.hpp ../PlayerControl.cpp ../PlayerControl.hpp
-        ../shaders/rlights.h ../GameObject.hpp ../Player.hpp ../Weapon.hpp ../GameObject.cpp ../Enemy.hpp ../Enemy.cpp)
+        ../shaders/rlights.h ../GameObject.hpp ../Player.hpp ../Weapon.hpp ../GameObject.cpp ../Enemy.hpp ../Enemy.cpp
+        ../matrix.h ../util.h)
 
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})

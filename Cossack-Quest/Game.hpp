@@ -1,3 +1,5 @@
+#pragma once
+
 #include <array>
 #include <cstdlib>
 #include <raylib.h>
@@ -41,11 +43,11 @@ private:
 	Vector2 weaponPosition{};
     Vector2 windowSize{};
 	Rectangle weaponRec{};
-	Music music;
-	Sound deathSfx;
-	Sound slashSfx;
-	Sound gunshotSfx;
-	Sound crossbowSfx;
+	Music music{};
+	Sound deathSfx{};
+	Sound slashSfx{};
+	Sound gunshotSfx{};
+	Sound crossbowSfx{};
 
 	struct weaponData {
 		unsigned int cFrame = 0;

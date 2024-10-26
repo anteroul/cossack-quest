@@ -26,6 +26,12 @@ struct Player {
 			gameOver = true;
 		}
 	}
+	std::pair<int, int> convertToGridCoords() {
+		int x = playerPos.x * 8.f - 4.f;
+		int y = playerPos.z * 8.f - 4.f;
+		std::cout << x << " " << y << std::endl;
+		return std::make_pair(x, y);
+	}
 };
 
 #endif //COSSACKQUEST_PLAYER_HPP
