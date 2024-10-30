@@ -368,3 +368,4 @@ FodyWeavers.xsd
 /Cossack-Quest/cmake/cmake-build-debug/assets/
 /Cossack-Quest/cmake/cmake-build-debug/
 /Cossack-Quest/cmake/cmake-build-debug/shaders/glsl/
+/Cossack-Quest/cmake/CMakeSettings.json
