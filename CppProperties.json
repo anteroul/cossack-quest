@@ -6,7 +6,7 @@
       ],
       "name": "x64-Debug",
       "includePath": [
-        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\raylib\\raylib\\src",
+        "${workspaceRoot}\\Cossack-Quest\\cmake\\out\\build\\x64-Debug\\_deps\\raylib-src\\src",
         "${env.INCLUDE}",
         "${workspaceRoot}\\**"
       ],

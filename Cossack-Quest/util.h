@@ -3,6 +3,7 @@
 
 enum State {
     IDLE,
+    STUCK,
     PATROL,
     CHASE,
     ATTACK

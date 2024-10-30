@@ -145,7 +145,7 @@ void Game::resetGame()
     cam3D.projection = CAMERA_PERSPECTIVE;
     weapon[3].ammo = 20;
     weapon[4].ammo = 20;
-    placeEnemyToGrid(enemy, 6, 6);
+    placeEnemyToGrid(enemy, 7, 7);
 }
 
 

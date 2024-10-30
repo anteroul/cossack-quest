@@ -6,10 +6,10 @@
 class GameObject
 {
 public:
-	GameObject(Vector3 pos, Texture tex, Model mod);
 	GameObject(Texture tex, Model mod);
+	GameObject(Vector3 pos, Texture tex, Model mod);
     ~GameObject();
-	Vector3 position;
+	Vector3 position{};
 	Texture texture;
 	Model model;
 };
