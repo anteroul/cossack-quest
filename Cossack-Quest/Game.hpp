@@ -21,7 +21,6 @@ private:
 	void draw();
 	void resetGame();
 	void handlePlayerControls();
-	void placeEnemyToGrid(Enemy* enemy, int x, int y);
 	bool noClip = false;
 	bool debugMode = true;
 	bool debugCoordinates = true;
@@ -33,7 +32,6 @@ private:
 	Shader shader{};
 	Camera3D cam3D{};
 	Player player{};
-    Enemy* enemy = nullptr;
 	GameObject* wall = nullptr;
 	GameObject* ground = nullptr;
 	std::array<BoundingBox*, 64> walls = { nullptr };

@@ -4,7 +4,6 @@
 #include "GameObject.hpp"
 #include "Player.hpp"
 #include <array>
-#include <vector>
 #include <limits>
 #include <queue>
 #include <unordered_map>
@@ -26,9 +25,9 @@ class Enemy : public GameObject {
         void initializeMap(int map[8][8], Player* target);
         void moveToWaypoint(const std::pair<int, int>& waypoint);
         void adjustYawToPlayer(Player* target);
-        bool isPositionWithinCell(const Vector3& pos, int x, int y);
-        bool checkCollisions(const BoundingBox& collider);
-        std::pair<int, int> dijkstra(int map[8][8], int startRow, int startCol, int endRow, int endCol);
+        static bool isPositionWithinCell(const Vector3& pos, int x, int y);
+        bool checkCollisions(const BoundingBox& collider) const;
+        static std::pair<int, int> dijkstra(int map[8][8], int startRow, int startCol, int endRow, int endCol);
         const int INF = std::numeric_limits<int>::max(); // Define infinity
         
         std::array<BoundingBox*, 64> wallArray{};

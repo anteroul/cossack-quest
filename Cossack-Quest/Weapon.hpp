@@ -17,7 +17,7 @@ struct Weapon {
 static Weapon weapon[5] = {
 		"Pitchfork", 30, 0, true, true, 1,
 		"Bronze Sword", 45, 50, true, true, 1,
-		"Iron Sword", 50, 60, true, true, 1,
+		"Steel Sword", 50, 60, true, true, 1,
 		"Crossbow", 100, 120, true, false, 20,
 		"Musket", 250, 300, true, false, 20
 };

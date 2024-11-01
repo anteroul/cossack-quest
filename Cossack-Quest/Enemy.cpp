@@ -1,7 +1,6 @@
 #include "Enemy.hpp"
 #include <raymath.h>
 #include <cmath>
-#include <raymath.h>
 #include <queue>
 #include <limits>
 
@@ -135,7 +134,7 @@ bool Enemy::isPositionWithinCell(const Vector3& pos, int x, int y)
     return pos.x > x * 8.0f - 12.0f && pos.x < x * 8.0f - 4.0f && pos.z > y * 8.0f - 12.0f && pos.z < y * 8.0f - 4.0f;
 }
 
-bool Enemy::checkCollisions(const BoundingBox& collider)
+bool Enemy::checkCollisions(const BoundingBox& collider) const
 {
     for (auto& wall : wallArray)
     {
@@ -169,8 +168,8 @@ std::pair<int, int> Enemy::dijkstra(int map[ROWS][COLS], int startRow, int start
     const int dr[] = { 1, -1, 0, 0 }; // row directions (down, up)
     const int dc[] = { 0, 0, 1, -1 }; // column directions (right, left)
 
-    std::vector<std::vector<int>> distance(ROWS, std::vector<int>(COLS, INF));
-    std::vector<std::vector<std::pair<int, int>>> previous(ROWS, std::vector<std::pair<int, int>>(COLS, { -1, -1 }));
+    std::vector distance(ROWS, std::vector<int>(COLS, INF));
+    std::vector previous(ROWS, std::vector<std::pair<int, int>>(COLS, { -1, -1 }));
 
     distance[startRow][startCol] = 0;
 

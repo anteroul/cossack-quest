@@ -8,7 +8,7 @@
 Game::Game(int wWidth, int wHeight, const char* wTitle, bool fullscreenEnabled, bool consoleEnabled)
 {
     SetConfigFlags(FLAG_MSAA_4X_HINT);
-    InitWindow(1280, 720, "The Last Cossack");
+    InitWindow(1280, 720, wTitle);
     SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
     if (fullscreenEnabled) ToggleFullscreen();
     debugMode = consoleEnabled;
@@ -34,7 +34,6 @@ Game::~Game()
 
     for (auto& i : walls) delete i;
 
-    delete enemy;
     delete wall;
     delete ground;
 
@@ -86,11 +85,6 @@ void Game::initGame()
         }
     }
 
-    // Initialize our enemy:
-    enemy = new Enemy({}, LoadTexture("assets/default.png"), LoadModel("assets/cultist_mage.glb"), walls);
-    enemy->model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = enemy->texture;
-    placeEnemyToGrid(enemy, 6, 6);
-
     // Initialize shaders:
     shader = LoadShader("shaders/glsl/base_lighting.vs", "shaders/glsl/fog.fs");
     shader.locs[SHADER_LOC_MATRIX_MODEL] = GetShaderLocation(shader, "matModel");
@@ -114,7 +108,6 @@ void Game::initGame()
 
     // Apply shaders for 3D game objects
     wall->model.materials[0].shader = shader;
-    enemy->model.materials[0].shader = shader;
 
     // Initialize sounds:
     slashSfx = LoadSound("assets/sfx/slash.wav");
@@ -145,7 +138,6 @@ void Game::resetGame()
     cam3D.projection = CAMERA_PERSPECTIVE;
     weapon[3].ammo = 20;
     weapon[4].ammo = 20;
-    placeEnemyToGrid(enemy, 7, 7);
 }
 
 
@@ -173,10 +165,7 @@ void Game::update()
         cam3D.position.z = player.playerPos.z;
     }
 
-    enemy->update(&player);
-
     SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
-
     // Update the light shader with the cam3D view position
     SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], &cam3D.position.x, SHADER_UNIFORM_VEC3);
 }
@@ -193,7 +182,6 @@ void Game::draw()
         for (int y = 0; y < 8; y++)
             if (map[x][y] == 1) DrawModel(wall->model, {x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f}, 1.0f, WHITE);
 
-    DrawModel(enemy->model, enemy->position, 0.02f, BLACK);
     EndMode3D();
 
     // Draw HUD:
@@ -307,12 +295,4 @@ void Game::handlePlayerControls()
         if (debugCoordinates) std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z
         << std::endl;
     }
-}
-
-
-void Game::placeEnemyToGrid(Enemy* enemy, int x, int y)
-{
-    x -= 1;
-    y -= 1;
-    enemy->position = {x * 8.0f, 3.8f, y * 8.0f};
 }
