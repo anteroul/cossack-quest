@@ -23,6 +23,7 @@ Game::~Game()
     UnloadSound(crossbowSfx);
     UnloadSound(gunshotSfx);
     UnloadSound(deathSfx);
+    UnloadSound(blockSfx);
     CloseAudioDevice();
 
     for (auto& i : weaponTexture) UnloadTexture(i);
@@ -34,12 +35,9 @@ Game::~Game()
     for (auto& i : walls) delete i;
 
     delete wall;
-    // The enemy materials share textures, so detach them before UnloadModel to unload each texture only once
-    for (int i = 0; i < enemyAsset->model.materialCount; i++)
-        enemyAsset->model.materials[i].maps[MATERIAL_MAP_DIFFUSE].texture = {};
-    delete enemyAsset; // Unloads the robe texture
-    UnloadTexture(enemySkinTexture);
-    UnloadTexture(enemyFlashTexture);
+    for (auto& sheet : enemySheets) UnloadTexture(sheet);
+    UnloadTexture(fireballSheet);
+    UnloadShader(spriteShader);
     delete ground;
 
     CloseWindow();
@@ -114,32 +112,13 @@ void Game::initGame()
     // Apply shaders for 3D game objects
     wall->model.materials[0].shader = shader;
 
-    // Initialize enemies:
-    // The model has no textures, only flat colored materials: black for the head and shoes, grey for the robe.
-    // The shader adds ambient and specular light on top of the material color, so the black parts get a black
-    // texture to stay pitch black, and the robe gets near-black cloth-like noise.
-    Image robeImage = GenImagePerlinNoise(256, 256, 0, 0, 6.0f);
-    ImageColorTint(&robeImage, {22, 20, 26, 255});
-    enemyAsset = new GameObject(LoadTextureFromImage(robeImage), LoadModel("assets/cultist_mage.glb"));
-    UnloadImage(robeImage);
-
-    Image skinImage = GenImageColor(1, 1, BLACK);
-    enemySkinTexture = LoadTextureFromImage(skinImage);
-    UnloadImage(skinImage);
-    Image flashImage = GenImageColor(1, 1, {140, 0, 0, 255});
-    enemyFlashTexture = LoadTextureFromImage(flashImage);
-    UnloadImage(flashImage);
-
-    for (int i = 0; i < enemyAsset->model.materialCount; i++) {
-        Material& material = enemyAsset->model.materials[i];
-        MaterialMap& diffuse = material.maps[MATERIAL_MAP_DIFFUSE];
-        const bool isSkin = diffuse.color.r == 0 && diffuse.color.g == 0 && diffuse.color.b == 0;
-        if (!isSkin) enemyRobeMaterial = i;
-        diffuse.texture = isSkin ? enemySkinTexture : enemyAsset->texture;
-        diffuse.color = isSkin ? BLACK : WHITE;
-        material.shader = shader;
-    }
-    enemyAsset->model.transform = MatrixRotateX(90.0f * DEG2RAD); // The model is authored Z-up
+    // Initialize enemies (sprite sheets are made by tools/generate_assets.py):
+    enemySheets[static_cast<size_t>(EnemyKind::Wizard)] = LoadTexture("assets/enemies/wizard.png");
+    enemySheets[static_cast<size_t>(EnemyKind::SkeletonWarrior)] = LoadTexture("assets/enemies/skeleton.png");
+    fireballSheet = LoadTexture("assets/enemies/fireball.png");
+    spriteShader = LoadShader("shaders/glsl/sprite.vs", "shaders/glsl/sprite.fs");
+    spriteViewPosLoc = GetShaderLocation(spriteShader, "viewPos");
+    spriteFogDensityLoc = GetShaderLocation(spriteShader, "fogDensity");
     nav = NavGrid(map);
     spawnEnemies();
 
@@ -148,6 +127,7 @@ void Game::initGame()
     deathSfx = LoadSound("assets/sfx/death.wav");
     crossbowSfx = LoadSound("assets/sfx/bow.wav");
     gunshotSfx = LoadSound("assets/sfx/musket.mp3");
+    blockSfx = LoadSound("assets/sfx/shield_block.wav");
     music = LoadMusicStream("assets/music/forest-ambience.mp3");
     player.death = &deathSfx;
     PlayMusicStream(music);
@@ -221,14 +201,26 @@ void Game::draw()
         for (int y = 0; y < 8; y++)
             if (map[x][y] == 1) DrawModel(wall->model, {x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f}, 1.0f, WHITE);
 
+    // Enemies and fireballs are camera-facing sprites. Enemies fade into the fog like the walls,
+    // fireballs are drawn without fog so they glow in the dark.
+    SetShaderValue(spriteShader, spriteViewPosLoc, &cam3D.position, SHADER_UNIFORM_VEC3);
+    SetShaderValue(spriteShader, spriteFogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
+    BeginShaderMode(spriteShader);
     for (const Enemy& enemy : enemies) {
-        // A red tint barely shows on near-black, so a hit swaps the robe to a red texture instead
-        Texture2D& robe = enemyAsset->model.materials[enemyRobeMaterial].maps[MATERIAL_MAP_DIFFUSE].texture;
-        if (enemy.isHitFlashing()) robe = enemyFlashTexture;
-        DrawModelEx(enemyAsset->model, Vector3Add(enemy.position, {0.0f, ENEMY_MODEL_Y, 0.0f}), {0.0f, 1.0f, 0.0f},
-                    enemy.yaw + ENEMY_MODEL_YAW, Vector3One() * ENEMY_MODEL_SCALE, WHITE);
-        robe = enemyAsset->texture;
+        const float size = enemy.type().spriteSize;
+        DrawBillboardRec(cam3D, enemySheets[static_cast<size_t>(enemy.type().kind)], enemy.sourceRect(),
+                         Vector3Add(enemy.position, {0.0f, size / 2.0f, 0.0f}), {size, size},
+                         enemy.isHitFlashing() ? Color{255, 80, 80, 255} : WHITE);
     }
+    EndShaderMode(); // Draws the batch, so the fog can be switched off for the fireballs
+
+    constexpr float noFog = 0.0f;
+    SetShaderValue(spriteShader, spriteFogDensityLoc, &noFog, SHADER_UNIFORM_FLOAT);
+    BeginShaderMode(spriteShader);
+    for (const Fireball& fireball : fireballs)
+        DrawBillboardRec(cam3D, fireballSheet, fireball.sourceRect(), fireball.position,
+                         {Fireball::SIZE, Fireball::SIZE}, WHITE);
+    EndShaderMode();
 
     EndMode3D();
 
@@ -358,8 +350,9 @@ void Game::handlePlayerControls()
 void Game::spawnEnemies()
 {
     enemies.clear();
-    for (const Cell& cell : ENEMY_SPAWNS)
-        if (nav.isWalkable(cell)) enemies.emplace_back(NavGrid::cellCenter(cell, 0.0f));
+    fireballs.clear();
+    for (const EnemySpawn& spawn : ENEMY_SPAWNS)
+        if (nav.isWalkable(spawn.cell)) enemies.emplace_back(*spawn.type, NavGrid::cellCenter(spawn.cell, 0.0f));
 }
 
 
@@ -369,7 +362,10 @@ void Game::updateEnemies()
     if (const auto playerCell = NavGrid::worldToCell(player.playerPos)) nav.computeDistances(*playerCell);
 
     const float dt = GetFrameTime();
-    for (Enemy& enemy : enemies) enemy.update(dt, player, nav, walls);
+    for (Enemy& enemy : enemies) enemy.update(dt, player, nav, walls, fireballs);
+
+    for (Fireball& fireball : fireballs) fireball.update(dt, player, walls);
+    std::erase_if(fireballs, [](const Fireball& fireball) { return fireball.isFinished(); });
 
     // Push overlapping enemies apart so they don't merge while following the same path
     for (size_t i = 0; i < enemies.size(); i++) {
@@ -411,5 +407,6 @@ void Game::playerAttack()
         }
     }
 
-    if (target != nullptr) target->takeDamage(player.weapon.dmg);
+    if (target != nullptr && target->takeDamage(player.weapon.dmg, cam3D.position) == Enemy::HitResult::Blocked)
+        PlaySound(blockSfx);
 }

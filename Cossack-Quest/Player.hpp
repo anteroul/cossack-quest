@@ -17,6 +17,7 @@ struct Player {
 
 	void takeDamage(int dmg)
 	{
+		if (gameOver) return;
 		health -= dmg;
 		hit = true;
 		if (health <= 0)

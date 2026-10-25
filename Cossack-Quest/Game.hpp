@@ -40,16 +40,20 @@ private:
 	Player player{};
 	GameObject* wall = nullptr;
 	GameObject* ground = nullptr;
-	GameObject* enemyAsset = nullptr; // Model and texture shared by every enemy
 	std::vector<Enemy> enemies;
+	std::vector<Fireball> fireballs;
 	NavGrid nav;
-	static constexpr std::array<Cell, 2> ENEMY_SPAWNS = {Cell{6, 6}, Cell{1, 6}};
-	static constexpr float ENEMY_MODEL_SCALE = 0.02f;
-	static constexpr float ENEMY_MODEL_Y = 3.8f;      // Lifts the model so its feet touch the ground
-	static constexpr float ENEMY_MODEL_YAW = 0.0f;    // Rotates the model so it faces the way it walks
-	Texture2D enemySkinTexture{};  // Pure black, for the face and shoes
-	Texture2D enemyFlashTexture{}; // Swapped onto the robe while an enemy flashes from a hit
-	int enemyRobeMaterial = -1;
+	struct EnemySpawn
+	{
+		Cell cell;
+		const EnemyType* type;
+	};
+	static constexpr std::array<EnemySpawn, 2> ENEMY_SPAWNS = {{{{6, 6}, &WIZARD}, {{1, 6}, &SKELETON_WARRIOR}}};
+	std::array<Texture2D, static_cast<size_t>(EnemyKind::Count)> enemySheets{}; // Indexed by EnemyKind
+	Texture2D fireballSheet{};
+	Shader spriteShader{};
+	int spriteViewPosLoc{};
+	int spriteFogDensityLoc{};
 	static constexpr float MELEE_RANGE = 6.0f;
 	std::array<BoundingBox*, 64> walls = { nullptr };
 	Texture2D hud{};
@@ -74,6 +78,7 @@ private:
 	Sound slashSfx{};
 	Sound gunshotSfx{};
 	Sound crossbowSfx{};
+	Sound blockSfx{};
 
 	struct weaponData {
 		unsigned int cFrame = 0;

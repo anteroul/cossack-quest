@@ -46,6 +46,7 @@
           packages = with pkgs; [
             clang-tools # clangd + clang-format for Helix
             gdb
+            (python3.withPackages (ps: [ ps.pillow ])) # tools/generate_assets.py
           ];
 
           shellHook = ''
