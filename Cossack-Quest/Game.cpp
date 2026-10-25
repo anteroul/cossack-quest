@@ -7,12 +7,11 @@
 
 Game::Game(int wWidth, int wHeight, const char* wTitle, bool fullscreenEnabled, bool consoleEnabled)
 {
-    SetConfigFlags(FLAG_MSAA_4X_HINT);
-    InitWindow(1280, 720, wTitle);
+    SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_WINDOW_RESIZABLE);
+    InitWindow(wWidth, wHeight, wTitle);
     SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
     if (fullscreenEnabled) ToggleFullscreen();
     debugMode = consoleEnabled;
-    windowSize = {static_cast<float>(wWidth), static_cast<float>(wHeight)};
     InitAudioDevice();
     initGame();
 }
@@ -35,6 +34,12 @@ Game::~Game()
     for (auto& i : walls) delete i;
 
     delete wall;
+    // The enemy materials share textures, so detach them before UnloadModel to unload each texture only once
+    for (int i = 0; i < enemyAsset->model.materialCount; i++)
+        enemyAsset->model.materials[i].maps[MATERIAL_MAP_DIFFUSE].texture = {};
+    delete enemyAsset; // Unloads the robe texture
+    UnloadTexture(enemySkinTexture);
+    UnloadTexture(enemyFlashTexture);
     delete ground;
 
     CloseWindow();
@@ -69,7 +74,7 @@ void Game::initGame()
     player.weapon = weapon[wd.cWeapon];
     player.attacking = false;
 
-    weaponPosition = {GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f};
+    weaponOffsetY = 0.0f;
     weaponRec = {0, 0, (float)weaponTexture[0].width / 4, (float)weaponTexture[0].height / 2};
 
     // Define walls:
@@ -109,6 +114,35 @@ void Game::initGame()
     // Apply shaders for 3D game objects
     wall->model.materials[0].shader = shader;
 
+    // Initialize enemies:
+    // The model has no textures, only flat colored materials: black for the head and shoes, grey for the robe.
+    // The shader adds ambient and specular light on top of the material color, so the black parts get a black
+    // texture to stay pitch black, and the robe gets near-black cloth-like noise.
+    Image robeImage = GenImagePerlinNoise(256, 256, 0, 0, 6.0f);
+    ImageColorTint(&robeImage, {22, 20, 26, 255});
+    enemyAsset = new GameObject(LoadTextureFromImage(robeImage), LoadModel("assets/cultist_mage.glb"));
+    UnloadImage(robeImage);
+
+    Image skinImage = GenImageColor(1, 1, BLACK);
+    enemySkinTexture = LoadTextureFromImage(skinImage);
+    UnloadImage(skinImage);
+    Image flashImage = GenImageColor(1, 1, {140, 0, 0, 255});
+    enemyFlashTexture = LoadTextureFromImage(flashImage);
+    UnloadImage(flashImage);
+
+    for (int i = 0; i < enemyAsset->model.materialCount; i++) {
+        Material& material = enemyAsset->model.materials[i];
+        MaterialMap& diffuse = material.maps[MATERIAL_MAP_DIFFUSE];
+        const bool isSkin = diffuse.color.r == 0 && diffuse.color.g == 0 && diffuse.color.b == 0;
+        if (!isSkin) enemyRobeMaterial = i;
+        diffuse.texture = isSkin ? enemySkinTexture : enemyAsset->texture;
+        diffuse.color = isSkin ? BLACK : WHITE;
+        material.shader = shader;
+    }
+    enemyAsset->model.transform = MatrixRotateX(90.0f * DEG2RAD); // The model is authored Z-up
+    nav = NavGrid(map);
+    spawnEnemies();
+
     // Initialize sounds:
     slashSfx = LoadSound("assets/sfx/slash.wav");
     deathSfx = LoadSound("assets/sfx/death.wav");
@@ -117,7 +151,10 @@ void Game::initGame()
     music = LoadMusicStream("assets/music/forest-ambience.mp3");
     player.death = &deathSfx;
     PlayMusicStream(music);
-    HideCursor();
+    DisableCursor(); // Hide the cursor and lock it to the window center so mouse look gets raw deltas
+    // Locking moves the cursor to the center, which the next frame would read as a big mouse movement
+    // (and pitch the camera into the floor). Polling now makes the center the starting point.
+    PollInputEvents();
 }
 
 
@@ -138,6 +175,7 @@ void Game::resetGame()
     cam3D.projection = CAMERA_PERSPECTIVE;
     weapon[3].ammo = 20;
     weapon[4].ammo = 20;
+    spawnEnemies();
 }
 
 
@@ -147,7 +185,6 @@ void Game::update()
     player.playerPos = cam3D.position;
     player.weapon = weapon[wd.cWeapon];
     UpdateCamera(&cam3D, CAMERA_FIRST_PERSON); // Update camera
-    PlayerControl::placeCursorMiddle(windowSize, GetMousePosition());
 
     // Wall collision logic:
     for (int i = 0; i < 64; i++) {
@@ -164,6 +201,8 @@ void Game::update()
         if (cam3D.position.y > 0.5f) cam3D.position.y -= 0.08f;
         cam3D.position.z = player.playerPos.z;
     }
+
+    updateEnemies();
 
     SetShaderValue(shader, fogDensityLoc, &fogDensity, SHADER_UNIFORM_FLOAT);
     // Update the light shader with the cam3D view position
@@ -182,28 +221,48 @@ void Game::draw()
         for (int y = 0; y < 8; y++)
             if (map[x][y] == 1) DrawModel(wall->model, {x * 8.0f - 8.0f, 2.5f, y * 8.0f - 8.0f}, 1.0f, WHITE);
 
+    for (const Enemy& enemy : enemies) {
+        // A red tint barely shows on near-black, so a hit swaps the robe to a red texture instead
+        Texture2D& robe = enemyAsset->model.materials[enemyRobeMaterial].maps[MATERIAL_MAP_DIFFUSE].texture;
+        if (enemy.isHitFlashing()) robe = enemyFlashTexture;
+        DrawModelEx(enemyAsset->model, Vector3Add(enemy.position, {0.0f, ENEMY_MODEL_Y, 0.0f}), {0.0f, 1.0f, 0.0f},
+                    enemy.yaw + ENEMY_MODEL_YAW, Vector3One() * ENEMY_MODEL_SCALE, WHITE);
+        robe = enemyAsset->texture;
+    }
+
     EndMode3D();
 
-    // Draw HUD:
-    if (player.hit) DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), {255, 0, 0, 32});
+    // Draw HUD (in UI reference pixels, scaled to the window by ui):
+    ui.begin();
+    if (player.hit) DrawRectangleV({0, 0}, {ui.width(), ui.height()}, {255, 0, 0, 32});
 
     if (!player.gameOver) {
-        DrawTexture(crosshair, GetScreenWidth() / 2 - (crosshair.width / 2),
-                    GetScreenHeight() / 2 - (crosshair.height / 2), {0, 255, 0, 32});
-        DrawTextureRec(weaponTexture[wd.cWeapon], weaponRec, weaponPosition, WHITE);
-        DrawTextureEx(hud, {0, GetScreenHeight() - (GetScreenHeight() * 0.2f)}, 0.0f, 0.000625f * GetScreenWidth(),
-                      WHITE);
-        DrawText(TextFormat("%03i", player.stamina), GetScreenWidth() * 0.1f,
-                 GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, BLUE);
-        DrawText(TextFormat("%03i", player.health), GetScreenWidth() * 0.3f,
-                 GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, RED);
+        Ui::drawTexture(crosshair, ui.anchor({0.5f, 0.5f}), {0.5f, 0.5f}, 1.0f, {0, 255, 0, 32});
 
-        if (!player.weapon.melee) DrawText(TextFormat("%03i", player.weapon.ammo), GetScreenWidth() * 0.625f,
-                                           GetScreenHeight() - (GetScreenHeight() * 0.12f), 80, YELLOW);
+        // The HUD bar spans the full width at the bottom; its contents are placed in hud.png pixels
+        const float hudScale = ui.width() / hud.width;
+        const Vector2 hudPos = {0, ui.height() - hud.height * hudScale};
+        auto hudPoint = [&](float x, float y) { return Vector2{hudPos.x + x * hudScale, hudPos.y + y * hudScale}; };
 
-        DrawText(weapon[wd.cWeapon].name.c_str(), GetScreenWidth() * 0.8f,
-                 GetScreenHeight() - (GetScreenHeight() * 0.12f), 30, WHITE);
+        // Weapon sits at the bottom center, tucked behind the top of the HUD:
+        Ui::drawTexture(weaponTexture[wd.cWeapon], weaponRec,
+                        {ui.width() / 2.0f - WEAPON_OFFSET_X, hudPos.y + WEAPON_HUD_OVERLAP + weaponOffsetY},
+                        {0.5f, 1.0f});
+
+        Ui::drawTexture(hud, hudPos, {0, 0}, hudScale);
+        Ui::drawTextCentered(TextFormat("%03i", player.stamina), hudPoint(HUD_STAMINA_X, HUD_VALUE_Y),
+                             HUD_VALUE_FONT_SIZE * hudScale, BLUE);
+        Ui::drawTextCentered(TextFormat("%03i", player.health), hudPoint(HUD_HEALTH_X, HUD_VALUE_Y),
+                             HUD_VALUE_FONT_SIZE * hudScale, RED);
+
+        if (!player.weapon.melee)
+            Ui::drawTextCentered(TextFormat("%03i", player.weapon.ammo), hudPoint(HUD_AMMO_X, HUD_VALUE_Y),
+                                 HUD_VALUE_FONT_SIZE * hudScale, YELLOW);
+
+        Ui::drawTextCentered(weapon[wd.cWeapon].name.c_str(), hudPoint(HUD_WEAPON_X, HUD_VALUE_Y),
+                             HUD_NAME_FONT_SIZE * hudScale, WHITE);
     }
+    ui.end();
     DrawFPS(0, 0); // Draw FPS
     EndDrawing();
 }
@@ -224,6 +283,7 @@ void Game::handlePlayerControls()
             player.stamina -= 30;
             wd.weaponFrame++;
             PlaySound(slashSfx);
+            playerAttack();
         }
         if (player.weapon.ammo > 0 && !player.weapon.melee) {
             player.attacking = true;
@@ -231,6 +291,7 @@ void Game::handlePlayerControls()
             weapon[wd.cWeapon].ammo--;
             if (wd.cWeapon == 4) PlaySound(gunshotSfx);
             else PlaySound(crossbowSfx);
+            playerAttack();
         }
     }
 
@@ -239,9 +300,7 @@ void Game::handlePlayerControls()
     if (PlayerControl::mouseWheelUp()) wd.cWeapon = PlayerControl::nextWeapon(wd.cWeapon);
 
     if (player.attacking) {
-        if (wd.cWeapon == SWORD_BRONZE || wd.cWeapon == SWORD_IRON) weaponPosition = {
-            GetScreenWidth() * 0.325f, GetScreenHeight() * 0.6f
-        };
+        if (wd.cWeapon == SWORD_BRONZE || wd.cWeapon == SWORD_IRON) weaponOffsetY = 216.0f;
 
         weaponRec.x = 400.0f * wd.weaponFrame;
         weaponRec.y = 400.0f;
@@ -249,7 +308,7 @@ void Game::handlePlayerControls()
         if (wd.weaponFrame > 3) {
             wd.weaponFrame = 0;
             weaponRec.y = 0.0f;
-            weaponPosition = {GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f};
+            weaponOffsetY = 0.0f;
             player.attacking = false;
         }
         if (wd.cFrame == 5 && wd.weaponFrame < 4) {
@@ -257,10 +316,8 @@ void Game::handlePlayerControls()
             wd.cFrame = 0;
         }
         wd.cFrame++;
-    } else if (wd.cWeapon == SWORD_BRONZE || wd.cWeapon == SWORD_IRON && !player.attacking) weaponPosition = {
-        GetScreenWidth() * 0.325f, GetScreenHeight() * 0.325f
-    };
-    else weaponPosition = {GetScreenWidth() * 0.325f, GetScreenHeight() * 0.3f};
+    } else if (wd.cWeapon == SWORD_BRONZE || wd.cWeapon == SWORD_IRON && !player.attacking) weaponOffsetY = 18.0f;
+    else weaponOffsetY = 0.0f;
 
     if (!player.attacking && player.stamina < 100) player.stamina++;
 
@@ -295,4 +352,64 @@ void Game::handlePlayerControls()
         if (debugCoordinates) std::cout << player.playerPos.x << " " << player.playerPos.y << " " << player.playerPos.z
         << std::endl;
     }
+}
+
+
+void Game::spawnEnemies()
+{
+    enemies.clear();
+    for (const Cell& cell : ENEMY_SPAWNS)
+        if (nav.isWalkable(cell)) enemies.emplace_back(NavGrid::cellCenter(cell, 0.0f));
+}
+
+
+void Game::updateEnemies()
+{
+    // One Dijkstra pass from the player's cell gives every enemy its shortest path
+    if (const auto playerCell = NavGrid::worldToCell(player.playerPos)) nav.computeDistances(*playerCell);
+
+    const float dt = GetFrameTime();
+    for (Enemy& enemy : enemies) enemy.update(dt, player, nav, walls);
+
+    // Push overlapping enemies apart so they don't merge while following the same path
+    for (size_t i = 0; i < enemies.size(); i++) {
+        for (size_t j = i + 1; j < enemies.size(); j++) {
+            Enemy& a = enemies[i];
+            Enemy& b = enemies[j];
+            if (!a.isAlive() || !b.isAlive()) continue;
+
+            const Vector2 apart = {b.position.x - a.position.x, b.position.z - a.position.z};
+            const float distance = Vector2Length(apart);
+            const float overlap = 2.0f * Enemy::RADIUS - distance;
+            if (overlap <= 0.0f || distance < 0.001f) continue;
+
+            const Vector2 push = Vector2Scale(apart, overlap / 2.0f / distance);
+            a.move(-push.x, -push.y, walls);
+            b.move(push.x, push.y, walls);
+        }
+    }
+}
+
+
+void Game::playerAttack()
+{
+    // Hit the nearest living enemy under the crosshair, unless a wall is in the way
+    const Ray ray = {cam3D.position, Vector3Normalize(Vector3Subtract(cam3D.target, cam3D.position))};
+
+    float maxDistance = player.weapon.melee ? MELEE_RANGE : std::numeric_limits<float>::max();
+    for (const BoundingBox* wall : walls) {
+        if (wall == nullptr) continue;
+        if (const RayCollision hit = GetRayCollisionBox(ray, *wall); hit.hit) maxDistance = std::min(maxDistance, hit.distance);
+    }
+
+    Enemy* target = nullptr;
+    for (Enemy& enemy : enemies) {
+        if (!enemy.isAlive()) continue;
+        if (const RayCollision hit = GetRayCollisionBox(ray, enemy.bounds()); hit.hit && hit.distance < maxDistance) {
+            maxDistance = hit.distance;
+            target = &enemy;
+        }
+    }
+
+    if (target != nullptr) target->takeDamage(player.weapon.dmg);
 }

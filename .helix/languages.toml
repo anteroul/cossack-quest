@@ -1,0 +1,10 @@
+# Project-local Helix config: format C/C++ with clang-format using the repo's .clang-format.
+[[language]]
+name = "cpp"
+auto-format = true
+formatter = { command = "clang-format", args = ["--assume-filename=%{buffer_name}"] }
+
+[[language]]
+name = "c"
+auto-format = true
+formatter = { command = "clang-format", args = ["--assume-filename=%{buffer_name}"] }

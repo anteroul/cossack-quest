@@ -1,211 +1,137 @@
 #include "Enemy.hpp"
-#include <raymath.h>
+#include <algorithm>
 #include <cmath>
-#include <queue>
-#include <limits>
+#include <raymath.h>
 
-#define SPEED 0.04f
-#define INF std::numeric_limits<int>::max()
-
-Enemy::Enemy(Vector3 pos, Texture tex, Model mod, std::array<BoundingBox*, 64> wa) : GameObject(pos, tex, mod)
+namespace
 {
-    position = pos;
-    texture = tex;
-    model = mod;
-    wallArray = wa;
-    attacking = false;
-    alive = true;
-    yaw = 0.0f;
-    state = PATROL;
-    attackTimer = 0;
-    maxDamage = 25;
-    box = { {position.x - 1.5f, 0.f, position.z - 1.5f}, {position.x + 1.5f, 8.f, position.z + 1.5f} };
-    playerX = 0;
-    playerY = 0;
-    enemyX = 0;
-    enemyY = 0;
+constexpr float SPEED = 3.5f;              // World units per second
+constexpr float TURN_SPEED = 270.0f;       // Degrees per second
+constexpr float AGGRO_DISTANCE = 4.0f;     // Path cost in cells at which an idle enemy notices the player
+constexpr float ATTACK_RANGE = 3.5f;       // Horizontal distance to the player
+constexpr float ATTACK_WINDUP = 0.4f;      // Seconds
+constexpr float ATTACK_COOLDOWN = 1.2f;    // Seconds
+constexpr int MIN_DAMAGE = 10;
+constexpr int MAX_DAMAGE = 20;
+constexpr float HIT_FLASH_TIME = 0.15f;    // Seconds
+constexpr float SINK_SPEED = 2.0f;         // How fast a dead enemy sinks into the ground
+constexpr float SINK_DEPTH = -Enemy::HEIGHT;
+
+float horizontalDistance(Vector3 a, Vector3 b)
+{
+    return Vector2Distance({a.x, a.z}, {b.x, b.z});
 }
+} // namespace
 
-Enemy::~Enemy() = default;
+Enemy::Enemy(Vector3 spawn) : position(spawn)
+{}
 
-void Enemy::update(Player* target)
+void Enemy::update(float dt, Player& player, const NavGrid& nav, const Walls& walls)
 {
-    const int attackInterval = GetMonitorRefreshRate(GetCurrentMonitor()) * 3;
-    const int minDamage = maxDamage / 2;
+    hitFlash = std::max(0.0f, hitFlash - dt);
+    attackCooldown = std::max(0.0f, attackCooldown - dt);
 
-    // Define a clear map grid, resetting it each frame
-    int map[8][8] = {};
+    if (state == State::Dead) {
+        position.y = std::max(SINK_DEPTH, position.y - SINK_SPEED * dt);
+        return;
+    }
+    if (player.gameOver) {
+        state = State::Idle;
+        return;
+    }
 
-    // Populate the grid with walls, enemy, and player positions
-    initializeMap(map, target);
+    const float playerDistance = horizontalDistance(position, player.playerPos);
 
-    if (alive) {
-        BoundingBox collider = { {position.x - 0.5f, 0.f, position.z - 0.5f}, {position.x + 0.5f, 8.f, position.z + 0.5f} };
-        
-        if (!checkCollisions(collider))
-            positionBeforeCollision = position;
+    switch (state) {
+    case State::Idle:
+        if (const auto cell = NavGrid::worldToCell(position); cell && nav.distanceToGoal(*cell) <= AGGRO_DISTANCE)
+            state = State::Chase;
+        break;
 
-        // Handle behavior states
-        if (target->health > 0)
-        {
-            std::pair<int, int> waypoint = dijkstra(map, enemyX, enemyY, playerX, playerY);
-
-            switch (state) {
-            case STUCK:
-                if (checkCollisions(collider))
-                {
-                    if (positionBeforeCollision.x < position.x) position.x -= SPEED;
-                    else if (positionBeforeCollision.x > position.x) position.x += SPEED;
-                    else if (positionBeforeCollision.z < position.z) position.z -= SPEED;
-                    else if (positionBeforeCollision.z > position.z) position.z += SPEED;
-                } else {
-                    state = PATROL;
-                }
-                break;
-            case PATROL:
-                // Move towards waypoint and switch to CHASE if player is close enough
-                moveToWaypoint(waypoint);
-                if (std::abs(playerX - enemyX) <= 1 && std::abs(playerY - enemyY) <= 1) {
-                    state = CHASE;
-                } else if (checkCollisions(collider)) {
-                    state = STUCK;
-                }
-                break;
-            case CHASE:
-                if (CheckCollisionBoxes(box, { target->playerPos, target->playerPos })) {
-                    if (attackTimer > attackInterval) {
-                        state = ATTACK;
-                    }
-                } else if (!checkCollisions(collider)) {
-                    moveToWaypoint(waypoint);
-                } else {
-                    state = STUCK;
-                }
-                attackTimer++;
-                break;
-
-            case ATTACK:
-                attackTimer = 0;
-                target->takeDamage(rand() % maxDamage + minDamage);
-                state = CHASE;
-                break;
-
-            default:
-                break;
-            }
+    case State::Chase:
+        if (playerDistance > ATTACK_RANGE) {
+            chase(dt, player, nav, walls);
+        } else if (attackCooldown <= 0.0f) {
+            state = State::Attack;
+            attackTimer = ATTACK_WINDUP;
         }
+        turnTowards(player.playerPos, dt);
+        break;
 
-        // Smoothly adjust yaw angle towards player
-        adjustYawToPlayer(target);
-    }
-}
-
-void Enemy::initializeMap(int map[8][8], Player* target)
-{
-    int iterator = 0;
-
-    for (int y = 0; y < 8; y++) {
-        for (int x = 0; x < 8; x++) {
-            if (wallArray[iterator] != nullptr) {
-                map[y][x] = INF; // Mark as obstacle
-            }
-            else {
-                map[y][x] = 0;  // Walkable
-            }
-
-            if (isPositionWithinCell(target->playerPos, x, y)) {
-                map[y][x] = 2;
-                playerX = x;
-                playerY = y;
-            }
-            else if (isPositionWithinCell(position, x, y)) {
-                map[y][x] = 3;
-                enemyX = x;
-                enemyY = y;
-            }
-
-            iterator++;
+    case State::Attack:
+        turnTowards(player.playerPos, dt);
+        attackTimer -= dt;
+        if (attackTimer <= 0.0f) {
+            // The player can still dodge by backing off during the wind-up
+            if (playerDistance <= ATTACK_RANGE) player.takeDamage(GetRandomValue(MIN_DAMAGE, MAX_DAMAGE));
+            attackCooldown = ATTACK_COOLDOWN;
+            state = State::Chase;
         }
+        break;
+
+    case State::Dead:
+        break;
     }
 }
 
-bool Enemy::isPositionWithinCell(const Vector3& pos, int x, int y)
+void Enemy::chase(float dt, const Player& player, const NavGrid& nav, const Walls& walls)
 {
-    return pos.x > x * 8.0f - 12.0f && pos.x < x * 8.0f - 4.0f && pos.z > y * 8.0f - 12.0f && pos.z < y * 8.0f - 4.0f;
-}
+    const auto cell = NavGrid::worldToCell(position);
+    if (!cell) return;
 
-bool Enemy::checkCollisions(const BoundingBox& collider) const
-{
-    for (auto& wall : wallArray)
-    {
-        if (wall != nullptr && CheckCollisionBoxes(collider, *wall))
-            return true;
-    }
-    return false;
-}
-
-void Enemy::moveToWaypoint(const std::pair<int, int>& waypoint)
-{
-    if (waypoint.first > enemyX) position.x += SPEED;
-    if (waypoint.first < enemyX) position.x -= SPEED;
-    if (waypoint.second > enemyY) position.z += SPEED;
-    if (waypoint.second < enemyY) position.z -= SPEED;
-}
-
-void Enemy::adjustYawToPlayer(Player* target)
-{
-    const Vector2 direction = { position.x - target->playerPos.x, position.z - target->playerPos.z };
-    float angle = atan2(direction.y, direction.x) * RAD2DEG;
-
-    if (angle > yaw - 90) yaw += 1.5f;
-    if (angle < yaw - 90) yaw -= 1.5f;
-
-    model.transform = MatrixRotateXYZ({DEG2RAD * 90.f, 0.f, DEG2RAD * yaw});
-}
-
-std::pair<int, int> Enemy::dijkstra(int map[ROWS][COLS], int startRow, int startCol, int endRow, int endCol)
-{
-    const int dr[] = { 1, -1, 0, 0 }; // row directions (down, up)
-    const int dc[] = { 0, 0, 1, -1 }; // column directions (right, left)
-
-    std::vector distance(ROWS, std::vector<int>(COLS, INF));
-    std::vector previous(ROWS, std::vector<std::pair<int, int>>(COLS, { -1, -1 }));
-
-    distance[startRow][startCol] = 0;
-
-    using Node = std::tuple<int, int, int>; // (distance, row, col)
-    std::priority_queue<Node, std::vector<Node>, std::greater<>> pq;
-    pq.emplace(0, startRow, startCol);
-
-    while (!pq.empty()) {
-        auto [dist, r, c] = pq.top();
-        pq.pop();
-
-        if (r == endRow && c == endCol) break; // Stop if we reached the destination
-
-        for (int dir = 0; dir < 4; ++dir) {
-            int nr = r + dr[dir];
-            int nc = c + dc[dir];
-
-            // Check bounds and walkability
-            if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && map[nr][nc] != 1) {
-                int newDist = dist + 1;
-                if (newDist < distance[nr][nc]) {
-                    distance[nr][nc] = newDist;
-                    previous[nr][nc] = { r, c }; // Save path
-                    pq.emplace(newDist, nr, nc);
-                }
-            }
-        }
+    // In the player's cell head straight for them, otherwise walk to the center of the next cell on the path.
+    // Each move stays inside the 2x2 block of open cells around the step, so it never crosses a wall corner.
+    Vector3 target = player.playerPos;
+    if (nav.goalCell() != cell) {
+        const auto next = nav.nextStep(*cell);
+        if (!next) return; // Player can't be reached from here
+        target = NavGrid::cellCenter(*next, position.y);
     }
 
-    // Find the immediate next step from start to end
-    int cr = endRow, cc = endCol;
-    while (previous[cr][cc] != std::make_pair(startRow, startCol) && previous[cr][cc] != std::make_pair(-1, -1)) {
-        auto [pr, pc] = previous[cr][cc];
-        cr = pr;
-        cc = pc;
-    }
+    const Vector2 toTarget = {target.x - position.x, target.z - position.z};
+    const float length = Vector2Length(toTarget);
+    if (length < 0.001f) return;
 
-    return { cr, cc }; // Return the next cell to move toward the player
+    const float step = std::min(SPEED * dt, length);
+    move(toTarget.x / length * step, toTarget.y / length * step, walls);
+}
+
+void Enemy::move(float dx, float dz, const Walls& walls)
+{
+    if (const Vector3 next = {position.x + dx, position.y, position.z}; !collidesWithWall(next, walls))
+        position = next;
+    if (const Vector3 next = {position.x, position.y, position.z + dz}; !collidesWithWall(next, walls))
+        position = next;
+}
+
+void Enemy::turnTowards(Vector3 target, float dt)
+{
+    const float targetYaw = std::atan2(target.x - position.x, target.z - position.z) * RAD2DEG;
+    const float diff = std::remainder(targetYaw - yaw, 360.0f); // Shortest way round, in [-180, 180]
+    const float maxTurn = TURN_SPEED * dt;
+    yaw += std::clamp(diff, -maxTurn, maxTurn);
+}
+
+void Enemy::takeDamage(int dmg)
+{
+    if (state == State::Dead) return;
+
+    health -= dmg;
+    hitFlash = HIT_FLASH_TIME;
+    if (health <= 0) state = State::Dead;
+    else if (state == State::Idle) state = State::Chase; // Getting hit always wakes the enemy up
+}
+
+BoundingBox Enemy::bounds() const
+{
+    return {{position.x - RADIUS, position.y, position.z - RADIUS},
+            {position.x + RADIUS, position.y + HEIGHT, position.z + RADIUS}};
+}
+
+bool Enemy::collidesWithWall(Vector3 pos, const Walls& walls) const
+{
+    const BoundingBox box = {{pos.x - RADIUS, pos.y, pos.z - RADIUS}, {pos.x + RADIUS, pos.y + HEIGHT, pos.z + RADIUS}};
+    return std::ranges::any_of(walls, [&](const BoundingBox* wall) {
+        return wall != nullptr && CheckCollisionBoxes(box, *wall);
+    });
 }
